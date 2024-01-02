@@ -1,0 +1,19 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# not needed in repo
+
+# misc
+.DS_Store
+.env
+
+yarn-debug.log*
+yarn-error.log*

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "lib": ["es6", "esnext.asynciterable"],
+    "allowJs": true,
+    "outDir": "build",
+    "rootDir": "src",
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "sourceMap": true, // Abilita la generazione di file di mappatura sorgente
+    "declaration": true, // Abilita la generazione di file di dichiarazione (per librerie)
+    "noUnusedLocals": true, // Rileva variabili locali non utilizzate
+    "noUnusedParameters": true, // Rileva parametri non utilizzati
+    "strictNullChecks": true, // Rileva valori null e undefined in modo più rigoroso
+    "moduleResolution": "node", // Risoluzione dei moduli nel formato Node.js
+    "baseUrl": ".", // Percorso di base per la risoluzione dei moduli
+    "paths": {
+      "*": ["node_modules/*", "src/types/*"]
+    } // Configura i percorsi dei moduli personalizzati
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

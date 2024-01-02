@@ -1,0 +1,41 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "standard-with-typescript",
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "react-hooks"
+  ],
+  "rules": {
+    "react-hooks/exhaustive-deps": "error",
+    "react/react-in-jsx-scope": "off",
+    "no-extra-boolean-cast": "off",
+    "@typescript-eslint/triple-slash-reference": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignoreComments": true,
+        "ignoreUrls": true
+      }
+    ],
+    "@typescript-eslint/indent": [
+      "error",
+      2
+    ]
+  },
+  "ignorePatterns": [
+    "cypress/",
+    "cypress.config.ts",
+    "craco.config.ts"
+  ]
+}
