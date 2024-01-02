@@ -18,8 +18,11 @@ Registrazione del gruppo e dei giocatori (invito?) attraverso un account google 
   - Creazione / salvataggio incontri e tesori
   - Abilitare PG level up
 (long term)
-- Creazione / salvataggio città
-  - Modifica / Creazione png
+- Creazione / salvataggio Campagne (o avventure) : all'interno di una campagna si potrà
+  - Creare / salvare città-regioni-luoghi vari
+  - Creare / salvare png (collegabili alle città o i luoghi in cui vivono)
+  - Creare / salvare fazioni (anche qui, collegamenti con png e luoghi)
+  - Aggiungere gruppi o singoli giocatori, con profilazione
 
 **Lorenzo**: *verificare la possibiltà di mandare un messaggio whatsapp al giocatore con il tesoro*
 
