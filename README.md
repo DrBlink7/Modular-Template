@@ -1,6 +1,6 @@
 # Test
 
-Use `docker compose up --build` to launch frontend, frontend2, backend and db.
+Use `docker compose up --build` to launch frontend, frontend2, b4f, backend, backend2 and db.
 
 ## b4f
 
@@ -18,7 +18,7 @@ Typescript/Angular frontend, @Barlow fill this
 It will run (by default) on 4200 port.
 
 ## backend
-Backend in python @amanna7 fill this
+Backend in python @DrBlink7 fill this
 It will run (by default) on 8080 port.
 
 ## backend2
