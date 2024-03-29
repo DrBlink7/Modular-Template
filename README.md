@@ -18,8 +18,8 @@ Typescript/Angular frontend, @Barlow fill this
 It will run (by default) on 4200 port.
 
 ## backend
-Backend in python @DrBlink7 fill this
-It will run (by default) on 8080 port.
+Python backend.
+It will run (by default) on 8000 port.
 
 ## backend2
 Backend in java @Barlow fill this.
