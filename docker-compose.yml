@@ -31,18 +31,6 @@ services:
       - ./frontend/public:/frontend/public
     ports:
       - "3000:3000"
-
-  # frontend2:
-  #   container_name: frontend2-test
-  #   image: frontend2-test
-  #   build:
-  #     context: ./frontend
-  #     target: development
-  #   volumes:
-  #     - ./frontend2/src:/frontend2/src
-  #     - ./frontend2/public:/frontend2/public
-  #   ports:
-  #     - "4200:4200"
       
   b4f:
     container_name: b4f-test
@@ -59,26 +47,11 @@ services:
     ports:
       - "3001:3001"
 
-  # backend:
-  #   container_name: backend-test
-  #   build:
-  #     context: ./backend
-  #   volumes:
-  #     - ./backend:/backend
-  #   ports:
-  #     - "8000:8000"
-
-  # backend2:
-  #   container_name: backend2-test
-  #   image: backend2-test
-  #   build:
-  #     context: ./backend
-  #     target: development
-  #   volumes:
-  #     - ./backend2:/backend2
-  #   depends_on:
-  #     - db
-  #   healthcheck:
-  #     test: ["CMD", "mysqladmin", "ping", "--silent"]
-  #   ports:
-  #     - "8080:8080"
+  backend:
+    container_name: backend-test
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/backend
+    ports:
+      - "8000:8000"
