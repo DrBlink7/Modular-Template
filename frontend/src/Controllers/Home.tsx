@@ -1,8 +1,9 @@
 import { useCallback, type FC } from 'react'
 import { useAppDispatch } from '../Utils/store'
 import { logout } from '../Store/users'
-import { Stack, useTheme, CssBaseline, Box } from '@mui/material'
+import { useTheme, CssBaseline, Box } from '@mui/material'
 import Component from '../Components/Home'
+import ImageLayout from '../Components/ImageLayout'
 import * as ls from '../Utils/ls'
 
 const Home: FC = () => {
@@ -15,17 +16,18 @@ const Home: FC = () => {
     ls.del('YOUR_PROJECT')
   }, [dispatch])
 
-  return <Stack
-    display='flex'
-    height='100vh'
-    width='100vw'
-    flexDirection='row'
-    sx={{ backgroundColor: theme.palette.secondary.main }}
+  return <ImageLayout
+    style={{
+      backgroundColor: theme.palette.secondary.main,
+      height: '100vh',
+      width: '100vw',
+      flexDirection: 'row'
+    }}
   >
     <CssBaseline />
     <Box width='32.5%' />
     <Component handleLogOut={handleLogOut} />
-  </Stack>
+  </ImageLayout>
 }
 
 export default Home
