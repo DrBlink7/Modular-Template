@@ -1,8 +1,8 @@
-import express, { Request, Response } from "express";
-import { ServerPort } from "../config";
-import { Logger } from "../logger/";
+import express, { type Request, type Response } from 'express'
+import { ServerPort } from '../config'
+import { Logger } from '../logger'
 
-export const apiRouter = express.Router();
+export const apiRouter = express.Router()
 
 /**
  * @swagger
@@ -26,11 +26,11 @@ export const apiRouter = express.Router();
  *         code:
  *           type: string
  */
-apiRouter.get("/healthcheck", (_req: Request, res: Response) =>
+apiRouter.get('/healthcheck', (_req: Request, res: Response) =>
   res.json({ message: `I'm alive and answering on port ${ServerPort}` })
-);
+)
 
 apiRouter.use((req, _res, next) => {
-  Logger.writeEvent(`Received ${req.method} request to ${req.path}`);
-  next();
-});
+  Logger.writeEvent(`Received ${req.method} request to ${req.path}`)
+  next()
+})

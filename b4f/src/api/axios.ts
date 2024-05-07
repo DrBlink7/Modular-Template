@@ -1,5 +1,5 @@
-import axios from "axios";
+import axios from 'axios'
 
-const axiosApiClient = axios.create();
+const axiosApiClient = axios.create()
 
-export default axiosApiClient;
+export default axiosApiClient

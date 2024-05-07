@@ -1,6 +1,7 @@
-export type ErrorPayload = {
-  status: number;
-  error: { message: string; code: string };
-};
+export interface ErrorPayload {
+  status: number
+  error: { message: string, code: string }
+}
 
-export type ErrorType = any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ErrorType = any

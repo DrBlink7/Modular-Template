@@ -1,38 +1,38 @@
-import { EnvironmentName, Version } from "../config";
-import { DevLogger } from "./dev";
+import { EnvironmentName, Version } from '../config'
+import { DevLogger } from './dev'
 
 export interface ILogger {
-  writeTrace(message: string, severityLevel: number, err?: string): void;
-  writeException(err: Error, code?: string, prop?: string): void;
-  writeEvent(name: string): void;
+  writeTrace: (message: string, severityLevel: number, err?: string) => void
+  writeException: (err: Error, code?: string, prop?: string) => void
+  writeEvent: (name: string) => void
 }
-export let Logger: ILogger;
+export let Logger: ILogger
 
-export const loggerInit = () => {
-  initLogger();
-};
+export const loggerInit = (): void => {
+  initLogger()
+}
 
-const initLogger = () => {
-  if (!EnvironmentName) {
+const initLogger = (): void => {
+  if (EnvironmentName == null) {
     console.error(
       "The environment Variable 'ENVIRONMENT_NAME' is not valorized, please assign a value. Server is shutting down."
-    );
-    process.exitCode = 1;
+    )
+    process.exitCode = 1
 
-    return process.exit();
+    return process.exit()
   }
   const client = {
-    cloudRole: "b4f",
+    cloudRole: 'b4f',
     applicationVersion: Version,
-    cloudRoleInstance: EnvironmentName,
-  };
-
-  switch (EnvironmentName) {
-    case "dev":
-      Logger = new DevLogger();
-      break;
+    cloudRoleInstance: EnvironmentName
   }
 
-  console.info({ name: "Logger initialized" });
-  console.info({ name: client });
-};
+  switch (EnvironmentName) {
+    case 'dev':
+      Logger = new DevLogger()
+      break
+  }
+
+  console.info({ name: 'Logger initialized' })
+  console.info({ name: client })
+}

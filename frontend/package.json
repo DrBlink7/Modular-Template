@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.0.1",
   "private": true,
+  "author": "Andrea Manna",
   "main": "index.ts",
   "license": "MIT",
   "proxy": "http://b4f:3001",

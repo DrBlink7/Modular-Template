@@ -1,32 +1,35 @@
-import { ILogger } from "..";
+/* eslint-disable @typescript-eslint/space-before-function-paren */
+import { type ILogger } from '..'
 
 export class DevLogger implements ILogger {
-  writeTrace(message: string, severityLevel: number, err?: string) {
-    const trace = err
+  writeTrace(message: string, severityLevel: number, err?: string): void {
+    const trace = (err != null)
       ? {
-          message: message,
-          severity: severityLevel,
-          properties: {
-            stack: err,
-          },
+        message,
+        severity: severityLevel,
+        properties: {
+          stack: err
         }
+      }
       : {
-          message: message,
-          severity: severityLevel,
-        };
-    console.info(trace);
+        message,
+        severity: severityLevel
+      }
+    console.info(trace)
   }
+
   writeException(
     err: Error,
-    code: string = "000-Unknown",
-    prop: string = "unhandled"
-  ) {
+    code: string = '000-Unknown',
+    prop: string = 'unhandled'
+  ): void {
     console.error({
-      properties: { code: code, handledAt: prop },
-      error: err.message,
-    });
+      properties: { code, handledAt: prop },
+      error: err.message
+    })
   }
-  writeEvent(name: string) {
-    console.info({ name: name });
+
+  writeEvent(name: string): void {
+    console.info({ name })
   }
 }

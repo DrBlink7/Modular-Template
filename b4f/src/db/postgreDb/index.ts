@@ -1,17 +1,15 @@
-import { DbPort, Host } from "../../config";
-import { Connector } from "..";
-import { Pool } from "pg";
-import { init } from "./init";
+import { DbHost, DbName, DbPass, DbPort, DbUser } from '../../config'
+import { Pool } from 'pg'
+import { type Connector } from '..'
 
 export const dbConfig = new Pool({
-  user: "dev",
-  host: Host,
-  database: "postgres",
-  password: "devPassword",
-  port: Number(DbPort),
-});
+  host: DbHost,
+  user: DbUser,
+  database: DbName,
+  password: DbPass,
+  port: Number(DbPort)
+})
 
 export const dbConnectorPostgreDb: Connector = {
-  initDb: init,
 
-};
+}
