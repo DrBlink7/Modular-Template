@@ -3,8 +3,9 @@ import { secretKey } from './config'
 import CryptoJS from 'crypto-js'
 
 interface LocalStorageMap {
-  test: State
+  YOUR_PROJECT: State
 }
+
 export const set = <K extends keyof LocalStorageMap>(
   key: K,
   value: LocalStorageMap[K]

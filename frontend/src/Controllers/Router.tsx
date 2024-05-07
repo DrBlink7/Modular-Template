@@ -1,9 +1,12 @@
 import { type FC } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-
-const mainColor = '#1C2E3A'
-const secondaryColor = '#579298'
+import { selectIsUserLogged } from '../Store/users'
+import { useAppSelector } from '../Utils/store'
+import { mainColor, secondaryColor } from '../Utils/config'
+import ErrorBoundary from './Error'
+import Login from './Login'
+import Home from './Home'
 
 const theme = createTheme({
   palette: {
@@ -17,23 +20,18 @@ const theme = createTheme({
 })
 
 const Router: FC = () => {
+  const isUserLoggedIn: boolean = useAppSelector(selectIsUserLogged)
+
   return (
-    <ThemeProvider theme={theme}>
-      <Routes>
-        <Route
-          path="/login"
-          element={<>Login</>
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <>Home</>
-          }
-        />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider theme={theme}>
+        <Routes>
+          <Route path="/login" element={isUserLoggedIn ? <Navigate to="/" /> : <Login />} />
+          <Route path="/" element={isUserLoggedIn ? <Home /> : <Navigate to="/login" />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </ThemeProvider>
+    </ErrorBoundary>
   )
 }
 
