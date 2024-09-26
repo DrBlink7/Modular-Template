@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Box, Typography, Button } from '@mui/material'
 import { useLogger } from '../Hooks/Logger'
 import ErrorLayout from '../Components/ErrorLayout'
+import * as ls from '../Utils/ls'
 
 const ErrorBoundary: FC<WithChildren> = ({ children }) => {
   const { t } = useTranslation()
@@ -13,8 +14,10 @@ const ErrorBoundary: FC<WithChildren> = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const resetErrorBoundary = useCallback(() => {
+    ls.del('YOUR_PROJECT')
     setErrorMessage(null)
     navigate('/login')
+    window.location.reload()
   }, [navigate])
 
   const clearError = useCallback(() => {
