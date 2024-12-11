@@ -42,6 +42,18 @@ services:
       - ./frontend1/public:/frontend1/public
     ports:
       - "5173:5173"
+
+  frontend3:
+    container_name: frontend3-test
+    image: frontend3-test
+    build:
+      context: ./frontend3
+      target: development
+    volumes:
+      - ./frontend3/src:/frontend3/src
+      - ./frontend3/public:/frontend3/public
+    ports:
+      - "4321:4321"
       
   b4f:
     container_name: b4f-test
