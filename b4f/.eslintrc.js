@@ -25,7 +25,7 @@ module.exports = {
         ignoreUrls: true,
       }
     ],
-    '@typescript-eslint/indent': ['error', 2]
+    'indent': ['error', 2]
   },
   ignorePatterns: ['migrations/', 'entrypoint.sh', 'jest.config.ts', '.eslintrc.js']
 }
