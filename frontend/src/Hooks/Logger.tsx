@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import { type FC, createContext, useContext } from 'react'
 
 interface ILogger {

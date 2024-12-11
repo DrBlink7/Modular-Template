@@ -38,7 +38,7 @@ const Login: FC = () => {
     dispatch(clearUserAuthStatus())
     dispatch(clearErrorMessage())
 
-    navigate('/login')
+    void navigate('/login')
   }, [dispatch, navigate])
 
   const handleLoginClick = useCallback(() => {

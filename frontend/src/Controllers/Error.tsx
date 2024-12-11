@@ -16,13 +16,13 @@ const ErrorBoundary: FC<WithChildren> = ({ children }) => {
   const resetErrorBoundary = useCallback(() => {
     ls.del('YOUR_PROJECT')
     setErrorMessage(null)
-    navigate('/login')
+    void navigate('/login')
     window.location.reload()
   }, [navigate])
 
   const clearError = useCallback(() => {
     setErrorMessage(null)
-    navigate('/login')
+    void navigate('/login')
   }, [navigate])
 
   useEffect(() => {

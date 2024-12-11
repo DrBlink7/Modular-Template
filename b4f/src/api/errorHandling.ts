@@ -2,7 +2,7 @@ import { Logger } from '../logger'
 import { type Request, type Response, type NextFunction } from 'express'
 import { type ErrorType, type ErrorPayload } from './types'
 import { type FunType } from '../types'
-import { type AnyNode, load } from 'cheerio'
+import { load } from 'cheerio'
 
 const token401 = 'Token used too late'
 
@@ -93,7 +93,7 @@ const formatResponseData = (error: any, code: string, handledAt: string | undefi
   }
 }
 
-type DataMessage = string | AnyNode | Buffer | AnyNode[] | string[] | null | undefined
+type DataMessage = string | string[] | null | undefined
 
 const formatMessageData = (data: DataMessage): string => {
   if (data === null || data === undefined) return 'Missing Error Information'
@@ -113,7 +113,7 @@ const formatMessageData = (data: DataMessage): string => {
   return data
 }
 
-const getTextFromHTML = (data: string | AnyNode | AnyNode[] | Buffer, tag: string): string => {
+const getTextFromHTML = (data: string | Buffer, tag: string): string => {
   const $ = load(data)
   const textInsideTag = $(tag).text()
 
