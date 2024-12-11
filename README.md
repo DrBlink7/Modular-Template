@@ -8,8 +8,12 @@ Node backend, copy .env.example vars in .env file (you should create it) and ask
 It will run (by default) on 3001 port, you can see API Swagger [there](http://localhost:3001/swagger/)
 
 ## ✔ frontend
-Typescript/React frontend, copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
+Typescript/React frontend (Craco), copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
 It will run (by default) on 3000 port.
+
+## ✔ frontend1
+Typescript/React frontend (Vite), copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
+It will run (by default) on 5173 port.
 
 ## ✚ frontend2
 Typescript/Angular frontend to be added.
