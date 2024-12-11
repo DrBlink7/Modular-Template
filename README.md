@@ -1,7 +1,7 @@
 # Modular-Template
 To give a proper name just search YOUR_PROJECT on this repo and rename it as you please.
 
-Use `docker compose up --build` to launch frontend, frontend2, b4f, backend, backend2 and db, php laravel backend 3 still needs to be added.
+Use `docker compose up --build` to launch frontends, backends and db.
 
 ## ✔ b4f
 Node backend, copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
@@ -29,7 +29,7 @@ It will run (by default) on 3002 port.
 
 ## ✔ backend
 Python backend.
-It will run (by default) on 8000 port.
+It will run (by default) on 8000 port. [here](/backend/README.md) for more info.
 
 ## ✚ backend2
 Java backend to be added.
