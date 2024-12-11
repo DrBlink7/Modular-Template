@@ -19,6 +19,14 @@ It will run (by default) on 5173 port.
 Typescript/Angular frontend to be added.
 It will run (by default) on 4200 port.
 
+## ✔ frontend3
+Astro Frontend, copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
+It will run (by default) on 4321 port.
+
+## ✔ frontend4
+Typescript/React frontend using Next.js, copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
+It will run (by default) on 3002 port.
+
 ## ✔ backend
 Python backend.
 It will run (by default) on 8000 port.
