@@ -72,7 +72,6 @@ const toString = (data: any, fallback: string): string => {
     if (data !== null && 'message' in data) { return toString(data.message, fallback) }
     return fallback
   } else {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return data.toString()
   }
 }
