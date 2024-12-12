@@ -1,5 +1,5 @@
 {
-  "name": "frontend1",
+  "name": "2",
   "version": "0.0.1",
   "private": true,
   "author": "Andrea Manna",
@@ -24,7 +24,6 @@
     "@mui/material": "^6.2.0",
     "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^2.5.0",
-    "@xstate/react": "^5.0.0",
     "axios": "^1.7.9",
     "crypto-js": "^4.2.0",
     "cypress": "^13.16.1",
@@ -38,7 +37,6 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
     "react-use": "^17.6.0",
-    "xstate": "^5.19.0",
     "yup": "^1.5.0"
   },
   "devDependencies": {
