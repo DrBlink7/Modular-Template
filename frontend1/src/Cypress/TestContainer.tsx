@@ -1,4 +1,5 @@
 import { type FC } from "react";
+import { type WithChildren } from "../types";
 import { Stack, ThemeProvider } from '@mui/material'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'

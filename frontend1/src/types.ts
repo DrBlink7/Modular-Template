@@ -9,10 +9,10 @@
 /**
  * Redux
  */
-interface State {
+export interface State {
   userInfo: UserStore
 }
-interface Authenticated {
+export interface Authenticated {
   token: string
 }
 type Status = 'success' | 'idle' | 'error' | 'loading'
@@ -37,6 +37,6 @@ interface User {
 /**
  * Utils
  */
-interface WithChildren {
+export interface WithChildren {
   children?: React.ReactNode
 }

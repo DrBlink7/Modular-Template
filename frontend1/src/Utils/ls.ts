@@ -1,5 +1,6 @@
 import { effect } from './f'
 import { secretKey } from './config'
+import { type State } from '../types'
 import CryptoJS from 'crypto-js'
 
 interface LocalStorageMap {

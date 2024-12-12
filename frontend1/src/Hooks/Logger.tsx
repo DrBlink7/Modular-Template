@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/indent */
 import { type FC, createContext, useContext } from 'react'
+import { type WithChildren } from '../types'
 
 interface ILogger {
   writeTrace: (message: string, severityLevel: number, err?: string) => void

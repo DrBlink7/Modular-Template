@@ -1,4 +1,5 @@
 import { useCallback, type FC, useState, useEffect, Fragment } from 'react'
+import { type WithChildren } from '../types'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Box, Typography, Button } from '@mui/material'
@@ -27,7 +28,8 @@ const ErrorBoundary: FC<WithChildren> = ({ children }) => {
 
   useEffect(() => {
     const handleError = (error: ErrorEvent | Event): void => {
-      error instanceof ErrorEvent ? setErrorMessage(error.message) : setErrorMessage(error.type)
+      if (error instanceof ErrorEvent) setErrorMessage(error.message)
+      else { setErrorMessage(error.type) }
       Logger.writeException(new Error((error as ErrorEvent).message))
     }
 

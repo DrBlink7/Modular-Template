@@ -1,5 +1,6 @@
 import { type FC } from 'react'
 import { type Theme } from '@emotion/react'
+import { type WithChildren } from '../types'
 import { Stack, type SxProps } from '@mui/material'
 import { randomBg } from '../Utils/config'
 
