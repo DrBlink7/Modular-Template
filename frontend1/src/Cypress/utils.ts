@@ -1,5 +1,5 @@
-import { createTheme } from "@mui/material"
-import { mainColor, secondaryColor } from "../Utils/config"
+import { createTheme } from '@mui/material'
+import { mainColor, secondaryColor } from '../Utils/config'
 
 export const getViewport = () => ({
   width: 1440,
@@ -17,7 +17,7 @@ export const theme = createTheme({
 })
 
 export const rgbToHex = (r: number, g: number, b: number): string =>
-  "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)
+  '#' + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)
 
 export const hexToRgb = (hex: string) => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
