@@ -1,6 +1,6 @@
 import { type FC } from 'react'
 import { Box } from '@mui/material'
-import errorImage from '../Images/error.jpeg'
+import errorImage from '../assets/error.jpeg'
 import ImageLayout from './ImageLayout'
 
 const ErrorLayout: FC<WithChildren> = ({ children }) => (

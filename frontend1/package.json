@@ -5,7 +5,7 @@
   "author": "Andrea Manna",
   "type": "module",
   "license": "MIT",
-  "proxy": "http://b4f:3001",
+  "proxy": "http://backend:8000",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc -b && vite build",
@@ -20,6 +20,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@hookform/resolvers": "^3.3.2",
+    "@kinde-oss/kinde-auth-react": "^4.0.4",
     "@mui/icons-material": "^6.2.0",
     "@mui/material": "^6.2.0",
     "@react-oauth/google": "^0.12.1",
@@ -40,13 +41,9 @@
     "yup": "^1.5.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.15.0",
-    "@types/react": "^18.3.12",
-    "@vitejs/plugin-react": "^4.3.4",
-    "typescript-eslint": "^8.15.0",
-    "vite": "^6.0.1",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@cypress/react": "^8.0.0",
+    "@eslint/js": "^9.15.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.1",
@@ -55,9 +52,11 @@
     "@types/jest": "^29.5.5",
     "@types/lodash": "^4.17.13",
     "@types/mocha": "^10.0.10",
+    "@types/react": "^18.3.12",
     "@types/react-dom": "^19.0.2",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^8.57.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint-plugin-import": "^2.25.2",
@@ -65,6 +64,8 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.15.0",
+    "vite": "^6.0.1"
   }
 }
