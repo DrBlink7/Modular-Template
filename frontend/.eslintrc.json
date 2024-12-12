@@ -5,7 +5,8 @@
   },
   "extends": [
     "standard-with-typescript",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -27,6 +28,10 @@
         "ignoreComments": true,
         "ignoreUrls": true
       }
+    ],
+    "@typescript-eslint/indent": [
+      "error",
+      2
     ],
     "indent": [
       "error",
