@@ -43,6 +43,18 @@ services:
     ports:
       - "5173:5173"
 
+  frontend2:
+    container_name: frontend2-test
+    image: frontend2-test
+    build:
+      context: ./frontend2
+      target: development
+    volumes:
+      - ./frontend2/src:/frontend2/src
+      - ./frontend2/public:/frontend2/public
+    ports:
+      - "5174:5174"
+
   frontend3:
     container_name: frontend3-test
     image: frontend3-test

@@ -9,15 +9,15 @@ It will run (by default) on 3001 port, you can see API Swagger [there](http://lo
 
 ## ✔ frontend
 Typescript/React frontend (Craco), copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
-It will run (by default) on 3000 port.
+It will run (by default) on 3000 port. (Login with firebase-auth)
 
 ## ✔ frontend1
 Typescript/React frontend (Vite), copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
-It will run (by default) on 5173 port.
+It will run (by default) on 5173 port. (Login with kinde)
 
-## ✚ frontend2
-Typescript/Angular frontend to be added.
-It will run (by default) on 4200 port.
+## ✔ frontend2
+Typescript/React frontend (Vite), copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
+It will run (by default) on 5174 port. (Login with workos)
 
 ## ✔ frontend3
 Astro Frontend, copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
