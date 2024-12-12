@@ -4,8 +4,8 @@ export default defineConfig({
   component: {
     devServer: {
       framework: "create-react-app",
-      bundler: "webpack",
-    },
+      bundler: "webpack"
+    }
   },
 
   e2e: {
@@ -14,6 +14,6 @@ export default defineConfig({
       // implement node event listeners here
     },
     experimentalMemoryManagement: true,
-    numTestsKeptInMemory: 2,
-  },
+    numTestsKeptInMemory: 2
+  }
 });
