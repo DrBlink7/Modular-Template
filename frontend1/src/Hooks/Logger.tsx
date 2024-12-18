@@ -9,6 +9,7 @@ interface ILogger {
 
 const LoggerContext = createContext<ILogger | undefined>(undefined)
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLogger = (): ILogger => {
   const context = useContext(LoggerContext)
   if (context == null) {
