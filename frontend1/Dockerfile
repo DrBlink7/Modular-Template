@@ -8,10 +8,8 @@ COPY yarn.lock .
 COPY tsconfig.json .
 COPY tsconfig.app.json .
 COPY tsconfig.node.json .
-COPY tsconfig.eslint.json .
 COPY vite.config.ts .
 COPY eslint.config.js .
-COPY .eslintrc.json .
 COPY .env .
 COPY index.html .
 
