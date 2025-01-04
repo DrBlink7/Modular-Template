@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
 import { type Dispatch, type ThunkDispatch, type UnknownAction } from '@reduxjs/toolkit'
 import type store from '../Store'
@@ -68,7 +69,6 @@ const toString = (data: unknown, fallback: string): string => {
     if (data !== null && 'message' in data) { return toString(data.message, fallback) }
     return fallback
   } else {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (data as unknown as any).toString()
   }
 }
