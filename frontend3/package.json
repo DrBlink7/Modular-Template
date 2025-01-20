@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@toolhouseai/sdk": "^1.0.4",
     "astro": "^5.0.5",
     "typescript": "^5.6.3"
   }
