@@ -1,5 +1,6 @@
 import { type FC } from 'react'
 import { Box } from '@mui/material'
+import { type WithChildren } from '../exportedTypes'
 import errorImage from '../Images/error.jpeg'
 import ImageLayout from './ImageLayout'
 

@@ -2,6 +2,7 @@ import { type FC } from 'react'
 import { type Theme } from '@emotion/react'
 import { Stack, type SxProps } from '@mui/material'
 import { randomBg } from '../Utils/config'
+import { type WithChildren } from '../exportedTypes'
 
 type ImageLayoutProps = WithChildren & {
   style?: SxProps<Theme>

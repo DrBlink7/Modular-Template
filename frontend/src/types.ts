@@ -35,9 +35,3 @@ interface User {
   name: string
   verifiedEmail: boolean
 }
-/**
- * Utils
- */
-interface WithChildren {
-  children?: React.ReactNode
-}

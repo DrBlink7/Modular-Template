@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Box, Typography, Button } from '@mui/material'
 import { useLogger } from '../Hooks/Logger'
+import { type WithChildren } from '../exportedTypes'
 import ErrorLayout from '../Components/ErrorLayout'
 import * as ls from '../Utils/ls'
 

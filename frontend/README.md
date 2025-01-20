@@ -6,3 +6,15 @@ It will run (by default) on 3000 port.
 # Login
 
 Login with firebase-auth
+
+# Test
+## Component
+run
+```bash
+yarn test
+```
+## e2e
+Configure your cypress.config.ts with the desired baseUrl and run
+```bash
+yarn test
+```

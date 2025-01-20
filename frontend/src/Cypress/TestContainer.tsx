@@ -3,6 +3,7 @@ import { Stack, ThemeProvider } from '@mui/material'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { theme } from "./utils";
+import { type WithChildren } from '../exportedTypes'
 import store from '../Store'
 import LoggerProvider from "../Hooks/Logger"
 import '../Translations'
