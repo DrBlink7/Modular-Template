@@ -7,6 +7,19 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
+# Login
+
+Login with kinde, to chang kinde auth set your configuration of these env vars
+```bash
+VITE_APP_KINDE_CLIENT_ID= 'set your kinde clint id'
+VITE_APP_KINDE_DOMAIN= 'set your kinde domain'
+VITE_APP_KINDE_REDIRECT_URL= 'set desired redirect url'
+```
+
+# Payment
+
+Implemented Stripe
+
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
@@ -48,8 +61,3 @@ export default tseslint.config({
   },
 })
 ```
-
-
-# Login
-
-Login with kinde

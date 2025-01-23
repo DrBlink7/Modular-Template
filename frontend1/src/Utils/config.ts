@@ -11,3 +11,5 @@ export const kindeClientID = import.meta.env.VITE_APP_KINDE_CLIENT_ID
 export const kindeDomain = import.meta.env.VITE_APP_KINDE_DOMAIN
 export const kindeRedirect = import.meta.env.VITE_APP_KINDE_REDIRECT_URL
 export const baseURL = import.meta.env.VITE_APP_BASE_URL
+export const beUrl = import.meta.env.VITE_APP_BE_URL
+export const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY

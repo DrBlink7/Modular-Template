@@ -4,6 +4,19 @@ import { type ErrorType, type ErrorPayload } from './types'
 import { type FunType } from '../types'
 import { load } from 'cheerio'
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     GenericError:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *         code:
+ *           type: string
+ */
+
 const token401 = 'Token used too late'
 
 export const formatError = (
@@ -34,7 +47,6 @@ export const apiErrorHandler = (err: ErrorType, _req: Request, res: Response, _n
 
 export const asyncErrWrapper =
   (fun: FunType) => (req: Request, res: Response, next: NextFunction) => {
-    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
     Promise.resolve(fun(req, res, next)).catch(next)
   }
 
@@ -93,7 +105,7 @@ const formatResponseData = (error: any, code: string, handledAt: string | undefi
   }
 }
 
-type DataMessage = string | string[] | null | undefined
+type DataMessage = string | Buffer | string[] | null | undefined
 
 const formatMessageData = (data: DataMessage): string => {
   if (data === null || data === undefined) return 'Missing Error Information'
@@ -106,6 +118,7 @@ const formatMessageData = (data: DataMessage): string => {
       return (data as unknown as any).toString()
     }
   }
+
   if (data.includes('doctype')) { return getTextFromHTML(data, 'p') }
   if (data.includes('DOCTYPE')) { return getTextFromHTML(data, 'pre') }
   if (data.includes('html')) { return getTextFromHTML(data, 'html') }
