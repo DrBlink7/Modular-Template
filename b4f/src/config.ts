@@ -25,3 +25,4 @@ export const EnvironmentName = process.env.ENVIRONMENT_NAME as EnvType ?? 'dev'
 export const Version = require('../package.json').version
 export const RepositoryType = process.env.REPOSITORY_TYPE as DbType ?? 'postgres'
 export const secretKey = process.env.STRIPE_SECRET_KEY
+export const authUrl = process.env.AUTH_URL

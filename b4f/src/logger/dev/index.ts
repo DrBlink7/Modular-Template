@@ -1,20 +1,22 @@
 /* eslint-disable @typescript-eslint/space-before-function-paren */
+/* eslint-disable @typescript-eslint/indent */
 import { type ILogger } from '..'
 
 export class DevLogger implements ILogger {
   writeTrace(message: string, severityLevel: number, err?: string): void {
-    const trace = (err != null)
-      ? {
-        message,
-        severity: severityLevel,
-        properties: {
-          stack: err
+    const trace =
+      (err != null)
+        ? {
+          message,
+          severity: severityLevel,
+          properties: {
+            stack: err
+          }
         }
-      }
-      : {
-        message,
-        severity: severityLevel
-      }
+        : {
+          message,
+          severity: severityLevel
+        }
     console.info(trace)
   }
 

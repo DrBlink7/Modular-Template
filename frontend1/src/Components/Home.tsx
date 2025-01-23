@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useTheme, Box, Typography, Button, Paper } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-import CheckoutForm from '../Controllers/Checkout'
 
 interface HomeProps {
   handleLogOut: () => void
@@ -38,7 +37,7 @@ const Home: FC<HomeProps> = ({ handleLogOut }) => {
     <Box display='flex' width='100%' justifyContent='space-between' flexDirection='column' gap='4vh'>
       <Box display='flex' flexDirection='column' gap='1vh'>
         <Typography alignSelf='center'>{t('home.welcome')}</Typography>
-        <CheckoutForm />
+
       </Box>
       <Box display='flex' flexDirection='column' gap='1vh'>
         <Typography alignSelf='center'>{t('home.logout')}</Typography>

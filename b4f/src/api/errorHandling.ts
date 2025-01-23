@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Logger } from '../logger'
 import { type Request, type Response, type NextFunction } from 'express'
 import { type ErrorType, type ErrorPayload } from './types'
@@ -8,13 +9,16 @@ import { load } from 'cheerio'
  * @swagger
  * components:
  *   schemas:
+ *     PaymentError:
  *     GenericError:
  *       type: object
  *       properties:
  *         message:
  *           type: string
+ *           example: 'Default error message'
  *         code:
  *           type: string
+ *           example: '001-Unknown'
  */
 
 const token401 = 'Token used too late'
@@ -47,7 +51,9 @@ export const apiErrorHandler = (err: ErrorType, _req: Request, res: Response, _n
 
 export const asyncErrWrapper =
   (fun: FunType) => (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fun(req, res, next)).catch(next)
+    Promise.resolve()
+      .then(() => { fun(req, res, next) })
+      .catch(next)
   }
 
 const logResposeData = (handledAt: string | undefined, error: unknown, code: string): void => {
@@ -56,7 +62,6 @@ const logResposeData = (handledAt: string | undefined, error: unknown, code: str
     : Logger.writeException(new Error(toString(error)), code)
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const logResponseCode = (handledAt: string | undefined, error: any, code: string): void => {
   handledAt !== undefined && handledAt !== ''
     ? Logger.writeException(new Error(`OuterAPIs error code: ${(error?.code) ?? '000-CODE missing'}`), code, handledAt)
@@ -78,7 +83,6 @@ const formatInternalError = (error: ErrorType, code: string, handledAt: string |
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const formatErrorCode = (error: any, code: string, handledAt: string | undefined): ErrorPayload => {
   logResponseCode(handledAt, error, code)
   return {
@@ -90,7 +94,6 @@ const formatErrorCode = (error: any, code: string, handledAt: string | undefined
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const formatResponseData = (error: any, code: string, handledAt: string | undefined): ErrorPayload => {
   const data: DataMessage = (error.response.data.message ?? error.response.data) satisfies DataMessage
   const message = formatMessageData(data)
@@ -114,7 +117,6 @@ const formatMessageData = (data: DataMessage): string => {
     if (typeof data === 'object') {
       return JSON.stringify(data)
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return (data as unknown as any).toString()
     }
   }
@@ -139,7 +141,6 @@ const toString = (data: unknown): string => {
     if (data !== null && 'message' in data) { return toString(data.message) }
     return JSON.stringify(data)
   } else {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (data as unknown as any).toString()
   }
 }
