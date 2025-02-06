@@ -4,6 +4,7 @@ It will run (by default) on 3001 port, you can see API Swagger [there](http://lo
 
 To run BE
 ```sh
+stripe login
 stripe listen --forward-to http://localhost:3001/api/payments/webhook
 ```
 copy and set
