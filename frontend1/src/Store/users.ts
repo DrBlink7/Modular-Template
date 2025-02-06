@@ -1,20 +1,53 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { userInitialState } from '../Utils/store'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { type State } from '../types'
+import { formatThunkError, userInitialState } from '../Utils/store'
+import { buyProduct, isProductPaid } from '../Api/users'
+
+interface BaseThunk {
+  token: string
+}
+
+type BuyAProduct = BaseThunk & { id: number }
+
+export const buyAProduct = createAsyncThunk(
+  '/payments/checkout/:id POST',
+  async ({ token, id }: BuyAProduct, thunkApi) => {
+    try {
+      const response = await buyProduct({ token, id })
+
+      return response.data
+    } catch (e) {
+      const error = formatThunkError(e, 'buyAProduct error')
+
+      return thunkApi.rejectWithValue(error)
+    }
+  }
+)
+
+type IsAProductPaid = BaseThunk & { id: number }
+
+export const isAProductPaid = createAsyncThunk(
+  '/payments/order-status/:id GET',
+  async ({ token, id }: IsAProductPaid, thunkApi) => {
+    try {
+      const response = await isProductPaid({ token, id })
+
+      return response.data
+    } catch (e) {
+      const error = formatThunkError(e, 'isAProductPaid error')
+
+      return thunkApi.rejectWithValue(error)
+    }
+  }
+)
 
 export const user = createSlice({
   name: 'user',
   initialState: userInitialState,
   reducers: {
     clearUserState: () => userInitialState,
-    logout: (state) => {
-      state.isUserLogged = false
-    },
-    login: (state) => {
-      state.isUserLogged = true
-    },
     clearUserAuthStatus: (state) => {
-      state.authStatus = 'idle'
+      state.postStatus = 'idle'
     },
     clearErrorMessage: (state) => {
       state.errorMessage = ''
@@ -22,20 +55,29 @@ export const user = createSlice({
     setErrorMessage: (state, action: { payload: string }) => {
       state.errorMessage = action.payload
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(buyAProduct.pending, (state) => {
+      state.postStatus = 'loading'
+    })
+    builder.addCase(buyAProduct.rejected, (state, action) => {
+      state.errorMessage = Boolean(action.error) && typeof action.error === 'string'
+        ? action.error
+        : action.payload as string
+      state.postStatus = 'error'
+    })
+    builder.addCase(buyAProduct.fulfilled, (state) => {
+      state.postStatus = 'success'
+    })
   }
 })
 
 export const {
   clearUserState,
   clearUserAuthStatus,
-  login,
-  logout,
   clearErrorMessage,
   setErrorMessage
 } = user.actions
 
-export const selectIsUserLogged = (state: State): State['userInfo']['isUserLogged'] => state.userInfo.isUserLogged
-export const selectUser = (state: State): State['userInfo']['user'] => state.userInfo.user
-export const selectAuthStatus = (state: State): State['userInfo']['authStatus'] => state.userInfo.authStatus
-export const selectToken = (state: State): State['userInfo']['token'] => state.userInfo.user.id // Change it with state.userInfo.token when you implement flow
+export const selectPostStatus = (state: State): State['userInfo']['postStatus'] => state.userInfo.postStatus
 export const selectErrorMessage = (state: State): State['userInfo']['errorMessage'] => state.userInfo.errorMessage

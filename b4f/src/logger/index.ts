@@ -1,5 +1,7 @@
-import { EnvironmentName, Version } from '../config'
+/* eslint-disable indent */
+import { environmentName, version } from '../config'
 import { DevLogger } from './dev'
+import { ProdLogger } from './prod'
 
 export interface ILogger {
   writeTrace: (message: string, severityLevel: number, err?: string) => void
@@ -13,26 +15,22 @@ export const loggerInit = (): void => {
 }
 
 const initLogger = (): void => {
-  if (EnvironmentName == null) {
-    console.error(
-      "The environment Variable 'ENVIRONMENT_NAME' is not valorized, please assign a value. Server is shutting down."
-    )
-    process.exitCode = 1
-
-    return process.exit()
-  }
-  const client = {
-    cloudRole: 'b4f',
-    applicationVersion: Version,
-    cloudRoleInstance: EnvironmentName
+  if (environmentName == null) {
+    console.error("The environment Variable 'ENVIRONMENT_NAME' is not valorized, please assign a value. Server is shutting down.")
+    return process.exit(0)
   }
 
-  switch (EnvironmentName) {
+  switch (environmentName) {
     case 'dev':
       Logger = new DevLogger()
       break
+    case 'qa':
+    case 'prod':
+      Logger = new ProdLogger()
+      break
+    default:
+      Logger = new DevLogger()
+      break
   }
-
-  console.info({ name: 'Logger initialized' })
-  console.info({ name: client })
+  Logger.writeEvent(`Logger initialized on backend version ${version} on ${environmentName} environment`)
 }

@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "commonjs",
+    "target": "ES2022",
+    "module": "CommonJS",
     "lib": [
       "ESNext",
       "esnext.asynciterable"
     ],
+    "moduleResolution": "node", // Risoluzione dei moduli nel formato Node.js
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "outDir": "build",
     "rootDir": "src",
@@ -20,8 +25,9 @@
     "noUnusedLocals": true, // Rileva variabili locali non utilizzate
     "noUnusedParameters": true, // Rileva parametri non utilizzati
     "strictNullChecks": true, // Rileva valori null e undefined in modo più rigoroso
-    "moduleResolution": "node", // Risoluzione dei moduli nel formato Node.js
     "baseUrl": ".", // Percorso di base per la risoluzione dei moduli
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false,
     "paths": {
       "*": [
         "node_modules/*",

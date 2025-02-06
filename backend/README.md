@@ -4,7 +4,7 @@ Python backend, copy .env.example vars in .env file and fill its vars.
 It will run (by default) on 8000 port.
 
 You can use alembic and launch migrations or uncomment this line
-```python
+```py
  user_models.Base.metadata.create_all(bind=engine) enable this if you don't want to use migrations
 ```
 in main and use create_all instead if in dev environment.

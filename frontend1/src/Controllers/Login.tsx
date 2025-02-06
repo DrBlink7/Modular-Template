@@ -1,4 +1,4 @@
-import { type FC, useCallback } from 'react'
+import { type FC } from 'react'
 import {
   CssBaseline,
   Box,
@@ -26,14 +26,14 @@ const Login: FC = () => {
   const dispatch = useAppDispatch()
   const { login, isLoading, error, logout } = useKindeAuth()
 
-  const handleLoginClick = useCallback(async () => {
+  const handleLoginClick = async () => {
     try {
       await login()
     } catch (e) {
       const msg = parseErrorMessage((e))
       dispatch(setErrorMessage(msg))
     }
-  }, [dispatch, login])
+  }
 
   if (error !== undefined) {
     const msg = error === '' ? 'Authentication error' : error

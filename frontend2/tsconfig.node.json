@@ -5,10 +5,10 @@
     "lib": [
       "ES2023"
     ],
-    "module": "ESNext",
+    "module": "NodeNext",
     "skipLibCheck": true,
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "nodenext",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",

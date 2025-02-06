@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 const loader = {
   title: 'YOUR_PROJECT',
-  text: '...Loading'
+  text: '...is Loading'
 }
 const login = {
   signin: 'Sign In',

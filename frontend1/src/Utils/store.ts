@@ -36,20 +36,7 @@ export const saveState = (state: State): boolean => {
 }
 
 export const userInitialState: State['userInfo'] = {
-  user: {
-    email: '',
-    familyName: '',
-    givenName: '',
-    hd: '',
-    id: '',
-    locale: '',
-    name: '',
-    picture: '',
-    verifiedEmail: false
-  },
-  authStatus: 'idle',
-  isUserLogged: false,
-  token: '',
+  postStatus: 'idle',
   errorMessage: ''
 }
 

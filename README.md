@@ -3,6 +3,8 @@ To give a proper name just search YOUR_PROJECT on this repo and rename it as you
 
 Use `docker compose up --build` to launch frontends, backends and db.
 
+N.B. you need to manually run migrations on backend(s) and b4f(s), refer to their readme.
+
 ## ✔ frontend
 Typescript/React frontend (Craco), copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
 It will run (by default) on 3000 port. (Login with firebase-auth)

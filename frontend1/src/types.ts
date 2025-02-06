@@ -5,7 +5,13 @@
 /**
  * API
 */
-
+export interface DeleteResponse {
+  message: string
+}
+export interface BuyProduct { token: string, id: number }
+export interface BuyProductResponse { url: string | null }
+export interface IsProductPaid { token: string, id: number }
+export interface IsProductPaidResponse { hasPaid: boolean }
 /**
  * Redux
  */
@@ -17,22 +23,8 @@ export interface Authenticated {
 }
 type Status = 'success' | 'idle' | 'error' | 'loading'
 interface UserStore {
-  user: User
-  isUserLogged: boolean
   errorMessage: string
-  token: string
-  authStatus: Status
-}
-interface User {
-  picture: string
-  email: string
-  familyName: string
-  givenName: string
-  hd: string
-  id: string
-  locale: string
-  name: string
-  verifiedEmail: boolean
+  postStatus: Status
 }
 /**
  * Utils

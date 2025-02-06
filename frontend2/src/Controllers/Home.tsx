@@ -1,20 +1,24 @@
-import { useCallback, type FC } from 'react'
-import { useAppDispatch } from '../Utils/store'
-import { logout } from '../Store/users'
+import { type FC } from 'react'
+import { useKindeAuth } from '@kinde-oss/kinde-auth-react'
 import { useTheme, CssBaseline, Box } from '@mui/material'
 import Component from '../Components/Home'
 import ImageLayout from '../Components/ImageLayout'
+import Loader from '../Components/Loader'
 import * as ls from '../Utils/ls'
 
 const Home: FC = () => {
   const theme = useTheme()
-  const dispatch = useAppDispatch()
+  const { logout, isLoading } = useKindeAuth()
 
-  const handleLogOut = useCallback(() => {
-    dispatch(logout())
+  const handleLogOut = async () => {
+    await logout()
 
     ls.del('YOUR_PROJECT')
-  }, [dispatch])
+  }
+
+  if (isLoading) {
+    return <Loader />
+  }
 
   return <ImageLayout
     style={{

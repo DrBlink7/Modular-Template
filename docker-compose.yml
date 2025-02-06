@@ -77,7 +77,7 @@ services:
       - ./frontend4/src:/frontend4/src
       - ./frontend4/public:/frontend4/public
     ports:
-      - "3002:3002"
+      - "3003:3003"
       
   b4f:
     container_name: b4f-test
@@ -94,11 +94,29 @@ services:
     ports:
       - "3001:3001"
 
+  b4f1:
+    container_name: b4f1-test
+    image: b4f1-test
+    build:
+      context: ./b4f1
+      target: development
+    volumes:
+      - ./b4f1:/b4f1
+    depends_on:
+      - db
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - NODE_ENV=development
+
   backend:
     container_name: backend-test
     build:
       context: ./backend
     volumes:
       - ./backend:/backend
+    depends_on:
+      - db
     ports:
       - "8000:8000"

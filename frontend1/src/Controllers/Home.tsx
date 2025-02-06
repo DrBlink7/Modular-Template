@@ -1,4 +1,4 @@
-import { useCallback, type FC } from 'react'
+import { type FC } from 'react'
 import { useKindeAuth } from '@kinde-oss/kinde-auth-react'
 import { useTheme, CssBaseline, Box } from '@mui/material'
 import Component from '../Components/Home'
@@ -10,11 +10,11 @@ const Home: FC = () => {
   const theme = useTheme()
   const { logout, isLoading } = useKindeAuth()
 
-  const handleLogOut = useCallback(async () => {
+  const handleLogOut = async () => {
     await logout()
 
     ls.del('YOUR_PROJECT')
-  }, [logout])
+  }
 
   if (isLoading) {
     return <Loader />

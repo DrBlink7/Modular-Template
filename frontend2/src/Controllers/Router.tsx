@@ -1,12 +1,15 @@
 import { type FC } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { selectIsUserLogged } from '../Store/users'
-import { useAppSelector } from '../Utils/store'
 import { mainColor, secondaryColor } from '../Utils/config'
+import { useKindeAuth } from '@kinde-oss/kinde-auth-react'
 import ErrorBoundary from './Error'
 import Login from './Login'
 import Home from './Home'
+import Success from './Success'
+import Failure from './Failure'
+import Loader from '../Components/Loader'
+import Product from './Product'
 
 const theme = createTheme({
   palette: {
@@ -20,19 +23,22 @@ const theme = createTheme({
 })
 
 const Router: FC = () => {
-  const isUserLoggedIn: boolean = useAppSelector(selectIsUserLogged)
+  const { isAuthenticated, isLoading } = useKindeAuth()
 
-  return (
-    <ErrorBoundary>
-      <ThemeProvider theme={theme}>
-        <Routes>
-          <Route path="/login" element={isUserLoggedIn ? <Navigate to="/" /> : <Login />} />
-          <Route path="/" element={isUserLoggedIn ? <Home /> : <Navigate to="/login" />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </ThemeProvider>
-    </ErrorBoundary>
-  )
+  if (isLoading) return <Loader />
+
+  return <ErrorBoundary>
+    <ThemeProvider theme={theme}>
+      <Routes>
+        <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
+        <Route path="/success" element={isAuthenticated ? <Success /> : <Navigate to="/login" />} />
+        <Route path="/failure" element={isAuthenticated ? <Failure /> : <Navigate to="/login" />} />
+        <Route path="/product/:id" element={isAuthenticated ? <Product /> : <Navigate to="/login" />} />
+        <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </ThemeProvider>
+  </ErrorBoundary>
 }
 
 export default Router

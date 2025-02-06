@@ -1,5 +1,6 @@
 import { effect } from './f'
 import { secretKey } from './config'
+import { type State } from '../types'
 import CryptoJS from 'crypto-js'
 
 interface LocalStorageMap {
@@ -24,7 +25,6 @@ export const get = <K extends keyof LocalStorageMap>(
   try {
     return decryptData(value)
   } catch {
-    // HOTFIX: fallback for old serialization format
     return value as never
   }
 }

@@ -14,9 +14,11 @@ COPY nodemon.json .
 RUN yarn install --network-timeout 1000000000
 
 RUN yarn global add nodemon
+RUN yarn global add @prisma/client
 
 COPY . .
 
+RUN yarn prisma generate
 EXPOSE $PORT
 
 CMD ["yarn", "start:dev"]

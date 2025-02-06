@@ -7,9 +7,9 @@
   "license": "MIT",
   "proxy": "http://b4f:3001",
   "scripts": {
-    "dev": "next dev --turbopack -p 3002",
+    "dev": "next dev --turbopack -p 3003",
     "build": "next build",
-    "start": "next start -p 3002",
+    "start": "next start -p 3003",
     "lint": "next lint"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-import { useCallback, type FC, useState, useEffect, Fragment } from 'react'
+import { type FC, useState, useEffect, Fragment } from 'react'
 import { type WithChildren } from '../types'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -14,17 +14,17 @@ const ErrorBoundary: FC<WithChildren> = ({ children }) => {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  const resetErrorBoundary = useCallback(() => {
+  const resetErrorBoundary = () => {
     ls.del('YOUR_PROJECT')
     setErrorMessage(null)
     void navigate('/login')
     window.location.reload()
-  }, [navigate])
+  }
 
-  const clearError = useCallback(() => {
+  const clearError = () => {
     setErrorMessage(null)
     void navigate('/login')
-  }, [navigate])
+  }
 
   useEffect(() => {
     const handleError = (error: ErrorEvent | Event): void => {

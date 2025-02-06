@@ -31,7 +31,7 @@ export class DevLogger implements ILogger {
     })
   }
 
-  writeEvent(name: string): void {
-    console.info({ name })
+  writeEvent(msg: string): void {
+    console.info({ msg })
   }
 }

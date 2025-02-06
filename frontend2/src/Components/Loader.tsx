@@ -1,6 +1,6 @@
 import { type FC } from 'react'
 import { CircularProgress, Stack, Typography } from '@mui/material'
-import { useTranslation } from '../../node_modules/react-i18next'
+import { useTranslation } from 'react-i18next'
 
 interface LoaderProps {
   title?: string

@@ -1,5 +1,6 @@
-import { useCallback, type FC, useState, useEffect, Fragment } from 'react'
-import { useTranslation } from '../../node_modules/react-i18next'
+import { type FC, useState, useEffect, Fragment } from 'react'
+import { type WithChildren } from '../types'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Box, Typography, Button } from '@mui/material'
 import { useLogger } from '../Hooks/Logger'
@@ -13,21 +14,22 @@ const ErrorBoundary: FC<WithChildren> = ({ children }) => {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  const resetErrorBoundary = useCallback(() => {
+  const resetErrorBoundary = () => {
     ls.del('YOUR_PROJECT')
     setErrorMessage(null)
     void navigate('/login')
     window.location.reload()
-  }, [navigate])
+  }
 
-  const clearError = useCallback(() => {
+  const clearError = () => {
     setErrorMessage(null)
     void navigate('/login')
-  }, [navigate])
+  }
 
   useEffect(() => {
     const handleError = (error: ErrorEvent | Event): void => {
-      error instanceof ErrorEvent ? setErrorMessage(error.message) : setErrorMessage(error.type)
+      if (error instanceof ErrorEvent) setErrorMessage(error.message)
+      else { setErrorMessage(error.type) }
       Logger.writeException(new Error((error as ErrorEvent).message))
     }
 

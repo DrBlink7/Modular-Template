@@ -25,7 +25,6 @@ export const get = <K extends keyof LocalStorageMap>(
   try {
     return decryptData(value)
   } catch {
-    // HOTFIX: fallback for old serialization format
     return value as never
   }
 }

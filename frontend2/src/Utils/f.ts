@@ -42,6 +42,7 @@ export const removeHtmlTags = (text: string): string => {
   return div.innerText
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseErrorMessage = (error: any): string => {
   if (typeof error === 'string') {
     return error

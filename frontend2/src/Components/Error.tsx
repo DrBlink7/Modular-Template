@@ -1,5 +1,5 @@
 import { type FC } from 'react'
-import { useTranslation } from '../../node_modules/react-i18next'
+import { useTranslation } from 'react-i18next'
 import { Box, Button, Typography } from '@mui/material'
 import ErrorLayout from './ErrorLayout'
 

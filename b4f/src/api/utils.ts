@@ -64,4 +64,4 @@ export const verifyAndDecodeToken = async (header: string | undefined): Promise<
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-export const isEmpty = (obj: any): boolean => Object.keys(obj).length === 0
+const isEmpty = (obj: any): boolean => Object.keys(obj).length === 0

@@ -1,5 +1,5 @@
 import { type FC } from 'react'
-import { useTranslation } from '../../node_modules/react-i18next'
+import { useTranslation } from 'react-i18next'
 import { Box, MenuItem, Paper, type SxProps, type Theme } from '@mui/material'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 
