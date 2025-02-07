@@ -78,6 +78,21 @@ services:
       - ./frontend4/public:/frontend4/public
     ports:
       - "3003:3003"
+
+  frontend5:
+    container_name: frontend5
+    image: frontend5-test
+    build:
+      context: ./frontend5
+      target: development
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend5/src:/frontend5/src:cached
+      - /frontend5/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NG_CLI_ANALYTICS=false
       
   b4f:
     container_name: b4f-test
