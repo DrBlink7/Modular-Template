@@ -5,7 +5,6 @@
   "private": true,
   "author": "Andrea Manna",
   "license": "MIT",
-  "proxy": "http://b4f:3001",
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev",
