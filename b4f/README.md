@@ -1,4 +1,4 @@
-# B4fF
+# B4F
 Node backend, copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
 It will run (by default) on 3001 port, you can see API Swagger [there](http://localhost:3001/swagger/)
 
@@ -66,5 +66,9 @@ docker compose exec b4f yarn prisma migrate dev --name migration_name
 ### Execute a migration
 ```sh
 docker compose exec b4f yarn prisma migrate dev
+```
+or
+```sh
 docker compose exec b4f yarn prisma migrate deploy
 ```
+for production

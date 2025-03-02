@@ -44,3 +44,8 @@ It will run (by default) on 7080 port.
 ## ✚ backend2
 Php Laravel backend TBA.
 It will run (by default) on 8080 port.
+
+## Loom
+For frontend1-b4f (kinde-stripe integration)
+[video 1](https://www.loom.com/share/4ee224c3fd90456397406979275391af)
+[video 2](https://www.loom.com/share/0580f54765f74cb4b55bca9be039ac89)
