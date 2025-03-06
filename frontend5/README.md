@@ -1,27 +1,74 @@
 # Frontend5
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
+`frontend5` is a **frontend application** built with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
 
-## Development server
+## Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This application leverages **AngularFire** to connect with **Firebase**, using Google as the authentication provider.  
+The authentication process follows an **implicit login flow**, where the user is redirected to Google's authentication page without any custom login forms within the application.
 
-## Code scaffolding
+### User Data Handling
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+⚠️ **The application does not read or store any sensitive user data from Google.**  
+The only user information utilized is the **Firebase UID**, which is retrieved after authentication.
 
-## Build
+## Backend Integration
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+All HTTP requests to the backend are automatically intercepted by a dedicated **HTTP interceptor**.  
+This interceptor retrieves the **Firebase ID Token** from the authenticated user and appends it to the request headers as:
 
-## Running unit tests
+```
+Authorization: Bearer <token>
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+This ensures that all requests to the backend are properly authenticated.
 
-## Running end-to-end tests
+## Technologies and Libraries
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+The application is built using:
 
-## Further help
+- **Angular 15** – Core framework
+- **Angular Material** – UI components (toolbar, buttons, etc.)
+- **AngularFire** – Firebase integration (authentication)
+- **RxJS** – Reactive programming library for state and data stream management
+- **Karma & Jasmine** – Unit testing tools
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Firebase Configuration
+
+The application uses `provideFirebaseApp()` and `provideAuth()` to configure Firebase and Firebase Authentication.  
+The Firebase configuration should be added in `environment.ts`:
+
+```typescript
+export const environment = {
+  production: false,
+  firebase: {
+    apiKey: '...',
+    authDomain: '...',
+    projectId: '...',
+    storageBucket: '...',
+    messagingSenderId: '...',
+    appId: '...'
+  }
+};
+```
+
+## Running the Application
+
+To install dependencies and start the application:
+
+```bash
+npm install
+ng serve
+```
+
+then navigate to `http://localhost:4200/`
+
+## Running Tests
+
+To execute unit tests:
+
+```bash
+ng test
+```
+
+---

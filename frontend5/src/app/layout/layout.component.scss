@@ -1,0 +1,13 @@
+#layout-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .mat-toolbar-row,
+    .mat-toolbar-single-row {
+        position: fixed;
+        top: 0;
+        left: 0;
+        justify-content: space-between;
+    }
+}

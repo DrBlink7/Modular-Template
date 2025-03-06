@@ -1,0 +1,15 @@
+<div id="layout-container">
+    <mat-toolbar class="toolbar-layout">
+        <span>My Application</span>
+        <ng-container *ngIf="user">
+            <button mat-button color="warn" (click)="onLogout()">
+                <mat-icon>logout</mat-icon>
+                <span>Logout</span>
+            </button>
+        </ng-container>
+    </mat-toolbar>
+
+    <div style="height: 100%;">
+        <router-outlet></router-outlet>
+    </div>
+</div>
