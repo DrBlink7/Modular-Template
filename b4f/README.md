@@ -21,6 +21,8 @@ Set ```SERVER_PORT``` (default is 3001), ```ENABLE_CORS``` (ex. *) and desired `
 ## Kinde
 You need to configure your kinde and then set your env AUTH_URL corresponding to your kinde public url.
 
+Remember that if you need M2M, you need to set M2M application, enabling Kinde Management APIs and give all scope needed to Access Token.
+
 ## Stripe
 You need to configure your stripe to have two products to sell, then you need to set these env vars:
 ```sh
