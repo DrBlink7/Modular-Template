@@ -52,7 +52,7 @@ numpy/
 
 ## 🔧 Utilizzo
 
-### Script Completo (Analisi Dettagliata)
+### Script Completo (Analisi Dettagliata che testa 60 metodi e ottiene testo)
 ```bash
 # Attiva l'ambiente virtuale
 source .venv/bin/activate
@@ -77,7 +77,7 @@ python3 final_text_analysis.py
 ======================================================================
 ```
 
-### Script Semplificato (Solo Codici)
+### Script Semplificato (Solo Codici) consigliato
 ```bash
 # Attiva l'ambiente virtuale
 source .venv/bin/activate
