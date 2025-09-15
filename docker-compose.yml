@@ -135,3 +135,10 @@ services:
       - db
     ports:
       - "8000:8000"
+
+  numpy-test:
+    container_name: numpy-test
+    build:
+      context: ./numpy
+    volumes:
+      - ./numpy:/numpy
