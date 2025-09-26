@@ -57,7 +57,7 @@ docker compose exec b4f yarn prisma migrate dev
 - **Next.js 15** with App Router and Turbopack
 - **Astro 5** for static sites with zero JS by default
 - **Vue 3** with Composition API and `<script setup>`
-- **Angular 18** for enterprise applications
+- **Angular 22** for enterprise applications
 - **Redux Toolkit** for predictable state management
 - **React Router** for client-side routing
 
@@ -88,8 +88,8 @@ docker compose exec b4f yarn prisma migrate dev
 
 ### Prerequisites
 - Docker and Docker Compose
-- Node.js 18+ (for local development)
-- Python 3.9+ (for local development)
+- Node.js 22+ (for local development)
+- Python 3.13+ (for local development)
 
 ### Environment Setup
 
