@@ -16,7 +16,6 @@ app.use(compression())
 
 if (corsHost !== '') {
   app.use(cors())
-  app.options(corsHost, cors())
 }
 
 app.use('/api/payments/webhook', express.raw({ type: 'application/json' }))

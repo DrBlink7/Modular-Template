@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express, { type Request, type Response } from 'express'
+import { param, validationResult } from 'express-validator'
 import { Logger } from '../../logger'
 import { cancelUrl, productPrice1, productPrice2, secretKey, successUrl, stripeWebhookSecret, product1, product2 } from '../../config'
 import { type StripeEventType, type ErrorType } from '../types'
@@ -10,7 +11,7 @@ import { prisma } from '../../db'
 import Stripe from 'stripe'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const stripe = new Stripe(secretKey!, { apiVersion: '2025-01-27.acacia' })
+const stripe = new Stripe(secretKey!, { apiVersion: '2025-08-27.basil' })
 
 export const validateProductAndPrices = async (): Promise<void> => {
   const stripePrices = await stripe.prices.list()
@@ -87,15 +88,39 @@ paymentsRouter.use((err: ErrorType, req: Request, res: Response, next: express.N
  *     security:
  *       - Authorization: []
  */
-paymentsRouter.post('/checkout/:id', asyncErrWrapper(async (req, res) => {
+// Validation middleware
+const validateProductId = [
+  param('id').isIn(['1', '2']).withMessage('Product ID must be 1 or 2'),
+  (req: Request, res: Response, next: express.NextFunction) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ 
+        error: 'Validation failed', 
+        details: errors.array() 
+      })
+    }
+    next()
+  }
+]
+
+const validateProductIdParam = [
+  param('productId').isIn(['1', '2']).withMessage('Product ID must be 1 or 2'),
+  (req: Request, res: Response, next: express.NextFunction) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ 
+        error: 'Validation failed', 
+        details: errors.array() 
+      })
+    }
+    next()
+  }
+]
+
+paymentsRouter.post('/checkout/:id', validateProductId, asyncErrWrapper(async (req, res) => {
   try {
     const userId = await verifyAndDecodeToken(req.headers.authorization)
     const id = req.params.id
-    if (id < '1' || id > '2') {
-      const e = new Error(`Product id ${id} requested, is invalid`)
-      const { status, error } = formatError(e, '003-RESPONSE', 'paymentsRouter order-status')
-      res.status(status).json(error)
-    }
     const getCheckoutTimestamp = performance.now()
     const price = id === '1' ? productPrice1 : productPrice2
     const productId = id === '1' ? product1 : product2
@@ -253,15 +278,10 @@ paymentsRouter.post('/webhook', asyncErrWrapper(async (req, res) => {
  *     security:
  *       - Authorization: []
  */
-paymentsRouter.get('/order-status/:productId', asyncErrWrapper(async (req, res) => {
+paymentsRouter.get('/order-status/:productId', validateProductIdParam, asyncErrWrapper(async (req, res) => {
   try {
     const userId = await verifyAndDecodeToken(req.headers.authorization)
     const id = req.params.productId
-    if (id < '1' || id > '2') {
-      const e = new Error(`Product id ${id} requested, is invalid`)
-      const { status, error } = formatError(e, '003-RESPONSE', 'paymentsRouter order-status')
-      return res.status(status).json(error)
-    }
     const productId = id === '1' ? product1 : product2
 
     const oneMonthAgo = new Date()

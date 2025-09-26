@@ -1,76 +1,216 @@
-# B4F
-Node backend, copy .env.example vars in .env file (you should create it) and ask [me](https://github.com/DrBlink7) on how to fill vars.
-It will run (by default) on 3001 port, you can see API Swagger [there](http://localhost:3001/swagger/)
+# B4F - Backend for Frontend
 
-To run BE
-```sh
+Modern Node.js backend built with Express, TypeScript, Prisma, and integrated with Stripe and Kinde authentication.
+
+## 🚀 Features
+
+- **Express.js** with TypeScript for robust API development
+- **Prisma ORM** for database management and migrations
+- **Stripe Integration** for payment processing and webhooks
+- **Kinde Authentication** for secure user management
+- **Swagger Documentation** for API exploration
+- **Rate Limiting** and security middleware
+- **Comprehensive Logging** with Pino
+- **Jest Testing** with coverage reports
+- **ESLint + Prettier** for code quality
+
+## 🛠️ Setup
+
+1. Copy environment variables:
+```bash
+cp .env.example .env
+```
+
+2. Fill in the required environment variables in `.env`
+
+3. Install dependencies:
+```bash
+yarn install
+```
+
+4. Generate Prisma client:
+```bash
+yarn prisma:generate
+```
+
+5. Run database migrations:
+```bash
+yarn prisma:migrate
+```
+
+6. Start the development server:
+```bash
+yarn start:dev
+```
+
+The API will run on http://localhost:3001
+
+## 📚 API Documentation
+
+- **Swagger UI**: http://localhost:3001/swagger
+- **API Endpoints**: All endpoints are prefixed with `/api`
+
+## 🔐 Authentication (Kinde)
+
+Configure your Kinde application and set the environment variables:
+
+### Environment Variables
+- `AUTH_URL` - Your Kinde public URL
+- `KINDE_CLIENT_ID` - Kinde client ID
+- `KINDE_CLIENT_SECRET` - Kinde client secret
+- `KINDE_ISSUER_URL` - Kinde issuer URL
+- `KINDE_SITE_URL` - Your site URL
+- `KINDE_POST_LOGOUT_REDIRECT_URL` - Post logout redirect URL
+- `KINDE_POST_LOGIN_REDIRECT_URL` - Post login redirect URL
+
+### Machine-to-Machine (M2M)
+For M2M authentication, enable Kinde Management APIs and configure the appropriate scopes.
+
+## 💳 Stripe Integration
+
+### Environment Variables
+```bash
+STRIPE_SECRET_KEY=sk_test_...          # Stripe secret key
+STRIPE_WEBHOOK_SECRET=whsec_...        # Webhook secret
+SUCCESS_URL=http://localhost:3000/success  # Success redirect URL
+CANCEL_URL=http://localhost:3000/cancel    # Cancel redirect URL
+PRODUCT_ID1=prod_...                   # First product ID
+PRODUCT_PRICE1=price_...               # First product price ID
+PRODUCT_ID2=prod_...                   # Second product ID
+PRODUCT_PRICE2=price_...               # Second product price ID
+```
+
+### Webhook Setup
+
+#### Option 1: Stripe Dashboard
+1. Go to [Stripe Webhooks](https://dashboard.stripe.com/test/workbench/webhooks)
+2. Add endpoint: `http://localhost:3001/api/payments/webhook`
+3. Select events: `checkout.session.completed`, `payment_intent.succeeded`
+4. Copy the webhook secret to `STRIPE_WEBHOOK_SECRET`
+
+#### Option 2: Stripe CLI (Local Development)
+```bash
+# Install Stripe CLI
+brew install stripe/stripe-cli/stripe
+
+# Login to Stripe
 stripe login
+
+# Start webhook listener
 stripe listen --forward-to http://localhost:3001/api/payments/webhook
+
+# Copy the webhook secret from the output
 ```
-copy and set
-```sh
-STRIPE_WEBHOOK_SECRET=
+
+## 🗄️ Database (PostgreSQL + Prisma)
+
+### Environment Variables
+```bash
+DATABASE_URL="postgresql://dev:devPassword@db:5432/postgres?schema=public"
 ```
-with the corresponding value, then
-```sh
+
+### Prisma Commands
+```bash
+# Generate Prisma client
+yarn prisma:generate
+
+# Create a new migration
+yarn prisma migrate dev --name migration_name
+
+# Apply migrations
+yarn prisma:migrate
+
+# Deploy migrations (production)
+yarn prisma:deploy
+
+# Open Prisma Studio
+yarn prisma:studio
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+yarn test
+
+# Run tests in watch mode
+yarn test:watch
+
+# Run tests with coverage
+yarn test:coverage
+```
+
+## 🔧 Development
+
+### Code Quality
+```bash
+# Lint code
+yarn lint
+
+# Fix linting issues
+yarn lint:fix
+
+# Type check
+yarn type-check
+```
+
+### Available Scripts
+
+- `yarn start` - Start production server
+- `yarn start:dev` - Start development server with hot reload
+- `yarn build` - Build TypeScript
+- `yarn test` - Run tests
+- `yarn test:watch` - Run tests in watch mode
+- `yarn test:coverage` - Run tests with coverage
+- `yarn lint` - Lint code
+- `yarn lint:fix` - Fix linting issues
+- `yarn type-check` - TypeScript type checking
+- `yarn prisma:generate` - Generate Prisma client
+- `yarn prisma:migrate` - Run database migrations
+- `yarn prisma:deploy` - Deploy migrations (production)
+- `yarn prisma:studio` - Open Prisma Studio
+
+## 📁 Project Structure
+
+```
+b4f/
+├── src/
+│   ├── api/             # API routes and controllers
+│   ├── config/          # Configuration files
+│   ├── db/              # Database configuration
+│   ├── logger/          # Logging utilities
+│   └── swagger/         # Swagger documentation
+├── prisma/              # Prisma schema and migrations
+├── test/                # Test files
+├── src/index.ts         # Main application entry point
+└── package.json
+```
+
+## 🚀 Docker Deployment
+
+```bash
+# Build and start with Docker Compose
 docker compose up --build b4f
+
+# Run migrations in container
 docker compose exec b4f yarn prisma migrate dev
-```
-Set ```SERVER_PORT``` (default is 3001), ```ENABLE_CORS``` (ex. *) and desired ```ENVIRONMENT_NAME``` (ex. dev, qa or prod) to run Node BE.
 
-## Kinde
-You need to configure your kinde and then set your env AUTH_URL corresponding to your kinde public url.
-
-Remember that if you need M2M, you need to set M2M application, enabling Kinde Management APIs and give all scope needed to Access Token.
-
-## Stripe
-You need to configure your stripe to have two products to sell, then you need to set these env vars:
-```sh
-STRIPE_SECRET_KEY= #the secret key you find on stripe dashboard
-SUCCESS_URL= #the desired frontend url redirect for payment success
-CANCEL_URL= #the desired frontend url redirect for payment error
-PRODUCT_ID1= #the id of the first product you find on stripe dashboard
-PRODUCT_PRICE1= #the price key of the first product you find on stripe dashboard
-PRODUCT_ID2= #the id of the second product you find on stripe dashboard
-PRODUCT_PRICE2= #the price key of the second product you find on stripe dashboard
-```
-### Webhooks
-You can set webhook on your [stripe dashboard](https://dashboard.stripe.com/test/workbench/webhooks) and then set the env var
-```sh
-STRIPE_WEBHOOK_SECRET=
+# Generate Prisma client in container
+docker compose exec b4f yarn prisma:generate
 ```
 
-Otherwise you can enable the listener for stripe webhooks locally
-1. ```brew install stripe/stripe-cli/stripe```
-2. ```stripe login```
-3. set the listener to run on your BE ```stripe listen --forward-to localhost:3001/api/payments/webhook``` you will receive a Webhook Secret key, you need to set the corresponding ```STRIPE_WEBHOOK_SECRET``` env var and restart your BE docker container (if you have it already running)
+## 🔒 Security Features
 
-## DB
-Db is postres, set DATABASE_URL according to your settings or use the contenerized one:
-```sh
-DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public"
-```
-default value, coming from docker compose, is DATABASE_URL="postgresql://dev:devPassword@db:5432/postgres?schema=public"
+- **Rate Limiting** - Prevents API abuse
+- **Helmet** - Security headers
+- **CORS** - Cross-origin resource sharing
+- **Input Validation** - Request validation
+- **JWT Verification** - Secure token handling
+- **Webhook Verification** - Stripe webhook security
 
-## Prisma
-We use Prisma as Orm and migration tool
-1. Set the DATABASE_URL in the .env file to point to your existing database. If your database has no tables yet, read https://pris.ly/d/getting-started
-2. Set the provider of the datasource block in schema.prisma to match your database: postgresql, mysql, sqlite, sqlserver, mongodb or cockroachdb.
-3. Run prisma db pull to turn your database schema into a Prisma schema.
-4. Run prisma generate to generate the Prisma Client. You can then start querying your database.
-5. Tip: Explore how you can extend the ORM with scalable connection pooling, global caching, and real-time database events. Read: https://pris.ly/cli/beyond-orm
+## 📊 Monitoring & Logging
 
-### Create a migration
-```sh
-docker compose exec b4f yarn prisma migrate dev --name migration_name
-```
-
-### Execute a migration
-```sh
-docker compose exec b4f yarn prisma migrate dev
-```
-or
-```sh
-docker compose exec b4f yarn prisma migrate deploy
-```
-for production
+- **Structured Logging** with Pino
+- **Request/Response Logging** with Pino HTTP
+- **Error Tracking** and exception handling
+- **Performance Monitoring** capabilities
