@@ -1,74 +1,211 @@
-# Frontend
-Frontend will run (by default) on 5173 port.
+# Frontend1 - Modern React App
+
+Frontend1 è un'applicazione React moderna costruita con Vite, TypeScript, Tailwind CSS e DaisyUI. Include autenticazione Kinde, pagamenti Stripe e supporto per dark mode.
+
+## 🚀 Tecnologie
+
+- **React 19** - Framework UI moderno
+- **TypeScript** - Type safety
+- **Vite** - Build tool veloce
+- **Tailwind CSS** - Utility-first CSS framework
+- **DaisyUI** - Component library per Tailwind
+- **TanStack Query** - State management per server state
+- **React Router** - Routing
+- **Kinde Auth** - Autenticazione
+- **Stripe** - Pagamenti
+- **i18next** - Internazionalizzazione
+
+## 🎨 UI/UX Features
+
+- **Dark/Light Mode** - Toggle automatico con persistenza
+- **Responsive Design** - Mobile-first approach
+- **Modern Components** - DaisyUI component library
+- **Smooth Animations** - Transizioni fluide
+- **Custom Scrollbar** - Scrollbar personalizzata
+- **Loading States** - Stati di caricamento eleganti
+
+## ⚙️ Configurazione
+
+### Variabili d'ambiente
 
 ```sh
-PORT= #default is 5173
-VITE_APP_AUTHORIZATION= #the header on which you'll send the token, default is authorization
-VITE_APP_SECRET_KEY= #a secret key to hash the redux store, (ex. unaChiaveSegreta)
-VITE_APP_BASE_URL= #your FE hosted url ex. http://localhost:5173
-VITE_APP_BE_URL= #your BE hosted url ex. http://localhost:3001
+# Server
+PORT=5173  # Porta del server (default: 5173)
+VITE_APP_BASE_URL=http://localhost:5173  # URL del frontend
+VITE_APP_BE_URL=http://localhost:3001    # URL del backend
+
+# Autenticazione
+VITE_APP_AUTHORIZATION=authorization      # Header per il token
+VITE_APP_SECRET_KEY=your-secret-key       # Chiave segreta per l'app
+
+# Kinde Auth
+VITE_APP_KINDE_CLIENT_ID=your-client-id
+VITE_APP_KINDE_DOMAIN=your-domain.kinde.com
+VITE_APP_KINDE_REDIRECT_URL=http://localhost:5173
+
+# Stripe
+VITE_STRIPE_PUBLIC_KEY=pk_test_your-stripe-key
 ```
 
-## Kinde
-We implemented Login with kinde, to change kinde auth set your configuration of these env vars
+## 🛠️ Scripts
 
-```sh
-VITE_APP_KINDE_CLIENT_ID= #set your kinde clint id
-VITE_APP_KINDE_DOMAIN= #set your kinde domain
-VITE_APP_KINDE_REDIRECT_URL= #set desired redirect url
+```bash
+# Sviluppo
+yarn dev          # Avvia il server di sviluppo
+yarn build        # Build per produzione
+yarn preview      # Preview del build
+
+# Testing
+yarn test         # Esegue i test
+yarn test:ui      # UI per i test
+yarn test:coverage # Test con coverage
+
+# Code Quality
+yarn lint         # Linting
 ```
 
-## Stripe
-We Implemented Stripe as payment service, You need to configure your stripe to have two products to sell, then you need to set these env vars:
-```sh
-VITE_STRIPE_PUBLIC_KEY= #the public key you find on stripe dashboard
+## 🏗️ Struttura del Progetto
+
+```
+src/
+├── Components/          # Componenti UI
+│   ├── Home.tsx        # Dashboard principale
+│   ├── ThemeToggle.tsx # Toggle dark/light mode
+│   └── ...
+├── Controllers/        # Controllori/pagine
+├── Hooks/             # Custom hooks
+│   └── useTheme.ts    # Hook per gestione tema
+├── providers/         # Context providers
+│   └── QueryProvider.tsx # TanStack Query provider
+├── Api/               # API calls
+├── Utils/             # Utility functions
+├── Translations/      # i18n files
+└── index.tsx          # Entry point
 ```
 
-## Dev settings
-We use React + TypeScript + Vite. This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🎯 Features Principali
 
-Currently, two official plugins are available:
+### 1. **State Management Moderno**
+- **TanStack Query** per server state e caching
+- **React Context** per stato globale
+- **Custom Hooks** per logica riutilizzabile
+- **No Redux** - Approccio più semplice e moderno
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 2. **UI/UX Avanzata**
+- **DaisyUI** component library
+- **Tailwind CSS** per styling
+- **Dark/Light mode** con persistenza
+- **Responsive design** mobile-first
 
-### Expanding the ESLint configuration
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 3. **Autenticazione & Pagamenti**
+- **Kinde Auth** per login/logout
+- **Stripe** per pagamenti
+- **Token management** automatico
 
-- Configure the top-level `parserOptions` property like this:
+### 4. **Developer Experience**
+- **TypeScript** strict mode
+- **ESLint** configurazione avanzata
+- **Vitest** per testing
+- **Hot reload** con Vite
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
+## 🌙 Dark Mode
+
+Il tema viene gestito automaticamente:
+- **Sistema preference** come default
+- **LocalStorage** per persistenza
+- **Smooth transitions** tra i temi
+- **Toggle button** nell'header
+
+## 📱 Responsive Design
+
+- **Mobile-first** approach
+- **Breakpoints** Tailwind standard
+- **Flexible layouts** con CSS Grid/Flexbox
+- **Touch-friendly** interactions
+
+## 🧪 Testing
+
+```bash
+# Test unitari
+yarn test
+
+# Test con UI
+yarn test:ui
+
+# Coverage report
+yarn test:coverage
+```
+
+## 🚀 Deployment
+
+```bash
+# Build per produzione
+yarn build
+
+# Preview locale
+yarn preview
+```
+
+## 🔧 Sviluppo
+
+### Aggiungere un nuovo componente
+
+```tsx
+// src/Components/MyComponent.tsx
+import { FC } from 'react';
+
+interface MyComponentProps {
+  title: string;
+  onAction: () => void;
+}
+
+const MyComponent: FC<MyComponentProps> = ({ title, onAction }) => {
+  return (
+    <div className="card bg-base-100 shadow-lg">
+      <div className="card-body">
+        <h2 className="card-title">{title}</h2>
+        <button className="btn btn-primary" onClick={onAction}>
+          Action
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+### Aggiungere una query
+
+```tsx
+// Con TanStack Query
+const { data, isLoading, error } = useQuery({
+  queryKey: ['my-data'],
+  queryFn: () => fetchMyData(),
+  staleTime: 5 * 60 * 1000, // 5 minuti
+});
+
+// Con custom hook
+const { data, isLoading, error } = useMyDataQuery();
+```
+
+### Aggiungere una mutation
+
+```tsx
+// Con TanStack Query
+const mutation = useMutation({
+  mutationFn: (data) => updateData(data),
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['my-data'] });
   },
-})
+});
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 📚 Risorse
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '19.0' } },
-  plugins: {
-    // Add the react plugin
-    react
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules
-  }
-})
-```
+- [React 19 Docs](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [DaisyUI](https://daisyui.com/)
+- [TanStack Query](https://tanstack.com/query)
+- [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)

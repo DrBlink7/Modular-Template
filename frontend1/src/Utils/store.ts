@@ -1,64 +1,36 @@
-import { type TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
-import { type Dispatch, type ThunkDispatch, type UnknownAction } from '@reduxjs/toolkit'
-import { type State } from '../types'
-import type store from '../Store'
 import * as ls from './ls'
 
-export const loadState = (): State => {
+// Utility functions for localStorage management
+export const loadState = <T>(key: keyof typeof ls, defaultValue: T): T => {
   try {
-    const serializedStore = ls.get('YOUR_PROJECT')
-
-    if (serializedStore === null || serializedStore === undefined) {
-      return {
-        userInfo: userInitialState
-      }
-    }
-
-    return {
-      ...serializedStore
-    }
+    const serializedStore = ls.get(key as any)
+    return serializedStore !== null && serializedStore !== undefined 
+      ? serializedStore 
+      : defaultValue
   } catch {
-    return {
-      userInfo: userInitialState
-    }
+    return defaultValue
   }
 }
 
-export const saveState = (state: State): boolean => {
-  const { ...stateToSave } = state
+export const saveState = <T>(key: keyof typeof ls, state: T): boolean => {
   try {
-    ls.set('YOUR_PROJECT', stateToSave)
-
-    return ls.has('YOUR_PROJECT')
+    ls.set(key as any, state)
+    return ls.has(key as any)
   } catch {
     return false
   }
 }
 
-export const userInitialState: State['userInfo'] = {
-  postStatus: 'idle',
-  errorMessage: ''
-}
-
-export const useAppSelector: TypedUseSelectorHook<State> = useSelector
-export const useAppDispatch = (): ThunkDispatch<{
-  userInfo: State['userInfo']
-}, undefined, UnknownAction> & Dispatch<UnknownAction> => useDispatch<typeof store.dispatch>()
-
-export const formatThunkError = (e: unknown, fallback: string): string =>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (e as any).response.data
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ? toString((e as any).response.data, fallback)
-    : toString(e, fallback)
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const toString = (data: any, fallback: string): string => {
-  if (typeof data === 'string') return data
-  if (typeof data === 'object') {
-    if (data !== null && 'message' in data) { return toString(data.message, fallback) }
-    return fallback
-  } else {
-    return data.toString()
+// Utility function for error formatting
+export const formatError = (e: unknown, fallback: string): string => {
+  if (e instanceof Error) {
+    return e.message
   }
+  if (typeof e === 'string') {
+    return e
+  }
+  if (typeof e === 'object' && e !== null && 'message' in e) {
+    return String((e as any).message)
+  }
+  return fallback
 }

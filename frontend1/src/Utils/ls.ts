@@ -1,10 +1,10 @@
 import { effect } from './f'
 import { secretKey } from './config'
-import { type State } from '../types'
+// Removed State import as it's no longer needed
 import CryptoJS from 'crypto-js'
 
 interface LocalStorageMap {
-  YOUR_PROJECT: State
+  YOUR_PROJECT: any
 }
 
 export const set = <K extends keyof LocalStorageMap>(

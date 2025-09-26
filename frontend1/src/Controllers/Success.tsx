@@ -1,39 +1,30 @@
 import { FC } from 'react'
-import { Box, Typography, Button, useTheme } from '@mui/material'
-import { ArrowBack } from '@mui/icons-material'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 
 const Success: FC = () => {
-  const theme = useTheme()
   const navigate = useNavigate()
 
-  return <Box
-    sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100vh',
-      bgcolor: theme.palette.secondary.main,
-      color: theme.palette.primary.main,
-      p: 2
-    }}
-  >
-    <Typography variant="h3" gutterBottom>
-      Success
-    </Typography>
-    <Typography variant="body1" gutterBottom>
-      Your operation was successful!
-    </Typography>
-    <Button
-      variant="contained"
-      startIcon={<ArrowBack />}
-      onClick={() => navigate('/')}
-      sx={{ mt: 2 }}
-    >
-      Back to Home
-    </Button>
-  </Box>
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-success text-success-content p-8">
+      <div className="text-center">
+        <h1 className="text-5xl font-bold mb-4">
+          Success
+        </h1>
+        <p className="text-xl mb-8">
+          Your operation was successful!
+        </p>
+        <button
+          className="btn btn-primary btn-lg"
+          onClick={() => navigate('/')}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+          Back to Home
+        </button>
+      </div>
+    </div>
+  )
 }
 
 export default Success

@@ -1,16 +1,5 @@
 import { type FC } from 'react'
-import {
-  CssBaseline,
-  Box,
-  Avatar,
-  Button,
-  Typography,
-  useTheme,
-  Paper
-} from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { useAppDispatch } from '../Utils/store'
-import { setErrorMessage, clearErrorMessage } from '../Store/users'
 import { parseErrorMessage } from '../Utils/f'
 import { useKindeAuth } from '@kinde-oss/kinde-auth-react'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
@@ -22,16 +11,13 @@ import Loader from '../Components/Loader'
 
 const Login: FC = () => {
   const { t } = useTranslation()
-  const theme = useTheme()
-  const dispatch = useAppDispatch()
   const { login, isLoading, error, logout } = useKindeAuth()
 
   const handleLoginClick = async () => {
     try {
       await login()
     } catch (e) {
-      const msg = parseErrorMessage((e))
-      dispatch(setErrorMessage(msg))
+      console.error('Login error:', parseErrorMessage(e))
     }
   }
 
@@ -40,7 +26,6 @@ const Login: FC = () => {
 
     return (
       <ErrorComponent msg={msg} clearError={() => {
-        dispatch(clearErrorMessage())
         void logout()
       }} />
     )
@@ -50,59 +35,37 @@ const Login: FC = () => {
     return <Loader />
   }
 
-  return <ImageLayout
-    data-testid="login-component"
-    style={{
-      height: '100vh',
-      width: '100vw',
-      justifyContent: 'center',
-      backgroundColor: theme.palette.secondary.light
-    }}
-  >
-    <CssBaseline />
-    <Box
-      component={Paper}
-      elevation={10}
-      data-testid="login-box"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        alignSelf: 'center',
-        justifyContent: 'space-between',
-        width: '35%',
-        maxWidth: '600px',
-        padding: '4%',
-        borderRadius: '5%',
-        minHeight: '55%',
-        backgroundColor: theme.palette.secondary.dark,
-        color: theme.palette.primary.main
-      }}
+  return (
+    <ImageLayout
+      className="h-screen w-screen flex justify-center bg-secondary/20"
+      data-testid="login-component"
     >
-      <Box display='flex' flexDirection='column' alignItems='center' height='100%' data-testid="login-box2" width='100%' justifyContent='center' gap='3vh'>
-        <Avatar
-          sx={{ backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main, width: '75px', height: '75px' }}
-          component={Paper}
-          elevation={5}
-          data-testid="login-avatar"
-        >
-          <img src={Logo} height='75px' />
-        </Avatar>
-        <Typography variant="h5" data-testid="login-text"> {t('login.welcome')} </Typography>
-        <Button
-          type="submit"
-          variant="contained"
-          fullWidth
-          onClick={() => { void handleLoginClick() }}
-          sx={{ fontWeight: 800, boxShadow: 10, width: '40%', maxWidth: '220px' }}
-          data-testid="login-button"
-          startIcon={<FontAwesomeIcon icon={faRightToBracket} />}
-        >
-          {t('login.signin')}
-        </Button>
-      </Box>
-    </Box>
-  </ImageLayout>
+      <div
+        className="card w-1/3 max-w-2xl bg-secondary shadow-2xl"
+        data-testid="login-box"
+      >
+        <div className="card-body p-8 min-h-96 flex flex-col items-center justify-center gap-8">
+          <div className="avatar" data-testid="login-avatar">
+            <div className="w-20 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <img src={Logo} alt="Logo" className="w-full h-full object-contain" />
+            </div>
+          </div>
+          <h2 className="card-title text-2xl text-primary" data-testid="login-text">
+            {t('login.welcome')}
+          </h2>
+          <button
+            type="button"
+            className="btn btn-primary btn-lg w-48 font-bold"
+            onClick={() => { void handleLoginClick() }}
+            data-testid="login-button"
+          >
+            <FontAwesomeIcon icon={faRightToBracket} className="mr-2" />
+            {t('login.signin')}
+          </button>
+        </div>
+      </div>
+    </ImageLayout>
+  )
 }
 
 export default Login

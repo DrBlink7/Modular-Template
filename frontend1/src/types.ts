@@ -13,18 +13,10 @@ export interface BuyProductResponse { url: string | null }
 export interface IsProductPaid { token: string, id: number }
 export interface IsProductPaidResponse { hasPaid: boolean }
 /**
- * Redux
+ * API Response Types
  */
-export interface State {
-  userInfo: UserStore
-}
 export interface Authenticated {
   token: string
-}
-type Status = 'success' | 'idle' | 'error' | 'loading'
-interface UserStore {
-  errorMessage: string
-  postStatus: Status
 }
 /**
  * Utils

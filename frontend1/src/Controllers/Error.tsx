@@ -2,7 +2,6 @@ import { type FC, useState, useEffect, Fragment } from 'react'
 import { type WithChildren } from '../types'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { Box, Typography, Button } from '@mui/material'
 import { useLogger } from '../Hooks/Logger'
 import ErrorLayout from '../Components/ErrorLayout'
 import * as ls from '../Utils/ls'
@@ -43,36 +42,23 @@ const ErrorBoundary: FC<WithChildren> = ({ children }) => {
   if (errorMessage !== null) {
     return (
       <ErrorLayout>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column'
-          }}
-        >
-          <Typography variant="h1" sx={{ mb: 2.5 }}>
+        <div className="flex flex-col items-center text-center">
+          <h1 className="text-6xl font-bold mb-8 text-error">
             {t('error.title')}
-          </Typography>
-          <Typography variant="h5" sx={{ mb: 2.5, fontSize: 'large' }}>
+          </h1>
+          <h2 className="text-2xl mb-8 text-base-content">
             {errorMessage} 👨🏻‍💻
-          </Typography>
-          <Typography variant="body2">{t('error.body')}</Typography>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            marginTop: '4vh',
-            justifyContent: 'space-between'
-          }}
-        >
-          <Button variant="contained" onClick={clearError} sx={{ minWidth: '15vw' }}>
+          </h2>
+          <p className="text-base-content/70 mb-8">{t('error.body')}</p>
+        </div>
+        <div className="flex flex-row w-full mt-8 justify-between gap-4">
+          <button className="btn btn-primary min-w-32" onClick={clearError}>
             {t('error.button')}
-          </Button>
-          <Button variant="contained" onClick={resetErrorBoundary} sx={{ minWidth: '15vw' }}>
+          </button>
+          <button className="btn btn-secondary min-w-32" onClick={resetErrorBoundary}>
             {t('error.logout')}
-          </Button>
-        </Box>
+          </button>
+        </div>
       </ErrorLayout>
     )
   }

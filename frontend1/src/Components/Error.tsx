@@ -1,6 +1,5 @@
 import { type FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Box, Button, Typography } from '@mui/material'
 import ErrorLayout from './ErrorLayout'
 
 interface ErrorComponentProps {
@@ -16,33 +15,28 @@ const ErrorComponent: FC<ErrorComponentProps> = ({
 
   return (
     <ErrorLayout>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column'
-        }}
+      <div
+        className="flex flex-col items-center text-center"
         data-testid="error-component"
       >
-        <Typography variant="h1" sx={{ mb: '2.5vh' }} data-testid="error-title">
+        <h1 className="text-6xl font-bold mb-8 text-error" data-testid="error-title">
           {t('error.title')}
-        </Typography>
-        <Typography
-          variant="h5"
-          sx={{ mb: '2.5vh', fontSize: 'large' }}
+        </h1>
+        <h2
+          className="text-2xl mb-8 text-base-content"
           data-testid="error-msg"
         >
           {msg}
-        </Typography>
-        <Typography variant="body2">{t('error.body')}</Typography>
-      </Box>
-      <Button
-        variant="contained"
-        onClick={clearError}
-        sx={{ marginTop: '2vh', width: '20vw' }}
-        data-testid="error-button"
-      >
-        {t('error.button')}
-      </Button>
+        </h2>
+        <p className="text-base-content/70 mb-8">{t('error.body')}</p>
+        <button
+          className="btn btn-primary btn-lg w-48"
+          onClick={clearError}
+          data-testid="error-button"
+        >
+          {t('error.button')}
+        </button>
+      </div>
     </ErrorLayout>
   )
 }
