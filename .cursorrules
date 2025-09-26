@@ -1,0 +1,440 @@
+# Cursor Rules - Standard Template
+
+## 🎯 Project Overview
+Full-stack application template: React + TypeScript + Tailwind | FastAPI + SQLAlchemy + PostgreSQL | Docker | OAuth2 + JWT | AI/LLM Integration
+
+## 🚀 Development Workflow
+
+### Before Making Changes
+1. **Check containers status**: `docker compose ps` - ensure all services are running
+2. **Verify services health**: Use health check commands if needed
+3. **No restart needed**: Backend and frontend auto-restart on code changes
+
+### Code Quality Checklist
+1. **Check for existing functions** before writing new ones
+2. **Place imports at the top** of files (never in the middle)
+3. **Refactor after implementation** - test before and after
+4. **Reuse existing code** instead of duplicating logic
+
+### Change Analysis (Conditional)
+- **Minor changes** (typos, comments, small fixes): Proceed directly
+- **Significant changes** (new features, refactoring, architecture): Analyze 3 options
+- **Critical changes** (auth, database, API): Always analyze + ask user
+
+### Analysis Steps (When Required)
+1. Scan codebase for current implementation
+2. Identify affected components (models, services, APIs, frontend)
+3. Consider database implications (migrations needed?)
+4. Evaluate impact on existing functionality
+
+### Post-Implementation Steps
+1. **Test functionality** before refactoring
+2. **Search for code duplication** in the codebase
+3. **Extract common logic** into reusable functions/components
+4. **Refactor to reuse existing code** where possible
+5. **Test functionality** after refactoring to ensure nothing broke
+6. **Add tests** for new functionality after refactoring
+
+### Implementation Options (When Required)
+- **Option 1**: Minimal changes, backward compatible
+- **Option 2**: Moderate refactoring, improved architecture  
+- **Option 3**: Major refactoring, future-proof design
+
+**Evaluation Criteria**: Maintainability | Performance | Scalability | Security | Testing
+
+## 🗄️ Database & Migrations
+
+### Migration Workflow (CRITICAL: Containers must be running)
+```bash
+# 1. Start containers
+docker compose up --build
+
+# 2. Verify database health
+docker compose exec db pg_isready -U dev -d postgres
+
+# 3. Create migration
+docker compose exec backend uv run alembic revision --autogenerate -m "descriptive name"
+
+# 4. Apply migration
+docker compose exec backend uv run alembic upgrade head
+
+# 5. Revert (if needed)
+docker compose exec backend uv run alembic downgrade -1
+```
+
+### Migration Files
+- `backend/alembic/versions/`: All migration files
+- `backend/alembic/env.py`: Migration environment configuration
+
+## 🎨 Frontend Development (React/TypeScript)
+
+### Component Standards (MANDATORY)
+```typescript
+interface ComponentNameProps {
+  requiredProp: string;
+  optionalProp?: number;
+  children?: ReactNode;
+  onAction: (value: string) => void;
+}
+
+const ComponentName: FC<ComponentNameProps> = ({ 
+  requiredProp, 
+  optionalProp, 
+  children, 
+  onAction 
+}) => {
+  // Implementation
+};
+
+export default ComponentName;
+```
+
+### API Integration (CRITICAL)
+```typescript
+// ✅ CORRECT - Use React Query hooks
+const { data, isLoading, error } = useDataQuery(filters);
+
+// ❌ WRONG - Never use direct fetch
+const response = await fetch('/api/v1/endpoint');
+```
+
+### Query Hooks Pattern
+```typescript
+// Query key function
+export const dataQueryKey = (filters?: DataFilters) => [
+  ...QUERY_KEYS.DATA_ALL,
+  "data", 
+  "endpoint",
+  { filters: filters ?? {} },
+] as const;
+
+// Query hook
+export function useDataQuery(
+  filters?: DataFilters, 
+  options?: UseQueryOptions<DataResponse, Error, DataResponse>
+) {
+  return useQuery<DataResponse>({
+    queryKey: dataQueryKey(filters),
+    queryFn: () => apiClient.post<DataResponse>(API_ENDPOINTS.DATA_ENDPOINT, {
+      ...(filters ?? {}),
+    }),
+    staleTime: 60_000,
+    ...options,
+  });
+}
+```
+
+### State Management
+- **Server State**: React Query (TanStack Query)
+- **Local State**: React useState/useReducer
+- **Global State**: Context API when needed
+
+### Styling
+- **Framework**: Tailwind CSS + component library
+- **Responsive**: Mobile-first approach
+- **Icons**: Consistent icon library
+
+### Internationalization
+```typescript
+const { t } = useTranslation("namespace");
+// In JSX: <h1>{t("title")}</h1>
+```
+
+### TypeScript Code Standards
+```typescript
+// ✅ CORRECT - All imports at the top
+import { FC, useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
+import { API_ENDPOINTS } from "@/api/endpoints";
+
+// ❌ WRONG - Imports in the middle of code
+const Component: FC = () => {
+  import { useToast } from "@/hooks/useToast"; // Don't do this
+  return <div>Content</div>;
+};
+```
+
+### Frontend Code Reuse
+- **Before writing new function**: Search existing components/hooks for similar functionality
+- **Extract common logic**: Create custom hooks for repeated patterns
+- **Refactor after implementation**: Test before and after refactoring
+- **Component composition**: Reuse existing components instead of duplicating
+
+## 🔧 Backend Development (FastAPI)
+
+### API Endpoint Standards (MANDATORY)
+```python
+@router.get("/endpoint")
+async def endpoint_name(
+    db: AsyncSession = Depends(get_async_db),
+    token: HTTPAuthorizationCredentials = Depends(security),
+):
+    """Endpoint description."""
+    await validate_token(token)
+    # Implementation
+```
+
+### Authentication Patterns
+- **User Endpoints**: `validate_token(token)` - validates JWT
+- **Admin Endpoints**: `validate_token(token, permission_check=True)` - requires admin permission
+- **Internal Endpoints**: `validate_internal_token(credentials)` - uses internal API token
+
+### Database Patterns
+```python
+# Always use async sessions
+async def service_function(db: AsyncSession):
+    result = await db.execute(select(Model).where(Model.id == id))
+    return result.scalar_one_or_none()
+
+# Always handle exceptions
+try:
+    result = await some_operation()
+except Exception as e:
+    logger.error(f"Operation failed: {e}")
+    raise HTTPException(status_code=500, detail="Operation failed")
+```
+
+### Python Code Standards
+```python
+# ✅ CORRECT - All imports at the top
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from app.models import User
+from app.schemas import UserCreate
+
+# ❌ WRONG - Imports in the middle of code
+def some_function():
+    from app.utils import helper  # Don't do this
+    return helper()
+```
+
+#### Import Patterns (MANDATORY)
+```python
+# For non-__init__.py files:
+from app import models, schemas
+from app.core import security, validate_token, get_async_db
+from app.services import data_service, user_service
+from app.utils import logger, format_filters
+
+# For __init__.py files:
+from app.models.users import User
+from app.models.groups import Group
+```
+
+### Code Reuse Guidelines
+- **Before writing new function**: Search existing codebase for similar functionality
+- **Extract common logic**: Create utility functions for repeated patterns
+- **Refactor after implementation**: Test before and after refactoring
+- **DRY principle**: Don't Repeat Yourself - reuse existing code
+
+## 🧪 Testing Guidelines
+
+### Backend Testing (CRITICAL)
+```python
+# ✅ CORRECT - Test pure functions without auth
+def test_calculation_function():
+    result = calculate_value(data)
+    assert result == expected
+
+# ❌ WRONG - Don't test API endpoints without proper token
+def test_api_endpoint():
+    response = client.get("/api/v1/endpoint")  # Will fail without token
+```
+
+**For API endpoint testing, ask user to provide valid token or implement mock authentication.**
+
+### Test Structure
+- `backend/test/`: Backend tests
+- `frontend/src/__tests__/`: Frontend tests
+
+### Test Implementation Pattern
+```python
+# test/test_my_feature.py
+import unittest
+import sys
+import os
+
+# Add /app to Python path
+sys.path.insert(0, '/app')
+
+from app.my_module import my_function
+
+class TestMyFeature(unittest.TestCase):
+    def test_my_function(self):
+        result = my_function("test")
+        self.assertEqual(result, "expected")
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+### Test Execution Commands
+```bash
+# Run all tests
+docker compose exec backend bash -c "cd /app && uv run python -m unittest discover test -v"
+
+# Run specific test
+docker compose exec backend bash -c "cd /app && uv run python test/test_my_feature.py"
+
+# Run with coverage
+docker compose exec backend bash -c "cd /app && uv run coverage run -m unittest discover test -v && uv run coverage report"
+```
+
+### Test Requirements
+- **After implementing new functionality**: Always add corresponding tests
+- **Use unittest**: More stable than pytest for this project
+- **Test pure functions**: Focus on functions without external dependencies
+- **Mock external dependencies**: Use unittest.mock when needed
+- **One test per function**: Clear, focused test cases
+
+## 🐳 Docker & Infrastructure
+
+### Development Commands
+```bash
+# Check if containers are running first
+docker compose ps
+
+# Start all services (only if not running)
+docker compose up --build
+
+# Start specific service
+docker compose up backend
+
+# View logs
+docker compose logs -f backend
+
+# Execute commands
+docker compose exec backend uv run python script.py
+docker compose exec frontend yarn test
+```
+
+### Auto-Restart Behavior
+- **Backend**: Auto-restarts on code changes (hot reload)
+- **Frontend**: Auto-restarts on code changes (Vite dev server)
+- **No manual restart needed** for development changes
+- **Only rebuild** when changing dependencies or Docker configuration
+
+### Health Checks
+```bash
+# Database
+docker compose exec db pg_isready -U dev -d postgres
+
+# Backend
+curl http://localhost:8000/health
+
+# Frontend  
+curl http://localhost:3000
+```
+
+## 🔐 Security Guidelines
+
+### Authentication
+- Never hardcode tokens in code
+- Use environment variables for all secrets
+- Validate all inputs with Pydantic models
+- Implement proper CORS configuration
+
+### Data Protection
+- Sanitize user inputs before database operations
+- Use parameterized queries (SQLAlchemy ORM handles this)
+- Implement rate limiting for API endpoints
+- Log security events appropriately
+
+## 🚀 Performance Guidelines
+
+### Frontend
+- **Code Splitting**: Use React.lazy for route-based splitting
+- **Memoization**: Use React.memo, useMemo, useCallback appropriately
+- **Query Optimization**: Set appropriate staleTime and cacheTime
+
+### Backend
+- **Database Queries**: Use proper indexing and query optimization
+- **Async Operations**: Use async/await throughout
+- **Connection Pooling**: Configure database connection pools
+
+## 📝 Code Quality Standards
+
+### TypeScript
+- **Strict Mode**: Always use strict TypeScript configuration
+- **Type Definitions**: Define interfaces for all data structures
+- **No Any Types**: Avoid `any` type, use proper typing
+
+### Python
+- **Type Hints**: Use type hints for all function parameters and returns
+- **Pydantic**: Use Pydantic models for data validation
+- **Async/Await**: Use async patterns consistently
+
+## 🔄 Git Workflow
+
+### Branch Naming
+- `feature/description`: New features
+- `fix/description`: Bug fixes
+- `refactor/description`: Code refactoring
+- `docs/description`: Documentation updates
+
+### Commit Messages
+```
+type(scope): description
+
+feat(api): add new endpoint
+fix(frontend): resolve layout issue
+refactor(backend): optimize database queries
+```
+
+## 🚨 Common Pitfalls to Avoid
+
+### Frontend
+- ❌ **Never use direct fetch** - always use React Query hooks
+- ❌ **Don't bypass authentication** - always use proper auth flow
+- ❌ **Avoid inline styles** - use CSS framework classes
+- ❌ **Don't ignore TypeScript errors** - fix all type issues
+
+### Backend
+- ❌ **Never skip authentication** - all endpoints need auth
+- ❌ **Don't ignore database migrations** - always create proper migrations
+- ❌ **Avoid blocking operations** - use async/await
+- ❌ **Don't hardcode configuration** - use environment variables
+
+### Database
+- ❌ **Never run migrations without containers running**
+- ❌ **Don't ignore foreign key constraints**
+- ❌ **Avoid N+1 queries** - use proper joins
+- ❌ **Don't skip data validation** - validate all inputs
+
+## 📊 Data Processing Guidelines
+
+### File Processing
+- **Supported Formats**: Define based on project needs
+- **Validation**: Comprehensive data quality checks
+- **Storage**: Use appropriate storage solution
+
+### Job Management
+- **Background Processing**: Use FastAPI BackgroundTasks
+- **Status Tracking**: Implement job status tracking
+- **Notifications**: Use appropriate notification system
+- **Error Handling**: Comprehensive error logging
+
+## 🎯 Project-Specific Patterns
+
+### Data Visualization
+- **Consistent Charts**: Use standardized chart components
+- **Filter System**: Implement reusable filtering patterns
+- **Real-time Updates**: Use appropriate real-time technology
+- **Caching Strategy**: Implement appropriate caching
+
+### User Interface
+- **Component Library**: Use consistent component patterns
+- **Responsive Design**: Mobile-first approach
+- **Accessibility**: Follow accessibility guidelines
+- **Internationalization**: Support multiple languages
+
+### API Design
+- **RESTful Patterns**: Follow REST conventions
+- **Error Handling**: Consistent error response format
+- **Documentation**: Auto-generate API documentation
+- **Versioning**: Implement API versioning strategy
+
+---
+
+**Remember**: When in doubt, ask the user for clarification. Each project has specific business requirements and patterns that may not be immediately obvious from the code alone.
