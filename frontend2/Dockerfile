@@ -5,13 +5,11 @@ WORKDIR /frontend2
 
 COPY package.json .
 COPY yarn.lock .
+COPY astro.config.mjs .
 COPY tsconfig.json .
-COPY tsconfig.app.json .
-COPY tsconfig.node.json .
-COPY vite.config.ts .
-COPY eslint.config.js .
+COPY tsconfig.eslint.json .
+COPY .eslintrc.json .
 COPY .env .
-COPY index.html .
 
 RUN yarn install --network-timeout 1000000000
 

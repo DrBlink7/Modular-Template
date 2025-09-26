@@ -1,20 +1,30 @@
 {
   "name": "frontend3",
-  "type": "module",
   "version": "0.0.1",
   "private": true,
   "author": "Andrea Manna",
+  "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "astro dev --host",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "dev": "next dev --turbopack -p 3003",
+    "build": "next build",
+    "start": "next start -p 3003",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "astro": "^5.7.13",
+    "next": "^15.3.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@types/node": "^22.15.18",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "eslint": "^9.26.0",
+    "eslint-config-next": "^15.3.2",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.7",
     "typescript": "^5.8.3"
   }
 }

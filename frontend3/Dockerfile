@@ -5,10 +5,14 @@ WORKDIR /frontend3
 
 COPY package.json .
 COPY yarn.lock .
-COPY astro.config.mjs .
+COPY .eslintrc.json .
+COPY eslint.config.mjs .
+COPY next-env.d.ts .
+COPY next.config.ts .
 COPY tsconfig.json .
 COPY tsconfig.eslint.json .
-COPY .eslintrc.json .
+COPY tailwind.config.ts .
+COPY postcss.config.mjs .
 COPY .env .
 
 RUN yarn install --network-timeout 1000000000

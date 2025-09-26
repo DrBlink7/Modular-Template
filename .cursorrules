@@ -1,7 +1,21 @@
-# Cursor Rules - Standard Template
+# Cursor Rules - Modular Template 2.0
 
 ## 🎯 Project Overview
-Full-stack application template: React + TypeScript + Tailwind | FastAPI + SQLAlchemy + PostgreSQL | Docker | OAuth2 + JWT | AI/LLM Integration
+Full-stack application template with multiple frontend technologies and backend services.
+
+## 📁 Project Structure & Technology Stack
+
+### Frontend Applications
+- **frontend**: React + TypeScript + Material-UI + Redux Toolkit
+- **frontend1**: React + TypeScript + Tailwind CSS + DaisyUI + TanStack Query
+- **frontend2-6**: Various frameworks (Vue, Angular, Next.js, Astro) - Skip for now
+
+### Backend Services
+- **backend**: FastAPI + Python + SQLAlchemy + PostgreSQL
+- **b4f**: Express + TypeScript + Node.js + Prisma + PostgreSQL
+
+### Utility Tools
+- **numpy**: Python + OpenCV + Tesseract (OCR)
 
 ## 🚀 Development Workflow
 
@@ -66,9 +80,11 @@ docker compose exec backend uv run alembic downgrade -1
 - `backend/alembic/versions/`: All migration files
 - `backend/alembic/env.py`: Migration environment configuration
 
-## 🎨 Frontend Development (React/TypeScript)
+## 🎨 Frontend Development
 
-### Component Standards (MANDATORY)
+### Frontend (React + Material-UI + Redux)
+
+#### Component Standards (MANDATORY)
 ```typescript
 interface ComponentNameProps {
   requiredProp: string;
@@ -83,22 +99,116 @@ const ComponentName: FC<ComponentNameProps> = ({
   children, 
   onAction 
 }) => {
-  // Implementation
+  return (
+    <Box>
+      <Typography variant="h5">{requiredProp}</Typography>
+      <Button onClick={() => onAction('test')}>
+        Action
+      </Button>
+    </Box>
+  );
 };
 
 export default ComponentName;
 ```
 
-### API Integration (CRITICAL)
+#### Redux Best Practices
 ```typescript
-// ✅ CORRECT - Use React Query hooks
-const { data, isLoading, error } = useDataQuery(filters);
+// ✅ CORRECT - Redux Toolkit patterns
+const userSlice = createSlice({
+  name: 'user',
+  initialState: {
+    data: null,
+    loading: false,
+    error: null
+  },
+  reducers: {
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+    setUser: (state, action) => {
+      state.data = action.payload;
+      state.loading = false;
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    }
+  }
+});
 
-// ❌ WRONG - Never use direct fetch
-const response = await fetch('/api/v1/endpoint');
+// Async thunks
+export const fetchUser = createAsyncThunk(
+  'user/fetchUser',
+  async (userId: string, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/users/${userId}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 ```
 
-### Query Hooks Pattern
+#### Material-UI Best Practices
+```typescript
+// ✅ CORRECT - Theme usage
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(1),
+    },
+  },
+}));
+
+// ✅ CORRECT - Responsive design
+<Grid container spacing={2}>
+  <Grid item xs={12} sm={6} md={4}>
+    <Card>Content</Card>
+  </Grid>
+</Grid>
+```
+
+#### State Management
+- **Global State**: Redux Toolkit
+- **Local State**: React useState/useReducer
+- **Server State**: Redux thunks + caching
+
+### Frontend1 (React + Tailwind + DaisyUI + TanStack Query)
+
+#### Component Standards (MANDATORY)
+```typescript
+interface ComponentNameProps {
+  requiredProp: string;
+  optionalProp?: number;
+  children?: ReactNode;
+  onAction: (value: string) => void;
+}
+
+const ComponentName: FC<ComponentNameProps> = ({ 
+  requiredProp, 
+  optionalProp, 
+  children, 
+  onAction 
+}) => {
+  return (
+    <div className="card bg-base-100 shadow-lg">
+      <div className="card-body">
+        <h2 className="card-title">{requiredProp}</h2>
+        <button className="btn btn-primary" onClick={() => onAction('test')}>
+          Action
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default ComponentName;
+```
+
+#### TanStack Query Best Practices
 ```typescript
 // Query key function
 export const dataQueryKey = (filters?: DataFilters) => [
@@ -124,23 +234,33 @@ export function useDataQuery(
 }
 ```
 
-### State Management
-- **Server State**: React Query (TanStack Query)
+#### Tailwind CSS + DaisyUI Best Practices
+```typescript
+// ✅ CORRECT - DaisyUI components
+<div className="card bg-base-100 shadow-xl">
+  <div className="card-body">
+    <h2 className="card-title">Card title</h2>
+    <p>Card description</p>
+    <div className="card-actions justify-end">
+      <button className="btn btn-primary">Action</button>
+    </div>
+  </div>
+</div>
+
+// ✅ CORRECT - Responsive design
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div className="card">Content</div>
+</div>
+```
+
+#### State Management
+- **Server State**: TanStack Query
 - **Local State**: React useState/useReducer
 - **Global State**: Context API when needed
 
-### Styling
-- **Framework**: Tailwind CSS + component library
-- **Responsive**: Mobile-first approach
-- **Icons**: Consistent icon library
+### Common Frontend Standards
 
-### Internationalization
-```typescript
-const { t } = useTranslation("namespace");
-// In JSX: <h1>{t("title")}</h1>
-```
-
-### TypeScript Code Standards
+#### TypeScript Code Standards
 ```typescript
 // ✅ CORRECT - All imports at the top
 import { FC, useState, useEffect } from "react";
@@ -155,15 +275,23 @@ const Component: FC = () => {
 };
 ```
 
-### Frontend Code Reuse
+#### Internationalization
+```typescript
+const { t } = useTranslation("namespace");
+// In JSX: <h1>{t("title")}</h1>
+```
+
+#### Code Reuse
 - **Before writing new function**: Search existing components/hooks for similar functionality
 - **Extract common logic**: Create custom hooks for repeated patterns
 - **Refactor after implementation**: Test before and after refactoring
 - **Component composition**: Reuse existing components instead of duplicating
 
-## 🔧 Backend Development (FastAPI)
+## 🔧 Backend Development
 
-### API Endpoint Standards (MANDATORY)
+### Backend (FastAPI + Python + SQLAlchemy)
+
+#### API Endpoint Standards (MANDATORY)
 ```python
 @router.get("/endpoint")
 async def endpoint_name(
@@ -175,12 +303,12 @@ async def endpoint_name(
     # Implementation
 ```
 
-### Authentication Patterns
+#### Authentication Patterns
 - **User Endpoints**: `validate_token(token)` - validates JWT
 - **Admin Endpoints**: `validate_token(token, permission_check=True)` - requires admin permission
 - **Internal Endpoints**: `validate_internal_token(credentials)` - uses internal API token
 
-### Database Patterns
+#### Database Patterns
 ```python
 # Always use async sessions
 async def service_function(db: AsyncSession):
@@ -195,7 +323,7 @@ except Exception as e:
     raise HTTPException(status_code=500, detail="Operation failed")
 ```
 
-### Python Code Standards
+#### Python Code Standards
 ```python
 # ✅ CORRECT - All imports at the top
 from fastapi import APIRouter, Depends
@@ -222,7 +350,125 @@ from app.models.users import User
 from app.models.groups import Group
 ```
 
-### Code Reuse Guidelines
+### B4F (Express + TypeScript + Node.js + Prisma)
+
+#### Express Best Practices
+```typescript
+// ✅ CORRECT - Router structure
+import { Router, Request, Response } from 'express';
+import { body, validationResult } from 'express-validator';
+
+const router = Router();
+
+router.get('/users', async (req: Request, res: Response) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+export default router;
+```
+
+#### TypeScript Standards
+```typescript
+// ✅ CORRECT - Interface definitions
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  createdAt: Date;
+}
+
+interface CreateUserRequest {
+  email: string;
+  name: string;
+  password: string;
+}
+
+// ✅ CORRECT - Type guards
+function isUser(obj: any): obj is User {
+  return obj && typeof obj.id === 'string' && typeof obj.email === 'string';
+}
+```
+
+#### Prisma Best Practices
+```typescript
+// ✅ CORRECT - Database operations
+const user = await prisma.user.create({
+  data: {
+    email: 'user@example.com',
+    name: 'John Doe',
+  },
+  select: {
+    id: true,
+    email: true,
+    name: true,
+  },
+});
+
+// ✅ CORRECT - Error handling
+try {
+  const result = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+  
+  if (!result) {
+    throw new Error('User not found');
+  }
+  
+  return result;
+} catch (error) {
+  logger.error('Database error:', error);
+  throw error;
+}
+```
+
+#### Middleware Patterns
+```typescript
+// ✅ CORRECT - Authentication middleware
+export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Access token required' });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET!, (err, user) => {
+    if (err) {
+      return res.status(403).json({ error: 'Invalid token' });
+    }
+    req.user = user;
+    next();
+  });
+};
+```
+
+#### Error Handling
+```typescript
+// ✅ CORRECT - Global error handler
+export const errorHandler = (
+  error: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  logger.error('Unhandled error:', error);
+  
+  if (error instanceof ValidationError) {
+    return res.status(400).json({ error: error.message });
+  }
+  
+  res.status(500).json({ error: 'Internal server error' });
+};
+```
+
+### Common Backend Standards
+
+#### Code Reuse Guidelines
 - **Before writing new function**: Search existing codebase for similar functionality
 - **Extract common logic**: Create utility functions for repeated patterns
 - **Refactor after implementation**: Test before and after refactoring

@@ -53,7 +53,7 @@ services:
       - ./frontend2/src:/frontend2/src
       - ./frontend2/public:/frontend2/public
     ports:
-      - "5174:5174"
+      - "4321:4321"
 
   frontend3:
     container_name: frontend3-test
@@ -64,18 +64,6 @@ services:
     volumes:
       - ./frontend3/src:/frontend3/src
       - ./frontend3/public:/frontend3/public
-    ports:
-      - "4321:4321"
-
-  frontend4:
-    container_name: frontend4-test
-    image: frontend4-test
-    build:
-      context: ./frontend4
-      target: development
-    volumes:
-      - ./frontend4/src:/frontend4/src
-      - ./frontend4/public:/frontend4/public
     ports:
       - "3003:3003"
 
@@ -105,9 +93,16 @@ services:
     depends_on:
       - db
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     ports:
       - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://dev:devPassword@db:5432/postgres?schema=public
 
   b4f1:
     container_name: b4f1-test
