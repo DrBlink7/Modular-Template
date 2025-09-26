@@ -1,12 +1,12 @@
 # Analizzatore Testo Etichette Farmaceutiche
 
-Script Python per estrarre e analizzare il testo presente nelle etichette farmaceutiche usando OCR (Optical Character Recognition).
+Script Python moderno per estrarre e analizzare il testo presente nelle etichette farmaceutiche usando OCR (Optical Character Recognition) con OpenCV e Tesseract.
 
 ## 🚀 Installazione
 
 ### Prerequisiti
-- Python 3.7+
-- Tesseract OCR
+- Python 3.9+
+- Tesseract OCR 5.0+
 
 ### Installazione Tesseract OCR
 
@@ -17,6 +17,7 @@ brew install tesseract tesseract-lang
 
 **Ubuntu/Debian:**
 ```bash
+sudo apt-get update
 sudo apt-get install tesseract-ocr tesseract-ocr-ita tesseract-ocr-eng
 ```
 
@@ -35,7 +36,17 @@ source .venv/bin/activate  # macOS/Linux
 .venv\Scripts\activate     # Windows
 
 # Installa dipendenze
-pip install opencv-python pillow pytesseract matplotlib
+pip install -r requirements.txt
+```
+
+### requirements.txt
+```txt
+opencv-python==4.10.0.84
+pillow==10.4.0
+pytesseract==0.3.13
+matplotlib==3.9.2
+numpy==1.26.4
+pandas==2.2.3
 ```
 
 ## 📁 Struttura File
