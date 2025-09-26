@@ -28,8 +28,7 @@ docker compose exec b4f yarn prisma migrate dev
 | **frontend2** | Astro 5 + TypeScript | 4321 | - | Static site generator with zero JS by default |
 | **frontend3** | Next.js 15 + React 19 + Turbopack | 3003 | - | Full-stack React framework with App Router |
 | **frontend4** | Vue 3 + Vite 7 + TypeScript | 3004 | - | Modern Vue.js application with Composition API |
-| **frontend5** | Angular 18 + TypeScript | 4200 | - | Enterprise Angular app (Skip for now) |
-| **frontend6** | Vue 3 + Vite | 5175 | - | Alternative Vue.js application (Skip for now) |
+| **frontend5** | Angular 18 + TypeScript | 4200 | - | Enterprise Angular app
 
 ### Backend Services
 
