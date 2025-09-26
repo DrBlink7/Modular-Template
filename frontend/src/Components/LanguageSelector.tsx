@@ -4,10 +4,10 @@ import { Box, MenuItem, Paper, type SxProps, type Theme } from '@mui/material'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 
 interface LanguageSelectorProps {
-  style?: SxProps<Theme>
+  sx?: SxProps<Theme>
 }
 
-const LanguageSelector: FC<LanguageSelectorProps> = ({ style }) => {
+const LanguageSelector: FC<LanguageSelectorProps> = ({ sx }) => {
   const { i18n } = useTranslation()
 
   const changeLanguage = async (lng: string | undefined): Promise<void> => {
@@ -24,7 +24,7 @@ const LanguageSelector: FC<LanguageSelectorProps> = ({ style }) => {
       display: 'flex',
       justifyContent: 'center',
       width: '100%',
-      ...style
+      ...sx
     }}
     data-testid="language-selector"
   >

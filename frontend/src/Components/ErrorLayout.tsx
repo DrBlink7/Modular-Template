@@ -7,7 +7,7 @@ import ImageLayout from './ImageLayout'
 const ErrorLayout: FC<WithChildren> = ({ children }) => (
   <ImageLayout
     url={errorImage}
-    style={{
+    sx={{
       width: '100%',
       overflowX: 'hidden',
       minHeight: '100vh',

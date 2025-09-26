@@ -5,11 +5,11 @@ import { randomBg } from '../Utils/config'
 import { type WithChildren } from '../exportedTypes'
 
 type ImageLayoutProps = WithChildren & {
-  style?: SxProps<Theme>
+  sx?: SxProps<Theme>
   url?: string
 }
 
-const ImageLayout: FC<ImageLayoutProps> = ({ style, url = randomBg, children }) => <Stack
+const ImageLayout: FC<ImageLayoutProps> = ({ sx, url = randomBg, children }) => <Stack
   sx={{
     display: 'flex',
     backgroundImage: `url(${url})`,
@@ -18,7 +18,7 @@ const ImageLayout: FC<ImageLayoutProps> = ({ style, url = randomBg, children }) 
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: '100%',
-    ...style
+    ...sx
   }}
 >
   {children}

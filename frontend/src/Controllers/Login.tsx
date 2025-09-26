@@ -60,11 +60,11 @@ const Login: FC = () => {
 
   return <ImageLayout
     data-testid="login-component"
-    style={{
+    sx={{
       height: '100vh',
       width: '100vw',
       justifyContent: 'center',
-      backgroundColor: theme.palette.secondary.main
+      backgroundColor: 'secondary.main'
     }}
   >
     <CssBaseline />
@@ -87,7 +87,7 @@ const Login: FC = () => {
         color: theme.palette.text.primary
       }}
     >
-      <LanguageSelector style={{ width: '40%', maxWidth: '220px' }} />
+      <LanguageSelector sx={{ width: '40%', maxWidth: '220px' }} />
       <Box display='flex' flexDirection='column' alignItems='center' height='65%' data-testid="login-box2" width='100%'>
         <Avatar
           sx={{ bgcolor: 'secondary.main', marginTop: '2vh' }}

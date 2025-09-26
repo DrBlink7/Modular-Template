@@ -1,13 +1,12 @@
 import { useCallback, type FC } from 'react'
 import { useAppDispatch } from '../Utils/store'
 import { logout } from '../Store/users'
-import { useTheme, CssBaseline, Box } from '@mui/material'
+import { CssBaseline, Box } from '@mui/material'
 import Component from '../Components/Home'
 import ImageLayout from '../Components/ImageLayout'
 import * as ls from '../Utils/ls'
 
 const Home: FC = () => {
-  const theme = useTheme()
   const dispatch = useAppDispatch()
 
   const handleLogOut = useCallback(() => {
@@ -17,8 +16,8 @@ const Home: FC = () => {
   }, [dispatch])
 
   return <ImageLayout
-    style={{
-      backgroundColor: theme.palette.secondary.main,
+    sx={{
+      backgroundColor: 'secondary.main',
       height: '100vh',
       width: '100vw',
       flexDirection: 'row'

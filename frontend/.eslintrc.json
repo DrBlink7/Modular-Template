@@ -4,7 +4,6 @@
     "es2021": true
   },
   "extends": [
-    "standard-with-typescript",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
@@ -21,6 +20,15 @@
     "react/react-in-jsx-scope": "off",
     "no-extra-boolean-cast": "off",
     "@typescript-eslint/triple-slash-reference": "off",
+    "@typescript-eslint/no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true,
+        "allowTaggedTemplates": true
+      }
+    ],
+    "@typescript-eslint/indent": "off",
     "max-len": [
       "error",
       {
@@ -28,10 +36,6 @@
         "ignoreComments": true,
         "ignoreUrls": true
       }
-    ],
-    "@typescript-eslint/indent": [
-      "error",
-      2
     ],
     "indent": [
       "error",

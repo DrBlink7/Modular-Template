@@ -17,7 +17,7 @@ export const loadState = (): State => {
     return {
       ...serializedStore
     }
-  } catch (e) {
+  } catch {
     return {
       userInfo: userInitialState
     }
@@ -30,7 +30,7 @@ export const saveState = (state: State): boolean => {
     ls.set('YOUR_PROJECT', stateToSave)
 
     return ls.has('YOUR_PROJECT')
-  } catch (e) {
+  } catch {
     return false
   }
 }
