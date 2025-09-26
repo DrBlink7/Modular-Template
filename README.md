@@ -23,19 +23,21 @@ docker compose exec b4f yarn prisma migrate dev
 
 | Project | Technology | Port | Authentication | Description |
 |---------|------------|------|----------------|-------------|
-| **frontend** | React 19 + Craco | 3000 | Firebase Auth | React app with Material-UI, Redux |
+| **frontend** | React 19 + Craco | 3000 | Firebase Auth | React app with Material-UI, Redux Toolkit |
 | **frontend1** | React 19 + Vite + Tailwind + DaisyUI | 5173 | Kinde + Stripe + TanStack Query | Modern React app with dark mode, authentication and payments |
-| **frontend3** | Astro 5 | 4321 | - | Static site generator |
-| **frontend4** | Next.js 15 | 3002 | - | Full-stack React framework |
-| **frontend5** | Angular 18 | 4200 | - | Enterprise Angular app |
-| **frontend6** | Vue 3 + Vite | 5174 | - | Modern Vue.js application |
+| **frontend2** | Astro 5 + TypeScript | 4321 | - | Static site generator with zero JS by default |
+| **frontend3** | Next.js 15 + React 19 + Turbopack | 3003 | - | Full-stack React framework with App Router |
+| **frontend4** | Vue 3 + Vite 7 + TypeScript | 3004 | - | Modern Vue.js application with Composition API |
+| **frontend5** | Angular 18 + TypeScript | 4200 | - | Enterprise Angular app (Skip for now) |
+| **frontend6** | Vue 3 + Vite | 5175 | - | Alternative Vue.js application (Skip for now) |
 
 ### Backend Services
 
 | Project | Technology | Port | Database | Description |
 |---------|------------|------|----------|-------------|
 | **backend** | FastAPI 2.0 + Python | 8000 | PostgreSQL | Modern Python API with SQLAlchemy 2.0 |
-| **b4f** | Express + TypeScript | 3001 | PostgreSQL | Backend for Frontend with Stripe integration |
+| **b4f** | Express 5 + TypeScript | 3001 | PostgreSQL | Backend for Frontend with Stripe integration |
+| **b4f1** | NestJS 11 + TypeScript + SWC | 3002 | - | Enterprise Node.js API with decorators |
 
 ### Utility Tools
 
@@ -46,24 +48,29 @@ docker compose exec b4f yarn prisma migrate dev
 ## 🛠️ Technology Stack
 
 ### Frontend Technologies
-- **React 19** with concurrent rendering
-- **TypeScript** for type safety
-- **Material-UI (MUI)** for modern UI components
-- **Tailwind CSS** for utility-first styling
-- **DaisyUI** for component library
+- **React 19** with concurrent rendering and Suspense
+- **TypeScript** for type safety across all projects
+- **Material-UI (MUI)** for modern React UI components
+- **Tailwind CSS 4** for utility-first styling
+- **DaisyUI** for component library and themes
 - **TanStack Query** for server state management
-- **Vite** for fast development
-- **Next.js 15** for full-stack React
-- **Astro 5** for static sites
-- **Vue 3** with Composition API
-- **Angular 18** for enterprise apps
+- **Vite 7** for ultra-fast development and building
+- **Next.js 15** with App Router and Turbopack
+- **Astro 5** for static sites with zero JS by default
+- **Vue 3** with Composition API and `<script setup>`
+- **Angular 18** for enterprise applications
+- **Redux Toolkit** for predictable state management
+- **React Router** for client-side routing
 
 ### Backend Technologies
-- **FastAPI 2.0** with async/await
-- **SQLAlchemy 2.0** with async support
-- **Express.js** with TypeScript
-- **Prisma ORM** for database management
+- **FastAPI 2.0** with async/await and automatic OpenAPI docs
+- **SQLAlchemy 2.0** with async support and type hints
+- **Express.js 5** with TypeScript and modern middleware
+- **NestJS 11** with decorators and dependency injection
+- **Prisma ORM** for type-safe database management
 - **PostgreSQL** as primary database
+- **Alembic** for database migrations
+- **SWC** for ultra-fast TypeScript compilation
 
 ### Authentication & Payments
 - **Firebase Authentication** for user management
@@ -108,7 +115,12 @@ Each project has its own detailed README with specific setup instructions:
 
 - [Backend (FastAPI)](/backend/README.md)
 - [Frontend (React)](/frontend/README.md)
+- [Frontend1 (React + Vite)](/frontend1/README.md)
+- [Frontend2 (Astro)](/frontend2/README.md)
+- [Frontend3 (Next.js)](/frontend3/README.md)
+- [Frontend4 (Vue)](/frontend4/README.md)
 - [B4F (Express)](/b4f/README.md)
+- [B4F1 (NestJS)](/b4f1/README.md)
 - [Numpy (OCR Tools)](/numpy/README.md)
 
 ## 🔧 Development Commands
@@ -118,15 +130,21 @@ Each project has its own detailed README with specific setup instructions:
 # Start all services
 docker compose up --build
 
-# Start specific service
-docker compose up frontend backend
+# Start specific services
+docker compose up frontend frontend1 backend b4f
 
 # View logs
 docker compose logs -f backend
+docker compose logs -f frontend1
 
 # Execute commands in containers
 docker compose exec backend uv run python script.py
 docker compose exec frontend yarn test
+docker compose exec frontend1 yarn dev
+docker compose exec frontend2 yarn build
+docker compose exec frontend3 yarn dev
+docker compose exec frontend4 yarn dev
+docker compose exec b4f1 yarn start:dev
 ```
 
 ### Database Migrations
@@ -142,6 +160,7 @@ docker compose exec b4f yarn prisma migrate dev
 
 - **FastAPI Backend**: http://localhost:8000/docs
 - **B4F Backend**: http://localhost:3001/swagger
+- **B4F1 Backend**: http://localhost:3002/api
 
 ## 🧪 Testing
 
@@ -150,12 +169,15 @@ Each project includes comprehensive testing:
 ```bash
 # Frontend tests
 docker compose exec frontend yarn test
+docker compose exec frontend1 yarn test
+docker compose exec frontend2 yarn test
+docker compose exec frontend3 yarn test
+docker compose exec frontend4 yarn test
 
 # Backend tests
 docker compose exec backend uv run pytest
-
-# B4F tests
 docker compose exec b4f yarn test
+docker compose exec b4f1 yarn test
 ```
 
 ## 🔒 Security Features

@@ -6,16 +6,20 @@ Full-stack application template with multiple frontend technologies and backend 
 ## 📁 Project Structure & Technology Stack
 
 ### Frontend Applications
-- **frontend**: React + TypeScript + Material-UI + Redux Toolkit
-- **frontend1**: React + TypeScript + Tailwind CSS + DaisyUI + TanStack Query
-- **frontend2-6**: Various frameworks (Vue, Angular, Next.js, Astro) - Skip for now
+- **frontend**: React 19 + TypeScript + Material-UI + Redux Toolkit + Craco
+- **frontend1**: React 19 + TypeScript + Tailwind CSS + DaisyUI + TanStack Query + Vite
+- **frontend2**: Astro 5 + TypeScript + Static Site Generation
+- **frontend3**: Next.js 15 + React 19 + TypeScript + Tailwind CSS 4 + Turbopack
+- **frontend4**: Vue 3 + TypeScript + Vite 7 + Vue Router 4 + Vitest
+- **frontend5**: Angular 18 + TypeScript + RxJS
 
 ### Backend Services
-- **backend**: FastAPI + Python + SQLAlchemy + PostgreSQL
-- **b4f**: Express + TypeScript + Node.js + Prisma + PostgreSQL
+- **backend**: FastAPI 2.0 + Python + SQLAlchemy 2.0 + PostgreSQL + Alembic
+- **b4f**: Express 5 + TypeScript + Node.js + Prisma + PostgreSQL + Stripe
+- **b4f1**: NestJS 11 + TypeScript + SWC + Jest + Express
 
 ### Utility Tools
-- **numpy**: Python + OpenCV + Tesseract (OCR)
+- **numpy**: Python + OpenCV + Tesseract (OCR) + Pandas + Matplotlib
 
 ## 🚀 Development Workflow
 
@@ -473,6 +477,166 @@ export const errorHandler = (
 - **Extract common logic**: Create utility functions for repeated patterns
 - **Refactor after implementation**: Test before and after refactoring
 - **DRY principle**: Don't Repeat Yourself - reuse existing code
+
+### Frontend2 (Astro 5 + TypeScript)
+
+#### Component Standards (MANDATORY)
+```astro
+---
+// Component script (runs at build time)
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Default description" } = Astro.props;
+---
+
+<div class="card">
+  <h2>{title}</h2>
+  {description && <p>{description}</p>}
+</div>
+
+<style>
+  .card {
+    @apply bg-white shadow-lg rounded-lg p-6;
+  }
+</style>
+```
+
+#### Astro Best Practices
+- **Static Generation**: Use Astro components for static content
+- **Framework Components**: Use React/Vue/Svelte only when interactivity is needed
+- **Zero JavaScript**: Default to no JS, add only when necessary
+- **TypeScript**: Full TypeScript support with proper typing
+- **CSS Scoping**: Component-scoped styles with `<style>`
+- **Performance**: Optimize images and assets
+
+### Frontend3 (Next.js 15 + React 19 + Turbopack)
+
+#### Component Standards (MANDATORY)
+```typescript
+// app/components/ComponentName.tsx
+import { type FC } from 'react';
+
+interface ComponentNameProps {
+  title: string;
+  description?: string;
+  onAction: () => void;
+}
+
+const ComponentName: FC<ComponentNameProps> = ({ 
+  title, 
+  description, 
+  onAction 
+}) => {
+  return (
+    <div className="card bg-white shadow-lg rounded-lg p-6">
+      <h2 className="text-xl font-bold">{title}</h2>
+      {description && <p className="text-gray-600">{description}</p>}
+      <button 
+        className="btn btn-primary"
+        onClick={onAction}
+      >
+        Action
+      </button>
+    </div>
+  );
+};
+
+export default ComponentName;
+```
+
+#### Next.js 15 Best Practices
+- **App Router**: Use `app/` directory structure
+- **Server Components**: Default to server components
+- **Client Components**: Use `"use client"` only when needed
+- **Turbopack**: Leverage for faster development builds
+- **TypeScript**: Strict mode with proper typing
+- **Tailwind CSS**: Utility-first styling approach
+
+### Frontend4 (Vue 3 + Vite 7 + TypeScript)
+
+#### Component Standards (MANDATORY)
+```vue
+<template>
+  <div class="card bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-xl font-bold">{{ title }}</h2>
+    <p v-if="description" class="text-gray-600">{{ description }}</p>
+    <button 
+      class="btn btn-primary"
+      @click="onAction"
+    >
+      Action
+    </button>
+  </div>
+</template>
+
+<script setup lang="ts">
+interface Props {
+  title: string;
+  description?: string;
+  onAction: () => void;
+}
+
+defineProps<Props>();
+</script>
+
+<style scoped>
+.card {
+  @apply bg-white shadow-lg rounded-lg p-6;
+}
+</style>
+```
+
+#### Vue 3 Best Practices
+- **Composition API**: Use `<script setup>` syntax
+- **TypeScript**: Full TypeScript support with proper interfaces
+- **Vite**: Leverage Vite 7 for fast development and building
+- **Vue Router**: Use Vue Router 4 for client-side routing
+- **Vitest**: Use Vitest for unit testing
+- **Scoped Styles**: Use scoped styles for component isolation
+
+### B4F1 (NestJS 11 + TypeScript + SWC)
+
+#### Controller Standards (MANDATORY)
+```typescript
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { DataService } from './data.service';
+import { CreateDataDto } from './dto/create-data.dto';
+
+@ApiTags('data')
+@Controller('data')
+export class DataController {
+  constructor(private readonly dataService: DataService) {}
+
+  @Get()
+  @ApiOperation({ summary: 'Get all data' })
+  @ApiResponse({ status: 200, description: 'Data retrieved successfully' })
+  async findAll() {
+    return this.dataService.findAll();
+  }
+
+  @Post()
+  @ApiOperation({ summary: 'Create new data' })
+  @ApiResponse({ status: 201, description: 'Data created successfully' })
+  async create(@Body() createDataDto: CreateDataDto) {
+    return this.dataService.create(createDataDto);
+  }
+}
+```
+
+#### NestJS Best Practices
+- **Modules**: Organize code into feature modules
+- **Services**: Business logic in injectable services
+- **Controllers**: Handle HTTP requests and responses
+- **DTOs**: Use DTOs for data validation
+- **Guards**: Authentication and authorization
+- **Interceptors**: Transform data and handle side effects
+- **Pipes**: Validation and transformation
+- **Filters**: Exception handling
+- **SWC**: Use SWC for faster compilation
 
 ## 🧪 Testing Guidelines
 

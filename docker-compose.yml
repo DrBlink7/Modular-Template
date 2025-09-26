@@ -67,6 +67,18 @@ services:
     ports:
       - "3003:3003"
 
+  frontend4:
+    container_name: frontend4-test
+    image: frontend4-test
+    build:
+      context: ./frontend4
+      target: development
+    volumes:
+      - ./frontend4/src:/frontend4/src
+      - ./frontend4/public:/frontend4/public
+    ports:
+      - "3004:3004"
+
   frontend5:
     container_name: frontend5
     image: frontend5-test
@@ -92,12 +104,6 @@ services:
       - ./b4f:/b4f
     depends_on:
       - db
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
     ports:
       - "3001:3001"
     environment:
@@ -130,10 +136,3 @@ services:
       - db
     ports:
       - "8000:8000"
-
-  numpy-test:
-    container_name: numpy-test
-    build:
-      context: ./numpy
-    volumes:
-      - ./numpy:/numpy

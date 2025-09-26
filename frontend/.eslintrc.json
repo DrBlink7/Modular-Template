@@ -28,7 +28,6 @@
         "allowTaggedTemplates": true
       }
     ],
-    "@typescript-eslint/indent": "off",
     "max-len": [
       "error",
       {
@@ -37,10 +36,6 @@
         "ignoreUrls": true
       }
     ],
-    "indent": [
-      "error",
-      2
-    ]
   },
   "ignorePatterns": [
     "cypress/",

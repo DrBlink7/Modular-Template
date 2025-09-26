@@ -1,54 +1,118 @@
-# Astro Starter Kit: Basics
+# Frontend2 - Astro 5 Static Site
 
-```sh
-yarn create astro@latest -- --template basics
+Modern static site generator built with Astro 5, featuring component islands architecture and optimal performance.
+
+## 🚀 Features
+
+- **Astro 5** with latest static site generation capabilities
+- **TypeScript** for type safety and better development experience
+- **Component Islands** architecture for optimal performance
+- **Zero JavaScript by default** - only loads JS when needed
+- **Built-in TypeScript checking** with `@astrojs/check`
+- **Fast development server** with hot module replacement
+- **Static site generation** for optimal SEO and performance
+- **Multi-framework support** (React, Vue, Svelte, etc.)
+
+## 🛠️ Setup
+
+1. Install dependencies:
+```bash
+yarn install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+2. Start development server:
+```bash
+yarn dev
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+3. Build for production:
+```bash
+yarn build
+```
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+4. Preview production build:
+```bash
+yarn preview
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 📁 Project Structure
 
-## 🧞 Commands
+```
+src/
+├── components/          # Astro components
+│   └── Card.astro
+├── layouts/            # Page layouts
+│   └── Layout.astro
+├── pages/              # File-based routing
+│   └── index.astro
+└── styles/             # Global styles
+public/                 # Static assets
+├── favicon.svg
+└── images/
+```
 
-All commands are run from the root of the project, from a terminal:
+## 🧞 Available Scripts
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `yarn`             | Installs dependencies                            |
-| `yarn dev`             | Starts local dev server at `localhost:4321`      |
-| `yarn run build`           | Build your production site to `./dist/`          |
-| `yarn run preview`         | Preview your build locally, before deploying     |
-| `yarn run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `yarn run astro -- --help` | Get help using the Astro CLI                     |
+| Command | Action |
+| :------ | :----- |
+| `yarn dev` | Start development server at `localhost:4321` |
+| `yarn build` | Build production site to `./dist/` |
+| `yarn preview` | Preview production build locally |
+| `yarn astro` | Run Astro CLI commands |
 
-## 👀 Want to learn more?
+## 🎯 Astro Best Practices
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Component Architecture
+- **Astro Components** (`.astro`) for static content
+- **Framework Components** for interactive elements
+- **Islands Architecture** - only load JS when needed
+
+### Performance
+- **Static Generation** by default
+- **Zero JavaScript** unless explicitly needed
+- **Optimized images** and assets
+- **CSS scoping** for component isolation
+
+### SEO & Accessibility
+- **Semantic HTML** structure
+- **Meta tags** and Open Graph support
+- **Structured data** for search engines
+- **Accessibility** best practices
+
+## 🚀 Deployment
+
+### Static Hosting
+```bash
+# Build for production
+yarn build
+
+# Deploy dist/ folder to any static host
+# - Vercel, Netlify, GitHub Pages, etc.
+```
+
+### Docker
+```bash
+# Build Docker image
+docker build -t frontend2 .
+
+# Run container
+docker run -p 4321:4321 frontend2
+```
+
+## 🔗 Related Projects
+
+- **Frontend** - React + Material-UI (port 3000)
+- **Frontend1** - React + Tailwind + DaisyUI (port 5173)
+- **Frontend3** - Astro 5 (port 4321)
+- **Frontend4** - Next.js 15 (port 3002)
+
+## 📚 Resources
+
+- [Astro Documentation](https://docs.astro.build)
+- [Astro Components](https://docs.astro.build/en/core-concepts/astro-components/)
+- [TypeScript in Astro](https://docs.astro.build/en/guides/typescript/)
+- [Deployment Guide](https://docs.astro.build/en/guides/deploy/)
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
