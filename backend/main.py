@@ -3,18 +3,34 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from contextlib import asynccontextmanager
 from database import engine, get_db
-from users import models as user_models
-from users.routers import router as user_router
+from models import users as user_models
+from routers.users import router as user_router
+from routers import payments
+from models import orders
+from config import settings
 import os
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifespan events"""
     # Startup
     print("🚀 Starting up the application...")
+    logger.info("Application starting up...")
+    
+    # Log configuration status
+    from config import stripe_configured, kinde_configured
+    logger.info(f"Stripe configured: {stripe_configured}")
+    logger.info(f"Kinde configured: {kinde_configured}")
+    
     yield
     # Shutdown
     print("🛑 Shutting down the application...")
+    logger.info("Application shutting down...")
 
 app = FastAPI(
     title="Modular Template API",
@@ -35,7 +51,7 @@ app.add_middleware(
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:5173").split(","),
+    allow_origins=settings.allowed_origins.split(","),
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
@@ -43,6 +59,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(user_router, prefix="/api/v1/users", tags=["users"])
+app.include_router(payments.router)
 
 # Health check endpoint
 @app.get("/health")

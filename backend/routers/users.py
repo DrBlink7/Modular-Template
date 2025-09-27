@@ -2,16 +2,16 @@ import logging
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
-from utils.auth import validate_token, security
-from . import models, schemas
+from utils.auth import verify_kinde_token, get_current_user_id
+from models import users as models
+from schemas import users as schemas
 from utils.logger import logger
 
 router = APIRouter()
 
 @router.get("", response_model=list[schemas.User],include_in_schema=False)
 @router.get("/", response_model=list[schemas.User])
-async def get_all_users(db: Session = Depends(get_db), token: str = Depends(security)):
-    await validate_token(token)  # Qui possiamo verificare eventualmente i permessi su token_user_id per maggiore granularità
+async def get_all_users(db: Session = Depends(get_db), user_id: str = Depends(get_current_user_id)):
     try:
         users = db.query(models.User).all()
         if not users:
@@ -23,8 +23,7 @@ async def get_all_users(db: Session = Depends(get_db), token: str = Depends(secu
 
 @router.post("", response_model=schemas.User, status_code=201,include_in_schema=False)
 @router.post("/", response_model=schemas.User, status_code=201)
-async def create_user(db: Session = Depends(get_db), token: str = Depends(security)):
-    user_id = await validate_token(token)
+async def create_user(db: Session = Depends(get_db), user_id: str = Depends(get_current_user_id)):
     existing_user = db.query(models.User).filter(models.User.id == user_id).first()
     if existing_user:
         logger.warning(f"User with ID {user_id} already exists")
@@ -42,8 +41,7 @@ async def create_user(db: Session = Depends(get_db), token: str = Depends(securi
         raise HTTPException(status_code=500, detail=f"Error creating user: {str(e)}")
 
 @router.get("/{user_id}", response_model=schemas.User)
-async def get_user(user_id: str, db: Session = Depends(get_db), token: str = Depends(security)):
-    await validate_token(token)  # Qui possiamo verificare eventualmente i permessi su token_user_id per maggiore granularità
+async def get_user(user_id: str, db: Session = Depends(get_db), current_user_id: str = Depends(get_current_user_id)):
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:
         logger.warning(f"User with ID {user_id} not found")
@@ -51,8 +49,7 @@ async def get_user(user_id: str, db: Session = Depends(get_db), token: str = Dep
     return user
 
 @router.put("/{user_id}", response_model=schemas.User)
-async def update_user(user_id: str, user: schemas.UserCreate, db: Session = Depends(get_db), token: str = Depends(security)):
-    await validate_token(token)  # Qui possiamo verificare eventualmente i permessi su token_user_id per maggiore granularità
+async def update_user(user_id: str, user: schemas.UserCreate, db: Session = Depends(get_db), current_user_id: str = Depends(get_current_user_id)):
     db_user = db.query(models.User).filter(models.User.id == user_id).first()
     if not db_user:
         logger.warning(f"User with ID {user_id} not found for update")
@@ -69,8 +66,7 @@ async def update_user(user_id: str, user: schemas.UserCreate, db: Session = Depe
         raise HTTPException(status_code=500, detail=f"Error updating user: {str(e)}")
 
 @router.delete("/{user_id}")
-async def delete_user(user_id: str, db: Session = Depends(get_db), token: str = Depends(security)):
-    await validate_token(token) # Qui possiamo verificare eventualmente i permessi su token_user_id per maggiore granularità
+async def delete_user(user_id: str, db: Session = Depends(get_db), current_user_id: str = Depends(get_current_user_id)):
     db_user = db.query(models.User).filter(models.User.id == user_id).first()
     if not db_user:
         logger.warning(f"User with ID {user_id} not found for deletion")

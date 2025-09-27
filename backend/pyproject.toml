@@ -1,0 +1,77 @@
+[project]
+name = "modular-template-backend"
+version = "0.1.0"
+description = "FastAPI backend for Modular Template"
+authors = [
+    {name = "Modular Template Team", email = "team@modulartemplate.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    # Core FastAPI and dependencies
+    "fastapi==0.115.6",
+    "uvicorn[standard]==0.32.1",
+    "python-dotenv>=1.0.0,<2.0.0",
+    # Database
+    "sqlalchemy==2.0.36",
+    "psycopg2-binary==2.9.10",
+    "asyncpg==0.30.0",
+    "alembic==1.14.0",
+    # Authentication & Security
+    "python-jose[cryptography]==3.3.0",
+    "passlib[bcrypt]==1.7.4",
+    "python-multipart==0.0.12",
+    # HTTP Client
+    "httpx==0.28.1",
+    # Stripe Integration
+    "stripe==7.0.0",
+    # Pydantic (for data validation)
+    "pydantic==2.10.3",
+    "pydantic-settings==2.7.0",
+    # Utilities
+    "pyyaml==6.0.3",
+    "requests==2.32.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    # Testing
+    "pytest==8.3.4",
+    "pytest-asyncio==0.24.0",
+    "pytest-cov==6.0.0",
+    "pytest-mock==3.14.0",
+    
+    # Code Quality
+    "black==24.10.0",
+    "isort==5.13.2",
+    "flake8==7.1.1",
+    "mypy==1.13.0",
+    
+    # Development
+    "watchfiles==1.1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"

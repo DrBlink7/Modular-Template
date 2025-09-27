@@ -7,7 +7,8 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
 from database import Base
-from users.models import *
+from models.users import *
+from models.orders import *
 from dotenv import load_dotenv
 
 load_dotenv()

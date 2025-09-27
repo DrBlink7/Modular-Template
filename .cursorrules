@@ -344,14 +344,13 @@ def some_function():
 #### Import Patterns (MANDATORY)
 ```python
 # For non-__init__.py files:
-from app import models, schemas
-from app.core import security, validate_token, get_async_db
-from app.services import data_service, user_service
-from app.utils import logger, format_filters
+from core import security, validate_token, get_async_db
+from services import data_service, user_service
+from utils import logger, format_filters
 
 # For __init__.py files:
-from app.models.users import User
-from app.models.groups import Group
+from models.users import User
+from models.groups import Group
 ```
 
 ### B4F (Express + TypeScript + Node.js + Prisma)

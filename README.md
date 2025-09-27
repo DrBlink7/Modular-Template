@@ -13,13 +13,17 @@ Questo progetto offre diverse configurazioni docker-compose per soddisfare diver
 git clone <your-repo-url>
 cd Modular-Template
 
-# 🎯 CONFIGURAZIONE STANDARD (Raccomandata)
-# Frontend + B4F + Backend + Database
-docker compose -f docker-compose.standard.yml up --build
+# 🎯 CONFIGURAZIONE PRINCIPALE (Raccomandata)
+# Frontend + Backend + Database
+docker compose up --build
+
+# 🚀 CONFIGURAZIONE COMPLETA
+# Tutti i servizi frontend e backend
+docker compose -f docker-compose.complete.yml up --build
 
 # ⚛️ REACT + EXPRESS
 # Solo React con backend Express
-docker compose -f docker-compose.frontend-b4f.yml up --build
+docker compose -f docker-compose.frontend1-b4f-auth.yml up --build
 
 # 🐍 REACT + FASTAPI
 # React con backend Python
@@ -34,15 +38,17 @@ docker compose -f docker-compose.frontend2-standalone.yml up --build
 docker compose -f docker-compose.backend-only.yml up --build
 ```
 
-### 📚 Guida Completa Docker Compose
+### 📚 Guide Disponibili
 
-Per una panoramica completa di tutte le configurazioni disponibili, consulta la [**Docker Compose Guide**](./DOCKER_COMPOSE_GUIDE.md).
+- [**Docker Compose Guide**](./DOCKER_COMPOSE_GUIDE.md) - Panoramica completa delle configurazioni
+- [**Backend Environment Setup**](./BACKEND_ENV_SETUP.md) - Setup variabili d'ambiente per Stripe e Kinde
+- [**Integration Setup**](./INTEGRATION_SETUP.md) - Guida completa per l'integrazione
 
 ### 🗄️ Database Migrations
 
 ```bash
 # Per FastAPI (backend)
-docker compose -f docker-compose.standard.yml exec backend uv run alembic upgrade head
+docker compose exec backend uv run alembic upgrade head
 
 # Per Express (b4f)
 docker compose -f docker-compose.standard.yml exec b4f yarn prisma migrate dev
@@ -65,7 +71,7 @@ docker compose -f docker-compose.standard.yml exec b4f yarn prisma migrate dev
 
 | Project | Technology | Port | Database | Description |
 |---------|------------|------|----------|-------------|
-| **backend** | FastAPI 2.0 + Python | 8000 | PostgreSQL | Modern Python API with SQLAlchemy 2.0 |
+| **backend** | FastAPI 2.0 + Python | 8000 | PostgreSQL | Modern Python API with SQLAlchemy 2.0 + Stripe + Kinde |
 | **b4f** | Express 5 + TypeScript | 3001 | PostgreSQL | Backend for Frontend with Stripe integration |
 | **b4f1** | NestJS 11 + TypeScript + SWC | 3002 | - | Enterprise Node.js API with decorators |
 
@@ -157,10 +163,10 @@ Each project has its own detailed README with specific setup instructions:
 
 | Configurazione | Frontend | Backend | Database | Uso Principale | Comando |
 |----------------|----------|---------|----------|----------------|---------|
-| **standard** | React + Vite | Express + FastAPI | PostgreSQL | Full-stack completo | `docker compose -f docker-compose.standard.yml up --build` |
-| **frontend-b4f** | React + Vite | Express | PostgreSQL | React + Express | `docker compose -f docker-compose.frontend-b4f.yml up --build` |
-| **frontend1-b4f** | React + Material-UI | Express | PostgreSQL | React + Material-UI | `docker compose -f docker-compose.frontend1-b4f.yml up --build` |
+| **main** | React + Vite | FastAPI | PostgreSQL | Configurazione principale | `docker compose up --build` |
+| **complete** | Tutti i Frontend | Tutti i Backend | PostgreSQL | Configurazione completa | `docker compose -f docker-compose.complete.yml up --build` |
 | **frontend-backend** | React + Vite | FastAPI | PostgreSQL | React + Python | `docker compose -f docker-compose.frontend-backend.yml up --build` |
+| **frontend1-b4f-auth** | React + Material-UI | Express | PostgreSQL | React + Auth/Payments | `docker compose -f docker-compose.frontend1-b4f-auth.yml up --build` |
 | **frontend3-b4f1** | Next.js | NestJS | PostgreSQL | Next.js + NestJS | `docker compose -f docker-compose.frontend3-b4f1.yml up --build` |
 | **frontend2-standalone** | Astro | - | - | Siti statici | `docker compose -f docker-compose.frontend2-standalone.yml up --build` |
 | **frontend4-standalone** | Vue | - | - | Vue.js | `docker compose -f docker-compose.frontend4-standalone.yml up --build` |
@@ -184,7 +190,7 @@ docker compose -f docker-compose.standard.yml logs -f backend
 docker compose -f docker-compose.standard.yml logs -f frontend
 
 # Execute commands in containers
-docker compose -f docker-compose.standard.yml exec backend uv run python script.py
+docker compose exec backend python script.py
 docker compose -f docker-compose.standard.yml exec frontend yarn test
 docker compose -f docker-compose.standard.yml exec frontend yarn dev
 docker compose -f docker-compose.standard.yml exec frontend2 yarn build

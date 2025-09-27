@@ -97,7 +97,7 @@ brew install stripe/stripe-cli/stripe
 stripe login
 
 # Start webhook listener
-stripe listen --forward-to http://localhost:3001/api/payments/webhook
+stripe listen --forward-to http://localhost:8000/api/v1/payments/webhook
 
 # Copy the webhook secret from the output
 ```

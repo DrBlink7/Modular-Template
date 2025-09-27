@@ -6,45 +6,40 @@ Questo progetto offre diversi file docker-compose per soddisfare diverse esigenz
 
 ### 🎯 Configurazioni Principali
 
-#### 1. **docker-compose.standard.yml** - Configurazione Standard
+#### 1. **docker-compose.yml** - Configurazione Principale
 ```bash
-docker compose -f docker-compose.standard.yml up --build
+docker compose up --build
 ```
 **Servizi inclusi:**
-- `frontend` (React + Vite + Tailwind) - Port 5173
-- `b4f` (Express + TypeScript + Prisma) - Port 3001  
+- `frontend` (React + Vite + Tailwind) - Port 5173 → `backend` (FastAPI)
 - `backend` (FastAPI + Python + SQLAlchemy) - Port 8000
 - `db` (PostgreSQL) - Port 5432
 
-**Quando usare:** Configurazione principale per sviluppo full-stack completo
+**Quando usare:** Configurazione principale per sviluppo React + FastAPI
+
+#### 2. **docker-compose.complete.yml** - Configurazione Completa
+```bash
+docker compose -f docker-compose.complete.yml up --build
+```
+**Servizi inclusi:**
+- `frontend` (React + Vite) - Port 5173 → `backend` (FastAPI)
+- `frontend1` (React + Material-UI) - Port 3000 → `b4f` (Express + Auth/Payments)
+- `frontend2` (Astro) - Port 4321
+- `frontend3` (Next.js) - Port 3003 → `b4f1` (NestJS)
+- `frontend4` (Vue) - Port 3004
+- `frontend5` (Angular) - Port 4200
+- `backend` (FastAPI + Python) - Port 8000
+- `b4f` (Express + TypeScript) - Port 3001
+- `b4f1` (NestJS + TypeScript) - Port 3002
+- `db` (PostgreSQL) - Port 5432
+
+**Quando usare:** Configurazione completa per sviluppo con tutti i servizi
 
 ---
 
 ### 🔗 Configurazioni Frontend + Backend
 
-#### 2. **docker-compose.frontend-b4f.yml** - React + Express
-```bash
-docker compose -f docker-compose.frontend-b4f.yml up --build
-```
-**Servizi inclusi:**
-- `frontend` (React + Vite + Tailwind) - Port 5173
-- `b4f` (Express + TypeScript + Prisma) - Port 3001
-- `db` (PostgreSQL) - Port 5432
-
-**Quando usare:** Sviluppo React con backend Express, autenticazione Kinde + Stripe
-
-#### 3. **docker-compose.frontend1-b4f.yml** - React + Material-UI + Express
-```bash
-docker compose -f docker-compose.frontend1-b4f.yml up --build
-```
-**Servizi inclusi:**
-- `frontend1` (React + Material-UI + Redux) - Port 3000
-- `b4f` (Express + TypeScript + Prisma) - Port 3001
-- `db` (PostgreSQL) - Port 5432
-
-**Quando usare:** Sviluppo React con Material-UI e backend Express
-
-#### 4. **docker-compose.frontend-backend.yml** - React + FastAPI
+#### 2. **docker-compose.frontend-backend.yml** - React + FastAPI
 ```bash
 docker compose -f docker-compose.frontend-backend.yml up --build
 ```
@@ -53,9 +48,20 @@ docker compose -f docker-compose.frontend-backend.yml up --build
 - `backend` (FastAPI + Python + SQLAlchemy) - Port 8000
 - `db` (PostgreSQL) - Port 5432
 
-**Quando usare:** Sviluppo React con backend Python FastAPI
+**Quando usare:** Sviluppo React con backend Python FastAPI per logica business
 
-#### 5. **docker-compose.frontend3-b4f1.yml** - Next.js + NestJS
+#### 3. **docker-compose.frontend1-b4f-auth.yml** - React + Material-UI + Express Auth
+```bash
+docker compose -f docker-compose.frontend1-b4f-auth.yml up --build
+```
+**Servizi inclusi:**
+- `frontend1` (React + Material-UI + Redux) - Port 3000
+- `b4f` (Express + TypeScript + Prisma) - Port 3001
+- `db` (PostgreSQL) - Port 5432
+
+**Quando usare:** Sviluppo React con Material-UI e backend Express per autenticazione e pagamenti
+
+#### 4. **docker-compose.frontend3-b4f1.yml** - Next.js + NestJS
 ```bash
 docker compose -f docker-compose.frontend3-b4f1.yml up --build
 ```
@@ -143,7 +149,7 @@ docker compose -f docker-compose.standard.yml down -v
 ### Quando usare le migrazioni:
 ```bash
 # Per FastAPI (backend)
-docker compose -f docker-compose.standard.yml exec backend uv run alembic upgrade head
+docker compose exec backend uv run alembic upgrade head
 
 # Per Express (b4f)
 docker compose -f docker-compose.standard.yml exec b4f yarn prisma migrate dev
@@ -156,10 +162,10 @@ docker compose -f docker-compose.frontend3-b4f1.yml exec b4f1 yarn prisma migrat
 
 | Configurazione | Frontend | Backend | Database | Porta Frontend | Porta Backend | Uso Principale |
 |----------------|----------|---------|----------|----------------|---------------|----------------|
-| **standard** | React + Vite | Express + FastAPI | PostgreSQL | 5173 | 3001, 8000 | Full-stack completo |
-| **frontend-b4f** | React + Vite | Express | PostgreSQL | 5173 | 3001 | React + Express |
-| **frontend1-b4f** | React + Material-UI | Express | PostgreSQL | 3000 | 3001 | React + Material-UI |
+| **main** | React + Vite | FastAPI | PostgreSQL | 5173 | 8000 | Configurazione principale |
+| **complete** | Tutti i Frontend | Tutti i Backend | PostgreSQL | 5173, 3000, 4321, 3003, 3004, 4200 | 8000, 3001, 3002 | Configurazione completa |
 | **frontend-backend** | React + Vite | FastAPI | PostgreSQL | 5173 | 8000 | React + Python |
+| **frontend1-b4f-auth** | React + Material-UI | Express | PostgreSQL | 3000 | 3001 | React + Auth/Payments |
 | **frontend3-b4f1** | Next.js | NestJS | PostgreSQL | 3003 | 3002 | Next.js + NestJS |
 | **frontend2-standalone** | Astro | - | - | 4321 | - | Siti statici |
 | **frontend4-standalone** | Vue | - | - | 3004 | - | Vue.js |

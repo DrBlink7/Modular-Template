@@ -35,3 +35,9 @@ isort==5.13.2
 
 # Additional utilities
 python-multipart==0.0.12
+
+# Stripe integration
+stripe==7.0.0
+
+# Environment management
+python-dotenv==1.0.1

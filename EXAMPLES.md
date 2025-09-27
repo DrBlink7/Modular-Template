@@ -198,7 +198,7 @@ docker compose -f docker-compose.standard.yml logs -f
 ### Fase 3: Database Migrations
 ```bash
 # Per FastAPI
-docker compose -f docker-compose.standard.yml exec backend uv run alembic upgrade head
+docker compose exec backend uv run alembic upgrade head
 
 # Per Express
 docker compose -f docker-compose.standard.yml exec b4f yarn prisma migrate dev
@@ -210,7 +210,7 @@ docker compose -f docker-compose.standard.yml exec b4f yarn prisma migrate dev
 docker compose -f docker-compose.standard.yml exec frontend yarn test
 
 # Test backend
-docker compose -f docker-compose.standard.yml exec backend uv run python -m pytest
+docker compose exec backend uv run pytest
 
 # Test Express
 docker compose -f docker-compose.standard.yml exec b4f yarn test

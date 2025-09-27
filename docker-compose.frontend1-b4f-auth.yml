@@ -1,5 +1,5 @@
-# Docker Compose - Frontend + B4F + Database
-# Perfect for React development with Express backend
+# Docker Compose - Frontend1 + B4F + Database
+# Perfect for React with Material-UI development with Express backend for auth & payments
 
 volumes:
   test_data:
@@ -23,17 +23,17 @@ services:
       retries: 10
       start_period: 10s
 
-  frontend:
-    container_name: frontend-test
-    image: frontend-test
+  frontend1:
+    container_name: frontend1-test
+    image: frontend1-test
     build:
-      context: ./frontend
+      context: ./frontend1
       target: development
     volumes:
-      - ./frontend/src:/frontend/src
-      - ./frontend/public:/frontend/public
+      - ./frontend1/src:/frontend1/src
+      - ./frontend1/public:/frontend1/public
     ports:
-      - "5173:5173"
+      - "3000:3000"
     depends_on:
       - b4f
 
