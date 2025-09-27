@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { theme } from "./utils";
 import { type WithChildren } from '../exportedTypes'
 import store from '../Store'
-import LoggerProvider from "../Hooks/Logger"
+import LoggerProvider from "../hooks/Logger"
 import '../Translations'
 import '../index.css'
 

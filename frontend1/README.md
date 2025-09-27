@@ -1,211 +1,137 @@
-# Frontend1 - Modern React App
+# Frontend - React 19 + TypeScript
 
-Frontend1 è un'applicazione React moderna costruita con Vite, TypeScript, Tailwind CSS e DaisyUI. Include autenticazione Kinde, pagamenti Stripe e supporto per dark mode.
+Modern React frontend built with TypeScript, Material-UI, and Firebase Authentication.
 
-## 🚀 Tecnologie
+## 🚀 Features
 
-- **React 19** - Framework UI moderno
-- **TypeScript** - Type safety
-- **Vite** - Build tool veloce
-- **Tailwind CSS** - Utility-first CSS framework
-- **DaisyUI** - Component library per Tailwind
-- **TanStack Query** - State management per server state
-- **React Router** - Routing
-- **Kinde Auth** - Autenticazione
-- **Stripe** - Pagamenti
-- **i18next** - Internazionalizzazione
+- **React 19** with latest features and concurrent rendering
+- **TypeScript** for type safety
+- **Material-UI (MUI)** for modern UI components
+- **Firebase Authentication** for secure login
+- **React Router v7** for client-side routing
+- **Redux Toolkit** for state management
+- **React Query (TanStack Query)** for server state management
+- **React Hook Form** with Yup validation
+- **i18next** for internationalization
+- **Cypress** for E2E testing
+- **Jest + Testing Library** for unit testing
+- **ESLint + Prettier** for code quality
 
-## 🎨 UI/UX Features
+## 🛠️ Setup
 
-- **Dark/Light Mode** - Toggle automatico con persistenza
-- **Responsive Design** - Mobile-first approach
-- **Modern Components** - DaisyUI component library
-- **Smooth Animations** - Transizioni fluide
-- **Custom Scrollbar** - Scrollbar personalizzata
-- **Loading States** - Stati di caricamento eleganti
-
-## ⚙️ Configurazione
-
-### Variabili d'ambiente
-
-```sh
-# Server
-PORT=5173  # Porta del server (default: 5173)
-VITE_APP_BASE_URL=http://localhost:5173  # URL del frontend
-VITE_APP_BE_URL=http://localhost:3001    # URL del backend
-
-# Autenticazione
-VITE_APP_AUTHORIZATION=authorization      # Header per il token
-VITE_APP_SECRET_KEY=your-secret-key       # Chiave segreta per l'app
-
-# Kinde Auth
-VITE_APP_KINDE_CLIENT_ID=your-client-id
-VITE_APP_KINDE_DOMAIN=your-domain.kinde.com
-VITE_APP_KINDE_REDIRECT_URL=http://localhost:5173
-
-# Stripe
-VITE_STRIPE_PUBLIC_KEY=pk_test_your-stripe-key
-```
-
-## 🛠️ Scripts
-
+1. Copy environment variables:
 ```bash
-# Sviluppo
-yarn dev          # Avvia il server di sviluppo
-yarn build        # Build per produzione
-yarn preview      # Preview del build
-
-# Testing
-yarn test         # Esegue i test
-yarn test:ui      # UI per i test
-yarn test:coverage # Test con coverage
-
-# Code Quality
-yarn lint         # Linting
+cp .env.example .env
 ```
 
-## 🏗️ Struttura del Progetto
+2. Fill in the required environment variables in `.env`
 
-```
-src/
-├── Components/          # Componenti UI
-│   ├── Home.tsx        # Dashboard principale
-│   ├── ThemeToggle.tsx # Toggle dark/light mode
-│   └── ...
-├── Controllers/        # Controllori/pagine
-├── Hooks/             # Custom hooks
-│   └── useTheme.ts    # Hook per gestione tema
-├── providers/         # Context providers
-│   └── QueryProvider.tsx # TanStack Query provider
-├── Api/               # API calls
-├── Utils/             # Utility functions
-├── Translations/      # i18n files
-└── index.tsx          # Entry point
+3. Install dependencies:
+```bash
+yarn install
 ```
 
-## 🎯 Features Principali
+4. Start the development server:
+```bash
+yarn start
+```
 
-### 1. **State Management Moderno**
-- **TanStack Query** per server state e caching
-- **React Context** per stato globale
-- **Custom Hooks** per logica riutilizzabile
-- **No Redux** - Approccio più semplice e moderno
-
-### 2. **UI/UX Avanzata**
-- **DaisyUI** component library
-- **Tailwind CSS** per styling
-- **Dark/Light mode** con persistenza
-- **Responsive design** mobile-first
-
-### 3. **Autenticazione & Pagamenti**
-- **Kinde Auth** per login/logout
-- **Stripe** per pagamenti
-- **Token management** automatico
-
-### 4. **Developer Experience**
-- **TypeScript** strict mode
-- **ESLint** configurazione avanzata
-- **Vitest** per testing
-- **Hot reload** con Vite
-
-## 🌙 Dark Mode
-
-Il tema viene gestito automaticamente:
-- **Sistema preference** come default
-- **LocalStorage** per persistenza
-- **Smooth transitions** tra i temi
-- **Toggle button** nell'header
-
-## 📱 Responsive Design
-
-- **Mobile-first** approach
-- **Breakpoints** Tailwind standard
-- **Flexible layouts** con CSS Grid/Flexbox
-- **Touch-friendly** interactions
+The app will run on http://localhost:3000
 
 ## 🧪 Testing
 
+### Unit Tests
 ```bash
-# Test unitari
-yarn test
+# Run unit tests
+yarn test:unit
 
-# Test con UI
-yarn test:ui
-
-# Coverage report
+# Run with coverage
 yarn test:coverage
 ```
 
-## 🚀 Deployment
-
+### E2E Tests
 ```bash
-# Build per produzione
-yarn build
+# Open Cypress
+yarn test
 
-# Preview locale
-yarn preview
+# Run E2E tests headlessly
+yarn cypress run
 ```
 
-## 🔧 Sviluppo
+## 🔧 Development
 
-### Aggiungere un nuovo componente
+### Code Quality
+```bash
+# Lint code
+yarn lint
 
-```tsx
-// src/Components/MyComponent.tsx
-import { FC } from 'react';
+# Fix linting issues
+yarn lint:fix
 
-interface MyComponentProps {
-  title: string;
-  onAction: () => void;
-}
-
-const MyComponent: FC<MyComponentProps> = ({ title, onAction }) => {
-  return (
-    <div className="card bg-base-100 shadow-lg">
-      <div className="card-body">
-        <h2 className="card-title">{title}</h2>
-        <button className="btn btn-primary" onClick={onAction}>
-          Action
-        </button>
-      </div>
-    </div>
-  );
-};
-
-export default MyComponent;
+# Type check
+yarn type-check
 ```
 
-### Aggiungere una query
+### Available Scripts
 
-```tsx
-// Con TanStack Query
-const { data, isLoading, error } = useQuery({
-  queryKey: ['my-data'],
-  queryFn: () => fetchMyData(),
-  staleTime: 5 * 60 * 1000, // 5 minuti
-});
+- `yarn start` - Start development server
+- `yarn build` - Build for production
+- `yarn test` - Open Cypress E2E tests
+- `yarn test:unit` - Run unit tests
+- `yarn test:coverage` - Run tests with coverage
+- `yarn lint` - Lint code
+- `yarn lint:fix` - Fix linting issues
+- `yarn type-check` - TypeScript type checking
 
-// Con custom hook
-const { data, isLoading, error } = useMyDataQuery();
+## 🔐 Authentication
+
+This frontend uses **Firebase Authentication** for secure user login and management.
+
+### Environment Variables
+- `REACT_APP_FIREBASE_API_KEY` - Firebase API key
+- `REACT_APP_FIREBASE_AUTH_DOMAIN` - Firebase auth domain
+- `REACT_APP_FIREBASE_PROJECT_ID` - Firebase project ID
+- `REACT_APP_FIREBASE_STORAGE_BUCKET` - Firebase storage bucket
+- `REACT_APP_FIREBASE_MESSAGING_SENDER_ID` - Firebase messaging sender ID
+- `REACT_APP_FIREBASE_APP_ID` - Firebase app ID
+
+## 📁 Project Structure
+
+```
+frontend/
+├── public/              # Static files
+├── src/
+│   ├── components/      # Reusable UI components
+│   ├── pages/          # Page components
+│   ├── hooks/          # Custom React hooks
+│   ├── services/       # API services
+│   ├── store/          # Redux store configuration
+│   ├── utils/          # Utility functions
+│   ├── types/          # TypeScript type definitions
+│   └── i18n/           # Internationalization
+├── cypress/            # E2E tests
+└── package.json
 ```
 
-### Aggiungere una mutation
+## 🎨 UI Components
 
-```tsx
-// Con TanStack Query
-const mutation = useMutation({
-  mutationFn: (data) => updateData(data),
-  onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: ['my-data'] });
-  },
-});
-```
+Built with Material-UI (MUI) v6 with:
+- Modern design system
+- Responsive layout
+- Dark/light theme support
+- Accessibility compliance
+- Custom component library
 
-## 📚 Risorse
+## 🌐 Internationalization
 
-- [React 19 Docs](https://react.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [DaisyUI](https://daisyui.com/)
-- [TanStack Query](https://tanstack.com/query)
-- [Vite](https://vitejs.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
+Supports multiple languages using i18next:
+- English (default)
+- Italian
+- Easy to add more languages
+
+## 📱 Responsive Design
+
+- Mobile-first approach
+- Breakpoints for all screen sizes
+- Touch-friendly interface
+- Optimized for all devices

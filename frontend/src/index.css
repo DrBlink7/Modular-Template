@@ -1,21 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* Global font family override */
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+@plugin "daisyui";
+
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  min-width: 100vh;
-  min-height: 100vh;
 }
 
 #root {
   width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 code {
@@ -23,6 +32,25 @@ code {
     monospace;
 }
 
-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px #f3eff7 inset;
+/* Smooth transitions */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }

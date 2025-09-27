@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/indent */
 import { type FC, createContext, useContext } from 'react'
-import { type WithChildren } from '../exportedTypes'
+import { type WithChildren } from '../types'
 
 interface ILogger {
   writeTrace: (message: string, severityLevel: number, err?: string) => void
@@ -10,6 +9,7 @@ interface ILogger {
 
 const LoggerContext = createContext<ILogger | undefined>(undefined)
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLogger = (): ILogger => {
   const context = useContext(LoggerContext)
   if (context == null) {

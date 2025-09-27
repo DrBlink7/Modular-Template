@@ -1,11 +1,10 @@
 import { useCallback, type FC, useState, useEffect, Fragment } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { Box, Typography, Button } from '@mui/material'
-import { useLogger } from '../Hooks/Logger'
+import { useTranslation } from 'react-i18next'
 import { type WithChildren } from '../exportedTypes'
 import ErrorLayout from '../Components/ErrorLayout'
 import * as ls from '../Utils/ls'
+import { useLogger } from '../hooks/Logger'
 
 const ErrorBoundary: FC<WithChildren> = ({ children }) => {
   const { t } = useTranslation()
@@ -42,36 +41,31 @@ const ErrorBoundary: FC<WithChildren> = ({ children }) => {
   if (errorMessage !== null) {
     return (
       <ErrorLayout>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column'
-          }}
-        >
-          <Typography variant="h1" sx={{ mb: 2.5 }}>
-            {t('error.title')}
-          </Typography>
-          <Typography variant="h5" sx={{ mb: 2.5, fontSize: 'large' }}>
-            {errorMessage} 👨🏻‍💻
-          </Typography>
-          <Typography variant="body2">{t('error.body')}</Typography>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            marginTop: '4vh',
-            justifyContent: 'space-between'
-          }}
-        >
-          <Button variant="contained" onClick={clearError} sx={{ minWidth: '15vw' }}>
-            {t('error.button')}
-          </Button>
-          <Button variant="contained" onClick={resetErrorBoundary} sx={{ minWidth: '15vw' }}>
-            {t('error.logout')}
-          </Button>
-        </Box>
+        <div className="flex flex-col items-center text-center">
+          <div className="mb-6">
+            <h1 className="text-4xl font-bold text-error mb-4">
+              {t('error.title')}
+            </h1>
+            <h2 className="text-xl text-error-content mb-4">
+              {errorMessage} 👨🏻‍💻
+            </h2>
+            <p className="text-base-content/70">{t('error.body')}</p>
+          </div>
+          <div className="flex flex-row gap-4 w-full justify-center">
+            <button
+              className="btn btn-primary min-w-[15vw]"
+              onClick={clearError}
+            >
+              {t('error.button')}
+            </button>
+            <button
+              className="btn btn-secondary min-w-[15vw]"
+              onClick={resetErrorBoundary}
+            >
+              {t('error.logout')}
+            </button>
+          </div>
+        </div>
       </ErrorLayout>
     )
   }
@@ -80,3 +74,4 @@ const ErrorBoundary: FC<WithChildren> = ({ children }) => {
 }
 
 export default ErrorBoundary
+

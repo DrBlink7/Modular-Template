@@ -23,8 +23,8 @@ docker compose exec b4f yarn prisma migrate dev
 
 | Project | Technology | Port | Authentication | Description |
 |---------|------------|------|----------------|-------------|
-| **frontend** | React 19 + Craco | 3000 | Firebase Auth | React app with Material-UI, Redux Toolkit |
-| **frontend1** | React 19 + Vite + Tailwind + DaisyUI | 5173 | Kinde + Stripe + TanStack Query | Modern React app with dark mode, authentication and payments |
+| **frontend** | React 19 + Vite + Tailwind + DaisyUI | 5173 | Kinde + Stripe + TanStack Query | Modern React app with dark mode, authentication and payments |
+| **frontend1** | React 19 + Craco | 3000 | Firebase Auth | React app with Material-UI, Redux Toolkit |
 | **frontend2** | Astro 5 + TypeScript | 4321 | - | Static site generator with zero JS by default |
 | **frontend3** | Next.js 15 + React 19 + Turbopack | 3003 | - | Full-stack React framework with App Router |
 | **frontend4** | Vue 3 + Vite 7 + TypeScript | 3004 | - | Modern Vue.js application with Composition API |
@@ -113,8 +113,8 @@ docker compose up --build
 Each project has its own detailed README with specific setup instructions:
 
 - [Backend (FastAPI)](/backend/README.md)
-- [Frontend (React)](/frontend/README.md)
-- [Frontend1 (React + Vite)](/frontend1/README.md)
+- [Frontend (React + Vite)](/frontend/README.md)
+- [Frontend1 (React + Craco)](/frontend1/README.md)
 - [Frontend2 (Astro)](/frontend2/README.md)
 - [Frontend3 (Next.js)](/frontend3/README.md)
 - [Frontend4 (Vue)](/frontend4/README.md)
@@ -134,12 +134,12 @@ docker compose up frontend frontend1 backend b4f
 
 # View logs
 docker compose logs -f backend
-docker compose logs -f frontend1
+docker compose logs -f frontend
 
 # Execute commands in containers
 docker compose exec backend uv run python script.py
 docker compose exec frontend yarn test
-docker compose exec frontend1 yarn dev
+docker compose exec frontend yarn dev
 docker compose exec frontend2 yarn build
 docker compose exec frontend3 yarn dev
 docker compose exec frontend4 yarn dev
@@ -168,7 +168,6 @@ Each project includes comprehensive testing:
 ```bash
 # Frontend tests
 docker compose exec frontend yarn test
-docker compose exec frontend1 yarn test
 docker compose exec frontend2 yarn test
 docker compose exec frontend3 yarn test
 docker compose exec frontend4 yarn test

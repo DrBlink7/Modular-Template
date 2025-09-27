@@ -1,32 +1,22 @@
-import { useCallback, type FC } from 'react'
-import { useAppDispatch } from '../Utils/store'
-import { logout } from '../Store/users'
-import { CssBaseline, Box } from '@mui/material'
-import Component from '../Components/Home'
-import ImageLayout from '../Components/ImageLayout'
+import { type FC } from 'react'
+import { useKindeAuth } from '@kinde-oss/kinde-auth-react'
 import * as ls from '../Utils/ls'
+import Loader from '../Components/Loader'
+import HomeComponent from '../Components/Home'
 
 const Home: FC = () => {
-  const dispatch = useAppDispatch()
+  const { logout, isLoading } = useKindeAuth()
 
-  const handleLogOut = useCallback(() => {
-    dispatch(logout())
-
+  const handleLogOut = async () => {
+    await logout()
     ls.del('YOUR_PROJECT')
-  }, [dispatch])
+  }
 
-  return <ImageLayout
-    sx={{
-      backgroundColor: 'secondary.main',
-      height: '100vh',
-      width: '100vw',
-      flexDirection: 'row'
-    }}
-  >
-    <CssBaseline />
-    <Box width='32.5%' />
-    <Component handleLogOut={handleLogOut} />
-  </ImageLayout>
+  if (isLoading) {
+    return <Loader />
+  }
+
+  return <HomeComponent handleLogOut={handleLogOut} />
 }
 
 export default Home

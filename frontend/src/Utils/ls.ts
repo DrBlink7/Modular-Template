@@ -1,9 +1,11 @@
 import { effect } from './f'
 import { secretKey } from './config'
+// Removed State import as it's no longer needed
 import CryptoJS from 'crypto-js'
 
 interface LocalStorageMap {
-  YOUR_PROJECT: State
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  YOUR_PROJECT: any
 }
 
 export const set = <K extends keyof LocalStorageMap>(
@@ -24,7 +26,6 @@ export const get = <K extends keyof LocalStorageMap>(
   try {
     return decryptData(value)
   } catch {
-    // HOTFIX: fallback for old serialization format
     return value as never
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const loader = {
   title: 'YOUR_PROJECT',
   text: '...Sta Caricando'

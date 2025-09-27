@@ -1,6 +1,7 @@
+/* eslint-disable max-len */
 const loader = {
   title: 'YOUR_PROJECT',
-  text: '...Loading'
+  text: '...is Loading'
 }
 const login = {
   signin: 'Sign In',
@@ -15,7 +16,7 @@ const error = {
 }
 const home = {
   title: 'HomePage',
-  welcome: 'Wanna buy product 1?',
+  welcome: 'Hey welcome home!',
   logout: 'Wanna leave?',
   logoutButton: 'Logout'
 }
