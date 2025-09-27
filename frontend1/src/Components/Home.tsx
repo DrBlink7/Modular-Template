@@ -37,17 +37,25 @@ const Home: FC<HomeProps> = ({ handleLogOut }) => {
   }
 
   return (
-    <div className="h-screen bg-base-100 overflow-y-auto" data-testid="home-component">
+    <div className="h-screen bg-base-100 overflow-y-auto font-montserrat" data-testid="home-component">
       {/* Header */}
-      <div className="navbar bg-base-200 shadow-sm">
+      <div className="navbar bg-base-100 border-b border-base-300 shadow-sm">
         <div className="navbar-start">
-          <h1 className="text-xl font-bold text-base-content">Modular Template</h1>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-primary rounded-xl flex items-center justify-center">
+              <span className="text-primary-content text-lg">🚀</span>
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-base-content">Modular Template</h1>
+              <p className="text-xs text-base-content/60">Dashboard</p>
+            </div>
+          </div>
         </div>
         <div className="navbar-end">
           <ThemeToggle />
           <button
             onClick={handleLogOut}
-            className="btn btn-outline btn-sm"
+            className="btn btn-ghost btn-sm"
           >
             {t('home.logoutButton')}
           </button>
@@ -55,27 +63,29 @@ const Home: FC<HomeProps> = ({ handleLogOut }) => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-4">
         {/* Welcome Section */}
-        <div className="hero bg-base-200 rounded-3xl mb-8">
+        <div className="hero bg-gradient-to-r from-primary/10 to-secondary/10 rounded-3xl mb-8">
           <div className="hero-content text-center">
-            <div className="max-w-md">
-              <h1 className="text-5xl font-bold text-base-content mb-4">Dashboard</h1>
-              <p className="text-lg text-base-content/70 mb-6">
-                Gestisci i tuoi prodotti e monitora le tue attività
+            <div className="max-w-2xl">
+              <h1 className="text-4xl lg:text-6xl font-bold text-base-content mb-4">
+                Benvenuto nella Dashboard
+              </h1>
+              <p className="text-lg text-base-content/70 mb-8">
+                Gestisci i tuoi prodotti e monitora le tue attività in tempo reale
               </p>
-              <div className="stats shadow">
+              <div className="stats stats-horizontal shadow-lg bg-base-100/50 backdrop-blur-sm">
                 <div className="stat">
-                  <div className="stat-title">Prodotti Totali</div>
+                  <div className="stat-title text-base-content/60">Prodotti Totali</div>
                   <div className="stat-value text-primary">2</div>
-                  <div className="stat-desc">Disponibili</div>
+                  <div className="stat-desc text-base-content/60">Disponibili</div>
                 </div>
                 <div className="stat">
-                  <div className="stat-title">Acquistati</div>
+                  <div className="stat-title text-base-content/60">Acquistati</div>
                   <div className="stat-value text-secondary">
                     {product1Paid && product2Paid ? '2' : product1Paid || product2Paid ? '1' : '0'}
                   </div>
-                  <div className="stat-desc">Questo mese</div>
+                  <div className="stat-desc text-base-content/60">Questo mese</div>
                 </div>
               </div>
             </div>
@@ -83,27 +93,35 @@ const Home: FC<HomeProps> = ({ handleLogOut }) => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Prodotto 1 */}
-          <div className="card bg-base-100 shadow-xl">
-            <div className="card-body">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="card-title text-2xl text-primary">Prodotto 1</h2>
-                <div className="badge badge-primary badge-lg">Premium</div>
+          <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 border border-base-300">
+            <div className="card-body p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                    <span className="text-2xl">💎</span>
+                  </div>
+                  <div>
+                    <h2 className="card-title text-2xl text-base-content">Prodotto 1</h2>
+                    <p className="text-sm text-base-content/60">Soluzione Premium</p>
+                  </div>
+                </div>
+                <div className="badge badge-primary badge-lg font-semibold">Premium</div>
               </div>
 
-              <div className="mb-6">
-                <div className="flex items-center text-sm text-base-content/60 mb-2">
+              <div className="mb-8 space-y-3">
+                <div className="flex items-center text-sm text-base-content/70">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  Funzionalità avanzate
+                  Funzionalità avanzate e personalizzate
                 </div>
-                <div className="flex items-center text-sm text-base-content/60 mb-2">
+                <div className="flex items-center text-sm text-base-content/70">
                   <div className="w-2 h-2 bg-secondary rounded-full mr-3"></div>
-                  Supporto 24/7
+                  Supporto dedicato 24/7
                 </div>
-                <div className="flex items-center text-sm text-base-content/60">
+                <div className="flex items-center text-sm text-base-content/70">
                   <div className="w-2 h-2 bg-accent rounded-full mr-3"></div>
-                  Aggiornamenti automatici
+                  Aggiornamenti automatici e sicuri
                 </div>
               </div>
 
@@ -129,15 +147,20 @@ const Home: FC<HomeProps> = ({ handleLogOut }) => {
                 </div>
               ) : (
                 <button
-                  className="btn btn-primary w-full"
+                  className="btn btn-primary w-full btn-lg font-semibold"
                   onClick={() => orderProduct(1)}
                   disabled={buyProductMutation.isPending}
                   data-testid="order-product-1"
                 >
                   {buyProductMutation.isPending ? (
-                    <span className="loading loading-spinner loading-sm"></span>
+                    <>
+                      <span className="loading loading-spinner loading-sm"></span>
+                      Elaborazione...
+                    </>
                   ) : (
-                    '🛒 Ordina Prodotto 1'
+                    <>
+                      🛒 Ordina Prodotto 1
+                    </>
                   )}
                 </button>
               )}
@@ -145,25 +168,33 @@ const Home: FC<HomeProps> = ({ handleLogOut }) => {
           </div>
 
           {/* Prodotto 2 */}
-          <div className="card bg-base-100 shadow-xl">
-            <div className="card-body">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="card-title text-2xl text-secondary">Prodotto 2</h2>
-                <div className="badge badge-secondary badge-lg">Enterprise</div>
+          <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 border border-base-300">
+            <div className="card-body p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-secondary rounded-xl flex items-center justify-center">
+                    <span className="text-2xl">🏢</span>
+                  </div>
+                  <div>
+                    <h2 className="card-title text-2xl text-base-content">Prodotto 2</h2>
+                    <p className="text-sm text-base-content/60">Soluzione Enterprise</p>
+                  </div>
+                </div>
+                <div className="badge badge-secondary badge-lg font-semibold">Enterprise</div>
               </div>
 
-              <div className="mb-6">
-                <div className="flex items-center text-sm text-base-content/60 mb-2">
+              <div className="mb-8 space-y-3">
+                <div className="flex items-center text-sm text-base-content/70">
                   <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  Funzionalità enterprise
+                  Funzionalità enterprise complete
                 </div>
-                <div className="flex items-center text-sm text-base-content/60 mb-2">
+                <div className="flex items-center text-sm text-base-content/70">
                   <div className="w-2 h-2 bg-secondary rounded-full mr-3"></div>
-                  Supporto dedicato
+                  Supporto dedicato e prioritario
                 </div>
-                <div className="flex items-center text-sm text-base-content/60">
+                <div className="flex items-center text-sm text-base-content/70">
                   <div className="w-2 h-2 bg-accent rounded-full mr-3"></div>
-                  Personalizzazione avanzata
+                  Personalizzazione avanzata e scalabile
                 </div>
               </div>
 
@@ -189,15 +220,20 @@ const Home: FC<HomeProps> = ({ handleLogOut }) => {
                 </div>
               ) : (
                 <button
-                  className="btn btn-secondary w-full"
+                  className="btn btn-secondary w-full btn-lg font-semibold"
                   onClick={() => orderProduct(2)}
                   disabled={buyProductMutation.isPending}
                   data-testid="order-product-2"
                 >
                   {buyProductMutation.isPending ? (
-                    <span className="loading loading-spinner loading-sm"></span>
+                    <>
+                      <span className="loading loading-spinner loading-sm"></span>
+                      Elaborazione...
+                    </>
                   ) : (
-                    '🛒 Ordina Prodotto 2'
+                    <>
+                      🛒 Ordina Prodotto 2
+                    </>
                   )}
                 </button>
               )}

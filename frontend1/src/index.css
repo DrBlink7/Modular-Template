@@ -1,8 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Global font family override */
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+@plugin "daisyui";
 
 html {
   font-size: 16px;
@@ -10,7 +14,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,7 +23,8 @@ body {
 
 #root {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 code {

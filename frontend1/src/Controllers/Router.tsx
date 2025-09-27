@@ -6,7 +6,7 @@ import Loader from '../Components/Loader'
 import Failure from '../Components/Failure'
 import Product from '../Components/Product'
 import Success from '../Components/Success'
-import Login from './Login'
+import Login from '../Components/Login'
 
 const Router: FC = () => {
   const { isAuthenticated, isLoading } = useKindeAuth()
