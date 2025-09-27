@@ -1,0 +1,54 @@
+# Docker Compose - Frontend1 + B4F + Database
+# Perfect for React with Material-UI development
+
+volumes:
+  test_data:
+
+services:
+  db:
+    container_name: db-test
+    image: postgres
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: devPassword
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - test_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  frontend1:
+    container_name: frontend1-test
+    image: frontend1-test
+    build:
+      context: ./frontend1
+      target: development
+    volumes:
+      - ./frontend1/src:/frontend1/src
+      - ./frontend1/public:/frontend1/public
+    ports:
+      - "3000:3000"
+    depends_on:
+      - b4f
+
+  b4f:
+    container_name: b4f-test
+    image: b4f-test
+    build:
+      context: ./b4f
+      target: development
+    volumes:
+      - ./b4f:/b4f
+    depends_on:
+      - db
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://dev:devPassword@db:5432/postgres?schema=public

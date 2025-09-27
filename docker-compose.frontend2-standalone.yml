@@ -1,0 +1,15 @@
+# Docker Compose - Frontend2 (Astro) Standalone
+# Perfect for Astro static site development
+
+services:
+  frontend2:
+    container_name: frontend2-test
+    image: frontend2-test
+    build:
+      context: ./frontend2
+      target: development
+    volumes:
+      - ./frontend2/src:/frontend2/src
+      - ./frontend2/public:/frontend2/public
+    ports:
+      - "4321:4321"

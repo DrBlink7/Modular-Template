@@ -1,0 +1,54 @@
+# Docker Compose - Frontend + B4F + Database
+# Perfect for React development with Express backend
+
+volumes:
+  test_data:
+
+services:
+  db:
+    container_name: db-test
+    image: postgres
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: devPassword
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - test_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  frontend:
+    container_name: frontend-test
+    image: frontend-test
+    build:
+      context: ./frontend
+      target: development
+    volumes:
+      - ./frontend/src:/frontend/src
+      - ./frontend/public:/frontend/public
+    ports:
+      - "5173:5173"
+    depends_on:
+      - b4f
+
+  b4f:
+    container_name: b4f-test
+    image: b4f-test
+    build:
+      context: ./b4f
+      target: development
+    volumes:
+      - ./b4f:/b4f
+    depends_on:
+      - db
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://dev:devPassword@db:5432/postgres?schema=public

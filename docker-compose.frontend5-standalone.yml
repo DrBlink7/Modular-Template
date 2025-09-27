@@ -1,0 +1,18 @@
+# Docker Compose - Frontend5 (Angular) Standalone
+# Perfect for Angular development without backend
+
+services:
+  frontend5:
+    container_name: frontend5-test
+    image: frontend5-test
+    build:
+      context: ./frontend5
+      target: development
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend5/src:/frontend5/src:cached
+      - /frontend5/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NG_CLI_ANALYTICS=false

@@ -1,0 +1,15 @@
+# Docker Compose - Frontend4 (Vue) Standalone
+# Perfect for Vue.js development without backend
+
+services:
+  frontend4:
+    container_name: frontend4-test
+    image: frontend4-test
+    build:
+      context: ./frontend4
+      target: development
+    volumes:
+      - ./frontend4/src:/frontend4/src
+      - ./frontend4/public:/frontend4/public
+    ports:
+      - "3004:3004"

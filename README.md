@@ -4,17 +4,48 @@ A comprehensive full-stack development template with multiple frontend framework
 
 ## 🚀 Quick Start
 
+### 🎯 Configurazioni Docker Compose Modulari
+
+Questo progetto offre diverse configurazioni docker-compose per soddisfare diverse esigenze di sviluppo:
+
 ```bash
 # Clone the repository
 git clone <your-repo-url>
 cd Modular-Template
 
-# Start all services with Docker Compose
-docker compose up --build
+# 🎯 CONFIGURAZIONE STANDARD (Raccomandata)
+# Frontend + B4F + Backend + Database
+docker compose -f docker-compose.standard.yml up --build
 
-# Run database migrations
-docker compose exec backend uv run alembic upgrade head
-docker compose exec b4f yarn prisma migrate dev
+# ⚛️ REACT + EXPRESS
+# Solo React con backend Express
+docker compose -f docker-compose.frontend-b4f.yml up --build
+
+# 🐍 REACT + FASTAPI
+# React con backend Python
+docker compose -f docker-compose.frontend-backend.yml up --build
+
+# 📄 ASTRO STANDALONE
+# Solo Astro per siti statici
+docker compose -f docker-compose.frontend2-standalone.yml up --build
+
+# 🔧 SOLO BACKEND
+# Solo servizi backend per API development
+docker compose -f docker-compose.backend-only.yml up --build
+```
+
+### 📚 Guida Completa Docker Compose
+
+Per una panoramica completa di tutte le configurazioni disponibili, consulta la [**Docker Compose Guide**](./DOCKER_COMPOSE_GUIDE.md).
+
+### 🗄️ Database Migrations
+
+```bash
+# Per FastAPI (backend)
+docker compose -f docker-compose.standard.yml exec backend uv run alembic upgrade head
+
+# Per Express (b4f)
+docker compose -f docker-compose.standard.yml exec b4f yarn prisma migrate dev
 ```
 
 ## 📁 Project Structure
@@ -122,28 +153,44 @@ Each project has its own detailed README with specific setup instructions:
 - [B4F1 (NestJS)](/b4f1/README.md)
 - [Numpy (OCR Tools)](/numpy/README.md)
 
+## 🐳 Configurazioni Docker Compose Disponibili
+
+| Configurazione | Frontend | Backend | Database | Uso Principale | Comando |
+|----------------|----------|---------|----------|----------------|---------|
+| **standard** | React + Vite | Express + FastAPI | PostgreSQL | Full-stack completo | `docker compose -f docker-compose.standard.yml up --build` |
+| **frontend-b4f** | React + Vite | Express | PostgreSQL | React + Express | `docker compose -f docker-compose.frontend-b4f.yml up --build` |
+| **frontend1-b4f** | React + Material-UI | Express | PostgreSQL | React + Material-UI | `docker compose -f docker-compose.frontend1-b4f.yml up --build` |
+| **frontend-backend** | React + Vite | FastAPI | PostgreSQL | React + Python | `docker compose -f docker-compose.frontend-backend.yml up --build` |
+| **frontend3-b4f1** | Next.js | NestJS | PostgreSQL | Next.js + NestJS | `docker compose -f docker-compose.frontend3-b4f1.yml up --build` |
+| **frontend2-standalone** | Astro | - | - | Siti statici | `docker compose -f docker-compose.frontend2-standalone.yml up --build` |
+| **frontend4-standalone** | Vue | - | - | Vue.js | `docker compose -f docker-compose.frontend4-standalone.yml up --build` |
+| **frontend5-standalone** | Angular | - | - | Angular | `docker compose -f docker-compose.frontend5-standalone.yml up --build` |
+| **backend-only** | - | Express + FastAPI + NestJS | PostgreSQL | Solo API | `docker compose -f docker-compose.backend-only.yml up --build` |
+
+> 📚 **Per una guida completa:** Consulta [Docker Compose Guide](./DOCKER_COMPOSE_GUIDE.md) per dettagli su ogni configurazione.
+
 ## 🔧 Development Commands
 
-### Docker Commands
+### Docker Commands (Configurazione Standard)
 ```bash
-# Start all services
-docker compose up --build
+# Start all services (configurazione standard)
+docker compose -f docker-compose.standard.yml up --build
 
 # Start specific services
-docker compose up frontend frontend1 backend b4f
+docker compose -f docker-compose.standard.yml up frontend frontend1 backend b4f
 
 # View logs
-docker compose logs -f backend
-docker compose logs -f frontend
+docker compose -f docker-compose.standard.yml logs -f backend
+docker compose -f docker-compose.standard.yml logs -f frontend
 
 # Execute commands in containers
-docker compose exec backend uv run python script.py
-docker compose exec frontend yarn test
-docker compose exec frontend yarn dev
-docker compose exec frontend2 yarn build
-docker compose exec frontend3 yarn dev
-docker compose exec frontend4 yarn dev
-docker compose exec b4f1 yarn start:dev
+docker compose -f docker-compose.standard.yml exec backend uv run python script.py
+docker compose -f docker-compose.standard.yml exec frontend yarn test
+docker compose -f docker-compose.standard.yml exec frontend yarn dev
+docker compose -f docker-compose.standard.yml exec frontend2 yarn build
+docker compose -f docker-compose.standard.yml exec frontend3 yarn dev
+docker compose -f docker-compose.standard.yml exec frontend4 yarn dev
+docker compose -f docker-compose.standard.yml exec b4f1 yarn start:dev
 ```
 
 ### Database Migrations

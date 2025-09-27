@@ -1,0 +1,55 @@
+# Docker Compose - Frontend3 (Next.js) + B4F1 (NestJS) + Database
+# Perfect for Next.js with NestJS backend
+
+volumes:
+  test_data:
+
+services:
+  db:
+    container_name: db-test
+    image: postgres
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: devPassword
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - test_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  frontend3:
+    container_name: frontend3-test
+    image: frontend3-test
+    build:
+      context: ./frontend3
+      target: development
+    volumes:
+      - ./frontend3/src:/frontend3/src
+      - ./frontend3/public:/frontend3/public
+    ports:
+      - "3003:3003"
+    depends_on:
+      - b4f1
+
+  b4f1:
+    container_name: b4f1-test
+    image: b4f1-test
+    build:
+      context: ./b4f1
+      target: development
+    volumes:
+      - ./b4f1:/b4f1
+    depends_on:
+      - db
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://dev:devPassword@db:5432/postgres?schema=public
