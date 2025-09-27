@@ -1,7 +1,7 @@
 import { type FC } from 'react'
 import { parseErrorMessage } from '../Utils/f'
 import { useKindeAuth } from '@kinde-oss/kinde-auth-react'
-import Loader from '../Components/Loader'
+import Loader from './Loader'
 
 const Login: FC = () => {
   const { login, isLoading, error, logout } = useKindeAuth()

@@ -6,10 +6,10 @@ import { kindeClientID, kindeDomain, kindeRedirect, stripePublicKey } from './Ut
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import AppRouter from './Controllers/Router'
-import LoggerProvider from './Hooks/Logger'
 import { QueryProvider } from './providers/QueryProvider'
 import './Translations'
 import './index.css'
+import LoggerProvider from './hooks/Logger'
 
 if ((kindeDomain == null) || (kindeRedirect == null)) { throw new Error('Configure kindeDomain and kindeRedirect in your .env ') }
 

@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 body {
@@ -15,13 +15,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  min-width: 100vh;
-  min-height: 100vh;
 }
 
 #root {
   width: 100%;
+  min-height: 100vh;
 }
 
 code {
@@ -29,24 +27,25 @@ code {
     monospace;
 }
 
+/* Smooth transitions */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-base-200;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-base-300 rounded-full;
+  background: #cbd5e1;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-base-content/20;
-}
-
-/* Dark mode transition */
-* {
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  background: #94a3b8;
 }

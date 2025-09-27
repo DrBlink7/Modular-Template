@@ -4,6 +4,7 @@ import { secretKey } from './config'
 import CryptoJS from 'crypto-js'
 
 interface LocalStorageMap {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   YOUR_PROJECT: any
 }
 

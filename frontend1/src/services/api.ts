@@ -1,6 +1,6 @@
-import { createApiHeaders } from '../Utils/f';
-import axiosClient from '../Api/axios';
-import { BuyProductResponse, IsProductPaidResponse } from '../types';
+import { createApiHeaders } from '../Utils/f'
+import axiosClient from '../Api/axios'
+import { BuyProductResponse, IsProductPaidResponse } from '../types'
 
 export const paymentsApi = {
   // Acquista un prodotto
@@ -9,8 +9,8 @@ export const paymentsApi = {
       `/payments/checkout/${productId}/`,
       {},
       createApiHeaders(token)
-    );
-    return response.data;
+    )
+    return response.data
   },
 
   // Verifica se un prodotto è stato pagato
@@ -18,7 +18,7 @@ export const paymentsApi = {
     const response = await axiosClient.get(
       `/payments/order-status/${productId}/`,
       createApiHeaders(token)
-    );
-    return response.data;
-  },
-};
+    )
+    return response.data
+  }
+}
