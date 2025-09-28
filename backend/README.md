@@ -16,6 +16,8 @@ Modern Python backend built with FastAPI 2.0, SQLAlchemy 2.0, and PostgreSQL.
 
 ## 🛠️ Setup
 
+### 🐳 Docker Setup (Recommended)
+
 1. Copy environment variables:
 ```bash
 cp .env.example .env
@@ -23,17 +25,38 @@ cp .env.example .env
 
 2. Fill in the required environment variables in `.env`
 
-3. Install dependencies:
+3. Start with Docker Compose:
+```bash
+docker compose up --build
+```
+
+### 💻 Local Development Setup
+
+1. Create and activate virtual environment:
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
+
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Run database migrations:
+3. Copy environment variables:
+```bash
+cp .env.example .env
+```
+
+4. Fill in the required environment variables in `.env`
+
+5. Run database migrations:
 ```bash
 alembic upgrade head
 ```
 
-5. Start the development server:
+6. Start the development server:
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
@@ -96,6 +119,24 @@ backend/
 ```
 
 ## 🔧 Development
+
+### Virtual Environment Management
+```bash
+# Create virtual environment
+python -m venv .venv
+
+# Activate virtual environment
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Deactivate virtual environment
+deactivate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Update requirements.txt
+pip freeze > requirements.txt
+```
 
 ### Code Quality
 ```bash
