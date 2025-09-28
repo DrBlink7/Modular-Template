@@ -1,12 +1,44 @@
 {
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "always"
+  "jest.jestCommandLine": "yarn test",
+  "jest.autoRun": {
+    "watch": false,
+    "onSave": "test-src-file"
   },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ]
+  "jest.autoRevealOutput": "on-exec-error",
+  "jest.showCoverageOnLoad": false,
+  "jest.coverageFormatter": "DefaultFormatter",
+  "jest.outputConfig": {
+    "revealOn": "run",
+    "revealWithFocus": "test-results",
+    "clearOnRun": "none"
+  },
+  "jest.runMode": {
+    "type": "watch"
+  },
+  "jest.disabledWorkspaceFolders": [
+    "frontend2",
+    "frontend3",
+    "frontend5"
+  ],
+  "jest.rootPath": ".",
+  "jest.workspaceFolder": {
+    "b4f": {
+      "jestCommandLine": "yarn test",
+      "rootPath": "./b4f",
+      "setupFilesAfterEnv": [
+        "./b4f/jest.setup.js"
+      ]
+    },
+    "b4f1": {
+      "jestCommandLine": "yarn test",
+      "rootPath": "./b4f1"
+    },
+    "frontend4": {
+      "jestCommandLine": "yarn test:unit",
+      "rootPath": "./frontend4",
+      "setupFilesAfterEnv": [
+        "./frontend4/jest.setup.js"
+      ]
+    }
+  }
 }
