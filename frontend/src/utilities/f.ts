@@ -1,4 +1,4 @@
-import { authorization } from './config'
+import { authorization } from "../config"
 
 export const apply = <T>(x: T, f: (x: T) => T): T => f(x)
 

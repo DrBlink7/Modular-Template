@@ -1,29 +1,12 @@
-FROM node:lts-alpine AS builder
-ENV NODE_ENV development
+FROM node:lts-alpine3.22
 
-WORKDIR /frontend
+WORKDIR /app
 
-COPY package.json .
-COPY yarn.lock .
-COPY tsconfig.json .
-COPY tsconfig.app.json .
-COPY tsconfig.node.json .
-COPY vite.config.ts .
-COPY eslint.config.js .
-COPY .env .
-COPY index.html .
-
+COPY package.json yarn.lock ./
 RUN yarn install --network-timeout 1000000000
-
-FROM builder AS development
-
-EXPOSE $PORT
-CMD ["yarn", "dev"]
-
-FROM builder AS production
 
 COPY . .
 
-EXPOSE $PORT
+EXPOSE 5173
 
-CMD ["yarn", "build"]
+CMD ["yarn", "dev"] 

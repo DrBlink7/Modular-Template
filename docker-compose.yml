@@ -21,13 +21,12 @@ services:
 
   frontend:
     container_name: frontend-test
-    image: frontend-test
     build:
       context: ./frontend
-      target: development
+      dockerfile: Dockerfile
     volumes:
-      - ./frontend/src:/frontend/src
-      - ./frontend/public:/frontend/public
+      - ./frontend:/app
+      - /app/node_modules
     ports:
       - "5173:5173"
     depends_on:
@@ -43,5 +42,3 @@ services:
       - db
     ports:
       - "8000:8000"
-    environment:
-      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173

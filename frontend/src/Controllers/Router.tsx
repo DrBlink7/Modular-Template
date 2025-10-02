@@ -2,11 +2,11 @@ import { type FC } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useKindeAuth } from '@kinde-oss/kinde-auth-react'
 import Home from './Home'
-import Loader from '../Components/Loader'
-import Failure from '../Components/Failure'
-import Product from '../Components/Product'
-import Success from '../Components/Success'
-import Login from '../Components/Login'
+import Loader from '../components/Loader'
+import Failure from '../components/Failure'
+import Product from '../components/Product'
+import Success from '../components/Success'
+import Login from '../components/Login'
 
 const Router: FC = () => {
   const { isAuthenticated, isLoading } = useKindeAuth()

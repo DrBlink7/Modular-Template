@@ -1,8 +1,8 @@
 import { type FC } from 'react'
 import { useKindeAuth } from '@kinde-oss/kinde-auth-react'
-import * as ls from '../Utils/ls'
-import Loader from '../Components/Loader'
-import HomeComponent from '../Components/Home'
+import * as ls from '../utilities/ls'
+import Loader from '../components/Loader'
+import HomeComponent from '../components/Home'
 
 const Home: FC = () => {
   const { logout, isLoading } = useKindeAuth()

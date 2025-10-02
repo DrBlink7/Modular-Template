@@ -1,6 +1,6 @@
 import { type AxiosResponse } from 'axios'
 import { IsProductPaid, IsProductPaidResponse, type BuyProduct, type BuyProductResponse } from '../types'
-import { createApiHeaders } from '../Utils/f'
+import { createApiHeaders } from '../utilities/f'
 import axiosClient from './axios'
 
 export const buyProduct = async ({ token, id }: BuyProduct): Promise<AxiosResponse<BuyProductResponse>> =>

@@ -1,5 +1,5 @@
 import { effect } from './f'
-import { secretKey } from './config'
+import { secretKey } from '../config'
 // Removed State import as it's no longer needed
 import CryptoJS from 'crypto-js'
 

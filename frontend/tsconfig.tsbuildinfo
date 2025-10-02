@@ -1,0 +1,27 @@
+{
+  "root": [
+    "./vite-env.d.ts",
+    "./vite.config.ts",
+    "./src/approuter.tsx",
+    "./src/main.tsx",
+    "./src/types.tsx",
+    "./src/components/aiagents.tsx",
+    "./src/components/appcontainer.tsx",
+    "./src/components/authorizationtokens.tsx",
+    "./src/components/chatarea.tsx",
+    "./src/components/chatlist.tsx",
+    "./src/components/deleteconfirmationmodal.tsx",
+    "./src/components/header.tsx",
+    "./src/components/kpipage.tsx",
+    "./src/components/landingpage.tsx",
+    "./src/components/loader.tsx",
+    "./src/components/oauth2callback.tsx",
+    "./src/components/oauth2loginbutton.tsx",
+    "./src/components/oauthcallback.tsx",
+    "./src/components/oauthconnections.tsx",
+    "./src/components/sidebar.tsx",
+    "./src/components/usermenu.tsx",
+    "./src/components/welcomechatmessage.tsx"
+  ],
+  "version": "5.8.3"
+}

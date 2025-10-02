@@ -1,5 +1,5 @@
-import { createApiHeaders } from '../Utils/f'
-import axiosClient from '../Api/axios'
+import { createApiHeaders } from '../utilities/f'
+import axiosClient from '../api/axios'
 import { BuyProductResponse, IsProductPaidResponse } from '../types'
 
 export const paymentsApi = {

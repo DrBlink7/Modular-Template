@@ -1,6 +1,6 @@
 import ModularLogo from '../modular-logo.png'
 import { type FC } from 'react'
-import { parseErrorMessage } from '../Utils/f'
+import { parseErrorMessage } from '../utilities/f'
 import { useKindeAuth } from '@kinde-oss/kinde-auth-react'
 import Loader from './Loader'
 
